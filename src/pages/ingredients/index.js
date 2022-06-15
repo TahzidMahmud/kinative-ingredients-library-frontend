@@ -1,5 +1,6 @@
 import AppLayout from '@/components/Layouts/AppLayout'
 import Head from 'next/head'
+import axios from '@/lib/axios'
 
 const ingredients = () => {
     return (
@@ -24,6 +25,14 @@ const ingredients = () => {
             </div>
         </AppLayout>
     )
+}
+
+export async function getServerSideProps() {
+    // Fetch data from external API
+    const data = await axios.get('/api/ingredients').then(res => res.data)
+
+    // Pass data to the page via props
+    return { props: { data } }
 }
 
 export default ingredients
