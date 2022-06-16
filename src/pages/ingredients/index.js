@@ -26,12 +26,25 @@ const ingredients = () => {
         </AppLayout>
     )
 }
+const csrf = () => axios.get('/sanctum/csrf-cookie')
 
-export async function getServerSideProps() {
-    // Fetch data from external API
-    const data = await axios.get('/api/ingredients').then(res => res.data)
+export async function getServerSideProps(context) {
+    const data = await axios
+        .get('/api/ingredients', {
+            headers: {
+                'X-XSRF-TOKEN': context.req.cookies['XSRF-TOKEN'],
+                Cookie: context.req.headers.cookie,
+            },
+        })
+        .then(response => {
+            return {
+                props: {
+                    ingredients: response.data.data,
+                },
+            }
+        })
+        .catch(error => console.log(error))
 
-    // Pass data to the page via props
     return { props: { data } }
 }
 
