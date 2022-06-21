@@ -10,11 +10,12 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.4.2",
+    "axios": "^0.21.1",
+    "flowbite": "^1.4.7",
+    "flowbite-react": "^0.0.26",
     "next": "12.1.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-  
-    "axios": "^0.21.1",
     "swr": "^1.2.2",
     "tw-elements": "^1.0.0-alpha12"
   },
@@ -23,9 +24,9 @@
     "@next/eslint-plugin-next": "^10.0.4",
     "@tailwindcss/forms": "^0.4.0",
     "autoprefixer": "^10.4.7",
-    "eslint-config-next": "12.1.6",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.17.0",
+    "eslint-config-next": "12.1.6",
     "eslint-config-prettier": "^7.1.0",
     "eslint-plugin-next": "^0.0.0",
     "eslint-plugin-prettier": "^3.3.0",
