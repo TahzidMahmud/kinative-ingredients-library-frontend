@@ -26,6 +26,7 @@ const Side = ({
                       rl.classList.add("hidden");
                     }
                   }
+                  handleCategoryClick(e);
                 }}
               >
                 <svg
@@ -68,15 +69,22 @@ const Side = ({
                 )}
               </button>
               {category.has_child ? (
-                <ul id={`${category.id}-c`} className="hidden py-2 space-y-2">
-                  <li>
-                    <a
-                      href="#"
-                      className="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                    >
-                      Products
-                    </a>
-                  </li>
+                <ul
+                  id={`${category.id}-c`}
+                  className="hidden py-2 space-y-2 border-l ml-2 pl-1"
+                >
+                  {category.child?.map((cat) => (
+                    <li>
+                      <a
+                        id={cat.id}
+                        onClick={handleCategoryClick}
+                        href="javascript:void(0)"
+                        className="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                      >
+                        {cat.name}
+                      </a>
+                    </li>
+                  ))}
                 </ul>
               ) : (
                 <></>

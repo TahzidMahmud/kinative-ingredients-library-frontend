@@ -14,28 +14,43 @@ const ProductList = ({ categories, products, brands }) => {
     setFetchProducts([...fetchproducts, ...products]);
   }, []);
 
-  function handleCategoryClick() {}
+  function handleCategoryClick(e) {
+    let { id } = e.target;
+    console.log(id);
+    const { brands } = queryparams;
+    const { categories } = queryparams;
+    fetchProducts([id], [...brands]);
+    setQueryPrams({
+      categories: [id],
+      brands: [...brands],
+    });
+  }
   function handleBrandClick(e) {
     const { value, checked } = e.target;
     const { brands } = queryparams;
+    fetchProducts(
+      [...categories],
+      brands.filter((e) => e !== value)
+    );
     if (checked) {
       setQueryPrams({
         categories: [...categories],
         brands: [...brands, value],
       });
+      fetchProducts([...categories], [...brands, value]);
     } else {
       setQueryPrams({
         categories: [...categories],
         brands: brands.filter((e) => e !== value),
       });
     }
-    fetchProducts();
   }
 
-  function fetchProducts() {
+  function fetchProducts(q_cats, q_brands) {
     axios
       .post("/api/filter-products", {
-        brands: queryparams.brands.toString(),
+        brands: q_brands.toString(),
+        category: q_cats.length > 0 ? q_cats[0] : "",
       })
       .then((response) => {
         setFetchProducts(response.data.data);
