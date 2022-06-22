@@ -29,6 +29,18 @@ const ProductList = ({ categories, products, brands }) => {
         brands: brands.filter((e) => e !== value),
       });
     }
+    fetchProducts();
+  }
+
+  function fetchProducts() {
+    axios
+      .post("/api/filter-products", {
+        brands: queryparams.brands.toString(),
+      })
+      .then((response) => {
+        setFetchProducts(response.data.data);
+      })
+      .catch((error) => console.log(error));
   }
   return (
     <>
