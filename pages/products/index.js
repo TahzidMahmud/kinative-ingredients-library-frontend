@@ -3,7 +3,6 @@ import AppLayout from "@/components/Layouts/AppLayout";
 import Head from "next/head";
 import axios from "@/lib/axios";
 import Link from "next/link";
-import { useState, useEffect } from "react";
 import ProductList from "@/components/Products/ProductList";
 
 const products = ({ categories, products, brands }) => {
