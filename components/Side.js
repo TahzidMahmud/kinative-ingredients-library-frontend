@@ -6,7 +6,7 @@ const Side = ({
   handleBrandClick,
 }) => {
   return (
-    <aside className="w-64" aria-label="Sidebar">
+    <aside className="w-full px-2" aria-label="Sidebar">
       <div className="overflow-y-auto py-4 px-3 bg-gray-50 rounded dark:bg-gray-800">
         <h6 className="mb-2 text-2xl font-bold ml-2 border-b pb-2">
           Categories

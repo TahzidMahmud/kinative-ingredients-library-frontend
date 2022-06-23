@@ -19,12 +19,12 @@ const products = ({ categories, products, brands }) => {
       </Head>
       <div className="flex px-2 pt-3 justify-between">
         {" "}
-        <h4>New products</h4>
+        {/* <h4>New products</h4>
         <Link href="/products/all-products">
           <button className="bg-blue-500 px-4 py-2 rounded-lg text-white">
             View All
           </button>
-        </Link>
+        </Link> */}
       </div>
       <ProductList
         categories={categories}
