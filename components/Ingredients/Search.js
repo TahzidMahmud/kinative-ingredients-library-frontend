@@ -3,8 +3,15 @@ import Image from "next/image";
 import axios from "@/lib/axios";
 
 const Search = () => {
-  let [ingredients, setIngredients] = useState([]);
-  useEffect(() => {}, [ingredients]);
+  let [ingredients, setIngredients] = useState([
+    {
+      id: 1,
+      name: "qui quaerat dignissimos",
+      short_description: "in placeat,earum",
+      thumbnail: "http://localhost:8000/thumbnail/1656387402.png",
+    },
+  ]);
+  // useEffect(() => {}, [ingredients]);
 
   function handleChange(e) {
     let { value } = e.target;
@@ -51,7 +58,7 @@ const Search = () => {
                 placeholder="Search Ingredients"
                 onClick={handleChange}
               />
-              <div className="my-2 bg-white rounded-lg border-blue-500 h-2/6 shadow-md overscroll-contain">
+              <div className="my-2 bg-white rounded-lg border-blue-500  shadow-md overscroll-contain">
                 {ingredients?.map((ingredient) => {
                   <div className="px-6 py-2 flex" key={ingredient.id}>
                     <Image
