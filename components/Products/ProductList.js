@@ -13,7 +13,7 @@ const ProductList = ({ categories, products, brands }) => {
   });
   useEffect(() => {
     setFetchProducts([...fetchproducts, ...products]);
-  }, []);
+  }, [fetchproducts, products]);
 
   function handleCategoryClick(e) {
     let { id } = e.target;
