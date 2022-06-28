@@ -51,68 +51,76 @@ const ingredients = ({ ingredients }) => {
         </Link>
       </div>
       <div className="grid  grid-cols-6">
-        {ingredients.top_ingredient.data?.map((ingredient) => {
-          return (
-            <Link href={`/ingredients/${ingredient.id.toString()}`}>
-              <div className="py-8 flex h-[20rem]  inline-flex ">
-                <div className="w-11/12  mx-auto  bg-white shadow-sm sm:rounded-lg">
-                  <div className="overflow-hidden flex flex-col justify-center items-center p-4">
-                    <Image
-                      loader={() => ingredient.thumbnail}
-                      src={ingredient.thumbnail}
-                      alt={ingredient.name}
-                      width={85}
-                      height={85}
-                      className="py-4"
-                    />
-                    <div className=" text-center pt-4 h-16">
-                      <h6 className="text-md font-semibold">
-                        {ingredient.name}
-                      </h6>
-                    </div>
-                    <div className="truncate px-4 pt-1 h-6 opacity-80">
-                      {ingredient.short_description}
+        {ingredients.top_ingredient ? (
+          ingredients.top_ingredient.data?.map((ingredient) => {
+            return (
+              <Link href={`/ingredients/${ingredient.id.toString()}`}>
+                <div className="py-8 flex h-[20rem]  inline-flex ">
+                  <div className="w-11/12  mx-auto  bg-white shadow-sm sm:rounded-lg">
+                    <div className="overflow-hidden flex flex-col justify-center items-center p-4">
+                      <Image
+                        loader={() => ingredient.thumbnail}
+                        src={ingredient.thumbnail}
+                        alt={ingredient.name}
+                        width={85}
+                        height={85}
+                        className="py-4"
+                      />
+                      <div className=" text-center pt-4 h-16">
+                        <h6 className="text-md font-semibold">
+                          {ingredient.name}
+                        </h6>
+                      </div>
+                      <div className="truncate px-4 pt-1 h-6 opacity-80">
+                        {ingredient.short_description}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </Link>
-          );
-        })}
+              </Link>
+            );
+          })
+        ) : (
+          <></>
+        )}
       </div>
       {/* new ingredients section  */}
       <div className="flex px-2 ">
         <h4 className="text-xl font-bold">New Ingredients</h4>
       </div>
       <div className="grid  grid-cols-6">
-        {ingredients.new_ingredient.data?.map((ingredient) => {
-          return (
-            <Link href={`/ingredients/${ingredient.id.toString()}`}>
-              <div className="py-8 flex h-[20rem]  inline-flex ">
-                <div className="w-11/12  mx-auto  bg-white shadow-sm sm:rounded-lg">
-                  <div className="overflow-hidden flex flex-col justify-center items-center p-4">
-                    <Image
-                      loader={() => ingredient.thumbnail}
-                      src={ingredient.thumbnail}
-                      alt={ingredient.name}
-                      width={85}
-                      height={85}
-                      className="py-4"
-                    />
-                    <div className=" text-center pt-4 h-16">
-                      <h6 className="text-md font-semibold">
-                        {ingredient.name}
-                      </h6>
-                    </div>
-                    <div className="truncate px-4 mx-4 pt-1 h-6 opacity-80">
-                      {ingredient.short_description}
+        {ingredients.new_ingredient ? (
+          ingredients.new_ingredient.data?.map((ingredient) => {
+            return (
+              <Link href={`/ingredients/${ingredient.id.toString()}`}>
+                <div className="py-8 flex h-[20rem]  inline-flex ">
+                  <div className="w-11/12  mx-auto  bg-white shadow-sm sm:rounded-lg">
+                    <div className="overflow-hidden flex flex-col justify-center items-center p-4">
+                      <Image
+                        loader={() => ingredient.thumbnail}
+                        src={ingredient.thumbnail}
+                        alt={ingredient.name}
+                        width={85}
+                        height={85}
+                        className="py-4"
+                      />
+                      <div className=" text-center pt-4 h-16">
+                        <h6 className="text-md font-semibold">
+                          {ingredient.name}
+                        </h6>
+                      </div>
+                      <div className="truncate px-4 mx-4 pt-1 h-6 opacity-80">
+                        {ingredient.short_description}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </Link>
-          );
-        })}
+              </Link>
+            );
+          })
+        ) : (
+          <></>
+        )}
       </div>
     </AppLayout>
   );
