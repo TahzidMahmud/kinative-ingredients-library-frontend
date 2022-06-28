@@ -18,7 +18,7 @@ const Navigation = ({ user }) => {
   const [open, setOpen] = useState(false);
 
   return (
-    <nav className="bg-white border-b border-gray-100">
+    <nav className="bg-white border-b border-gray-100 shadow">
       {/* Primary Navigation Menu */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
@@ -133,6 +133,18 @@ const Navigation = ({ user }) => {
               active={router.pathname === "/dashboard"}
             >
               Dashboard
+            </ResponsiveNavLink>
+            <ResponsiveNavLink
+              href="/ingredients"
+              active={router.pathname === "/ingredients"}
+            >
+              Ingredients
+            </ResponsiveNavLink>
+            <ResponsiveNavLink
+              href="/products"
+              active={router.pathname === "/products"}
+            >
+              Products
             </ResponsiveNavLink>
           </div>
 
