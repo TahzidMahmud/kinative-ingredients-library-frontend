@@ -29,15 +29,14 @@ const ingredients = ({ ingredients }) => {
                 </h6>
               </div>
             </div>
-            <div>
-              <Image
-                src="/ingredient_banner.jpg"
-                alt="ingredient_banner"
-                width={246}
-                height={186}
-                className="py-4"
-              />
-            </div>
+
+            <Image
+              src="/ingredient_banner.jpg"
+              alt="ingredient_banner"
+              width={246}
+              height={186}
+              className="py-4"
+            />
           </div>
         </div>
       </div>

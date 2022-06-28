@@ -11,16 +11,45 @@ const Product = ({ product }) => {
             loader={() => product.thumbnail_image}
             src={product.thumbnail_image}
             alt={product.name}
-            width={350}
-            height={350}
+            width={300}
+            height={300}
           />
-          <div className="p-5">
-            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center ">
+          <div className="px-5 py-2">
+            <h5 className="mb-2 text-md font-semibold tracking-tight text-gray-900 dark:text-white text-center ">
               {product.name}
             </h5>
-            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 text-center ">
+            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 text-center text-sm opacity-70  text-clip overflow-hidden h-10">
               {product.short_details}
             </p>
+          </div>
+          <div className="flex justify-between px-7 pb-4">
+            <div className="flex items-center pl-4">
+              <Image
+                className="rounded-t-lg"
+                src="/star_icon.png"
+                alt="rating"
+                width={18}
+                height={18}
+              />
+              <span className="ml-1 text-gray-700 text-sm">
+                {product.rating}
+              </span>
+              <span className="ml-1 text-gray-900 text-sm opacity-70">
+                (1.5k)
+              </span>
+            </div>
+            <div className="flex items-center pr-2">
+              <Image
+                className="rounded-t-lg"
+                src="/love_icon.png"
+                alt="rating"
+                width={18}
+                height={18}
+              />
+              <span className="ml-1 text-gray-700 text-sm">
+                {product.likes}
+              </span>
+            </div>
           </div>
         </div>
       </Link>

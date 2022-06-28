@@ -77,7 +77,7 @@ const ProductList = ({ categories, products, brands }) => {
   }
   return (
     <>
-      <div className="flex">
+      <div className="flex pt-4">
         <div className="invisible md:visible pr-2 min-w-[25%]">
           <Side
             categories={categories}
@@ -87,11 +87,11 @@ const ProductList = ({ categories, products, brands }) => {
           />
         </div>
         <div className="min-w-[75%]">
-          <div className="my-3 flex">
-            <div className="relative min-w-[75%]">
+          <div className="py-3 px-4 bg-blue-500 flex rounded-md mb-3">
+            <div className="relative min-w-[75%] ">
               <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
                 <svg
-                  className="w-5 h-5 text-gray-500 dark:text-gray-400"
+                  className="w-5 h-5 text-white dark:text-gray-400"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -108,17 +108,19 @@ const ProductList = ({ categories, products, brands }) => {
               <input
                 type="search"
                 id="search"
-                className="block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Search"
+                className="block p-2 pl-10 w-[70%] text-sm text-gray-900 bg-blue-500 rounded-lg border border-white focus:white focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 placeholder-white dark:placeholder-white-400 dark:text-white dark:focus:white dark:focus:border-blue-500"
+                placeholder="Search Products"
                 onChange={handleSearch}
               />
             </div>
-            <div className="min-w-[25%]">
+            <div className="min-w-[25%] flex items-center">
+              <h6 className="uppercase text-sm text-white text-bold">
+                sort by :
+              </h6>
               <select
-                className="block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="block p-2 pl-10 w-auto text-sm text-white bg-blue-500 border border-blue-500 rounded-lg focus:white dark:bg-gray-700  dark:placeholder-gray-400 dark:text-white dark:focus:white "
                 onChange={handleSort}
               >
-                <option value="">Select Sort</option>
                 <option value="desc">Newest to Oldest</option>
                 <option value="asc"> Oldest to Newest</option>
               </select>
