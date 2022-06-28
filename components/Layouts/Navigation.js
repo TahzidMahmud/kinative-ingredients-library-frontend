@@ -9,6 +9,7 @@ import { DropdownButton } from "@/components/DropdownLink";
 import { useAuth } from "@/hooks/auth";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import Image from "next/image";
 
 const Navigation = ({ user }) => {
   const router = useRouter();
@@ -24,21 +25,24 @@ const Navigation = ({ user }) => {
         <div className="flex justify-between h-16">
           <div className="flex">
             {/* Logo */}
-            <div className="flex-shrink-0 flex items-center">
-              <Link href="/dashboard">
-                <a>
-                  <ApplicationLogo className="block h-10 w-auto fill-current text-gray-600" />
-                </a>
+            <div className="flex-shrink-0 flex items-center pt-2">
+              <Link href="/">
+                <Image
+                  className="rounded-t-lg"
+                  src="/logo.svg"
+                  alt="logo"
+                  width={150}
+                  height={150}
+                />
+
+                {/* <ApplicationLogo className="block h-10 w-auto fill-current text-gray-600" /> */}
               </Link>
             </div>
 
             {/* Navigation Links */}
-            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-              <NavLink
-                href="/dashboard"
-                active={router.pathname === "/dashboard"}
-              >
-                Dashboard
+            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex text-uppercase">
+              <NavLink href="/" active={router.pathname === "/"}>
+                Home
               </NavLink>
             </div>
             <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
