@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-key */
 import AppLayout from "@/components/Layouts/AppLayout";
-import Ingredient from "@/components/Ingredients/ingredient";
 import Head from "next/head";
 import axios from "@/lib/axios";
 import Link from "next/link";
