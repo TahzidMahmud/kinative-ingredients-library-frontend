@@ -61,6 +61,11 @@ const Navigation = ({ user }) => {
                 Products
               </NavLink>
             </div>
+            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex  text-uppercase">
+              <NavLink href="/blogs" active={router.pathname === "/blogs"}>
+                Blog
+              </NavLink>
+            </div>
           </div>
 
           {/* Settings Dropdown */}
