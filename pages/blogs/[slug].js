@@ -1,10 +1,21 @@
 import axios from "@/lib/axios";
 import Image from "next/image";
 import AppLayout from "@/components/Layouts/AppLayout";
+import HtmlFormat from "@/components/HtmlFormat";
 import Head from "next/head";
 
 const blog = ({ blog }) => {
-  return <div>{blog.title}</div>;
+  const body = (blog) => {
+    return { __html: blog.body };
+  };
+
+  return (
+    <div>
+      <div className="  rounded-lg dark:bg-gray-800 dark:border-gray-700">
+        <HtmlFormat data={blog.body} />
+      </div>
+    </div>
+  );
 };
 export async function getStaticProps(context) {
   const { params } = context;
