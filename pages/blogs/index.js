@@ -219,7 +219,7 @@ const blogs = ({ newBlogs, trendingBlogs }) => {
             </div>
           </div>
           <div className="flex justify-center items-center md:my-10 sm:my-5">
-            <Link href={`/all-blogs`}>
+            <Link href={`/blogs/all-blogs`}>
               <button className="bg-blue-600 px-4 py-2 rounded-md text-white">
                 View All
               </button>
