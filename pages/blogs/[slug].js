@@ -5,16 +5,36 @@ import HtmlFormat from "@/components/HtmlFormat";
 import Head from "next/head";
 
 const blog = ({ blog }) => {
-  const body = (blog) => {
-    return { __html: blog.body };
-  };
+ 
+ return (
+    <AppLayout header={<> </>}>
+    <Head>
+      <title>Blogs</title>
+    </Head>
+  
+    <div className="flex">
+      <div className="md:min-w-[70%] sm:min-w-[100%] my-4">
+        <div className=" rounded-lg dark:bg-gray-800 dark:border-gray-700">
+            <Image
+                loader={() => blog.image}
+                src={blog.image}
+                alt={blog.title}
+                width={1040}
+                height={530}
+                className="py-6"
+              />
 
-  return (
-    <div>
-      <div className="  rounded-lg dark:bg-gray-800 dark:border-gray-700">
-        <HtmlFormat data={blog.body} />
+            <h1 className="text-3xl font-bold text-left py-6">
+             {blog.title}
+            </h1>
+          <HtmlFormat data={blog.body} />
+        </div>
+      </div>
+      <div className="md:min-w-[30%] sm:min-w-[100%] ">
       </div>
     </div>
+  </AppLayout>
+
   );
 };
 export async function getStaticProps(context) {
