@@ -1,11 +1,48 @@
 import AppLayout from "@/components/Layouts/AppLayout";
 import Head from "next/head";
-import path from "path";
+import { useAuth } from "@/hooks/auth";
 import axios from "@/lib/axios";
 import Image from "next/image";
 import RatingStar from "@/components/RatingStar";
+import LoginModal from "@/modals/LoginModal";
+import { useState, useEffect } from "react";
 
 const Product = ({ product }) => {
+  const { user } = useAuth({ middleware: "guest" });
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [likeable, setLikeable] = useState(false);
+  const [isSSR, setIsSSR] = useState(true);
+  useEffect(() => {
+    canLike();
+    setIsSSR(false);
+  }, []);
+  function canLike() {
+    if (user) {
+      setLikeable(true);
+    }
+    setLikeable(true);
+  }
+  function handleClick(e) {
+    if (user) {
+      setShowLoginModal(false);
+      axios
+        .post("api/product/like", {
+          product_id: product.id,
+          user_id: user.id,
+        })
+        .then(() => mutate())
+        .catch((error) => {
+          // if (error.response.status !== 422) throw error;
+          // setErrors(Object.values(error.response.data.errors).flat());
+        });
+    } else {
+      setShowLoginModal(true);
+    }
+  }
+  function closeModal() {
+    setShowLoginModal(false);
+  }
+
   return (
     <AppLayout
       header={
@@ -17,7 +54,6 @@ const Product = ({ product }) => {
       <Head>
         <title>Laravel </title>
       </Head>
-
       <div className="flex py-7">
         {/* left side  */}
         <div className="min-w-[30%]">
@@ -67,8 +103,17 @@ const Product = ({ product }) => {
                         className="py-4"
                       />
                     </div>
-                    <div className="text-sm opacity-80 mb-4">Like It</div>{" "}
-                    <span className="ml-2 text-sm opacity-60">
+                    {likeable == true ? (
+                      <div
+                        className="text-sm mr-2 opacity-80 mb-4"
+                        onClick={handleClick}
+                      >
+                        Like It
+                      </div>
+                    ) : (
+                      <></>
+                    )}
+                    <span className="text-sm opacity-60">
                       ({product.likes})
                     </span>
                   </div>
@@ -116,6 +161,16 @@ const Product = ({ product }) => {
             </div>
           </div>
         </div>
+        {/* modal section  */}
+        {isSSR === false ? (
+          <LoginModal
+            show={showLoginModal}
+            closeModal={closeModal}
+            className="z-40 opacity-100"
+          />
+        ) : (
+          <></>
+        )}
       </div>
     </AppLayout>
   );
