@@ -5,11 +5,11 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import AuthValidationErrors from "@/components/AuthValidationErrors";
 
-const LoginModal = ({ show, closeModal }) => {
+const LoginModal = ({ show, page, closeModal }) => {
   const router = useRouter();
   const { login } = useAuth({
     middleware: "guest",
-    redirectIfAuthenticated: `/products/${router.query.slug}`,
+    redirectIfAuthenticated: `/${page}/${router.query.slug}`,
   });
 
   const [email, setEmail] = useState("");
@@ -36,7 +36,7 @@ const LoginModal = ({ show, closeModal }) => {
         id="authentication-modal"
         tabIndex="-1"
         className={`${
-          show ? "active bg-slate-300" : "hidden"
+          show ? "active" : "hidden"
         } overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full flex justify-center items-center`}
         aria-modal="true"
         role="dialog"

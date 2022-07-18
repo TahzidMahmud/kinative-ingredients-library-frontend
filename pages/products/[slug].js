@@ -208,6 +208,7 @@ const Product = ({ product }) => {
         {isSSR === false ? (
           <LoginModal
             show={showLoginModal}
+            page={`products`}
             closeModal={closeModal}
             className="z-40 opacity-100"
           />
