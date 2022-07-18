@@ -11,30 +11,70 @@ const Product = ({ product }) => {
   const { user } = useAuth({ middleware: "guest" });
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [likeable, setLikeable] = useState(false);
+  const [likes, setLikes] = useState(product.likes);
   const [isSSR, setIsSSR] = useState(true);
   useEffect(() => {
-    canLike();
     setIsSSR(false);
+    canLike();
   }, []);
   function canLike() {
     if (user) {
-      setLikeable(true);
+      axios
+        .post("/api/product/likeable", {
+          product_id: product.id,
+          user_id: user.id,
+        })
+        .then((res) => {
+          console.log(res);
+          if (res.data.success) {
+            setLikeable(true);
+          } else {
+            setLikeable(false);
+          }
+        });
     }
     setLikeable(true);
   }
   function handleClick(e) {
     if (user) {
       setShowLoginModal(false);
-      axios
-        .post("api/product/like", {
-          product_id: product.id,
-          user_id: user.id,
-        })
-        .then(() => mutate())
-        .catch((error) => {
-          // if (error.response.status !== 422) throw error;
-          // setErrors(Object.values(error.response.data.errors).flat());
-        });
+      if (likeable) {
+        axios
+          .post("api/product/like", {
+            product_id: product.id,
+            user_id: user.id,
+          })
+          .then((res) => {
+            if (res.data.success) {
+              setLikeable(false);
+            } else {
+              setLikeable(true);
+            }
+            setLikes(res.data.likes);
+          })
+          .catch((error) => {
+            // if (error.response.status !== 422) throw error;
+            // setErrors(Object.values(error.response.data.errors).flat());
+          });
+      } else {
+        axios
+          .post("api/product/unlike", {
+            product_id: product.id,
+            user_id: user.id,
+          })
+          .then((res) => {
+            if (res.data.success) {
+              setLikeable(true);
+            } else {
+              setLikeable(false);
+            }
+            setLikes(res.data.likes);
+          })
+          .catch((error) => {
+            // if (error.response.status !== 422) throw error;
+            // setErrors(Object.values(error.response.data.errors).flat());
+          });
+      }
     } else {
       setShowLoginModal(true);
     }
@@ -111,11 +151,14 @@ const Product = ({ product }) => {
                         Like It
                       </div>
                     ) : (
-                      <></>
+                      <div
+                        className="text-sm text-red-600 mr-2 opacity-100 mb-4"
+                        onClick={handleClick}
+                      >
+                        Unlike
+                      </div>
                     )}
-                    <span className="text-sm opacity-60">
-                      ({product.likes})
-                    </span>
+                    <span className="text-sm opacity-60">({likes})</span>
                   </div>
                 </div>
               </div>
