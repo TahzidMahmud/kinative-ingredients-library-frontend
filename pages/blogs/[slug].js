@@ -3,21 +3,25 @@ import Image from "next/image";
 import { useAuth } from "@/hooks/auth";
 import AppLayout from "@/components/Layouts/AppLayout";
 import HtmlFormat from "@/components/HtmlFormat";
-import CommentForm from "@/components/CommentForm";
+import CommentForm from "@/components/comment/CommentForm";
+import Comment from "@/components/comment/Comment";
 import LoginModal from "@/modals/LoginModal";
 import { useState, useEffect } from "react";
 import Head from "next/head";
 const Blog = ({ blog }) => {
   const { user } = useAuth({ middleware: "guest" });
   const [showLoginModal, setShowLoginModal] = useState(false);
-  const [likeable, setLikeable] = useState(false);
+  const [likeable, setLikeable] = useState(true);
   const [likes, setLikes] = useState(blog.likes);
+  const [comments, setComments] = useState(blog.comments.data);
   const [isSSR, setIsSSR] = useState(true);
 
   useEffect(() => {
     setIsSSR(false);
-    canLike();
-  }, []);
+    if (user) {
+      canLike();
+    }
+  }, [user]);
   function canLike() {
     if (user) {
       axios
@@ -33,8 +37,9 @@ const Blog = ({ blog }) => {
             setLikeable(false);
           }
         });
+    } else {
+      setLikeable(true);
     }
-    setLikeable(true);
   }
   function handleClick(e) {
     if (user) {
@@ -82,6 +87,9 @@ const Blog = ({ blog }) => {
   }
   function closeModal() {
     setShowLoginModal(false);
+  }
+  function addComment(comment) {
+    setComments([...comments, comment]);
   }
 
   return (
@@ -165,7 +173,15 @@ const Blog = ({ blog }) => {
         modelName={`blog`}
         user={user}
         handleClick={setShowLoginModal}
+        addComment={addComment}
       />
+      {/* comments  */}
+      <div className="md:min-w-[70%] sm:min-w-[100%] d-flex">
+        {console.log(comments)}
+        {comments.map((comment, index) => (
+          <Comment key={index} comment={comment} />
+        ))}
+      </div>
       {/* modal section  */}
       {isSSR === false ? (
         <LoginModal

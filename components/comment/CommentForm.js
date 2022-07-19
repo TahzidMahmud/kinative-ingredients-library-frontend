@@ -3,7 +3,14 @@ import InputEmoji from "react-input-emoji";
 import Image from "next/image";
 import axios from "@/lib/axios";
 
-const CommentForm = ({ url, model, modelName, user, handleClick }) => {
+const CommentForm = ({
+  url,
+  model,
+  modelName,
+  user,
+  handleClick,
+  addComment,
+}) => {
   const [comment, setComment] = useState("");
   const imageInput = useRef(null);
   const [cmntimage, setCmntimage] = useState(null);
@@ -32,6 +39,7 @@ const CommentForm = ({ url, model, modelName, user, handleClick }) => {
           if (res.data.success) {
             setComment("");
             setCmntimage(null);
+            addComment(res.data.comment);
           }
         })
         .catch((error) => {
@@ -104,7 +112,7 @@ const CommentForm = ({ url, model, modelName, user, handleClick }) => {
             <Image
               loader={() => cmntimage}
               src={cmntimage}
-              alt={blog.title}
+              alt={`${modelName}_${model.id}_${user.id}`}
               width={150}
               height={150}
               className="py-6 border border-red-400 rounded-lg m-1"
