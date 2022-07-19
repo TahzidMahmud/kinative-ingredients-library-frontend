@@ -164,6 +164,7 @@ const Blog = ({ blog }) => {
         model={blog}
         modelName={`blog`}
         user={user}
+        handleClick={setShowLoginModal}
       />
       {/* modal section  */}
       {isSSR === false ? (

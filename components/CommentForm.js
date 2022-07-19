@@ -3,7 +3,7 @@ import InputEmoji from "react-input-emoji";
 import Image from "next/image";
 import axios from "@/lib/axios";
 
-const CommentForm = ({ url, model, modelName, user }) => {
+const CommentForm = ({ url, model, modelName, user, handleClick }) => {
   const [comment, setComment] = useState("");
   const imageInput = useRef(null);
   const [cmntimage, setCmntimage] = useState(null);
@@ -16,26 +16,30 @@ const CommentForm = ({ url, model, modelName, user }) => {
   }
   function handleSubmit(e) {
     e.preventDefault();
-    const form = document.querySelector("form");
-    const formData = new FormData(form);
-    formData.append(`${modelName}_id`, model.id);
-    formData.append("user_id", user.id);
-    formData.append("body", comment);
-    axios
-      .post(`${url}`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((res) => {
-        if (res.data.success) {
-          setComment("");
-          setCmntimage(null);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (user) {
+      const form = document.querySelector("form");
+      const formData = new FormData(form);
+      formData.append(`${modelName}_id`, model.id);
+      formData.append("user_id", user.id);
+      formData.append("body", comment);
+      axios
+        .post(`${url}`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          if (res.data.success) {
+            setComment("");
+            setCmntimage(null);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      handleClick(true);
+    }
   }
   return (
     <>
