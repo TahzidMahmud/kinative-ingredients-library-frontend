@@ -3,8 +3,36 @@ import axios from "@/lib/axios";
 import { useState, useEffect } from "react";
 
 const Comment = ({ user, comment, canlikeComment }) => {
-  const [canlike, setCanlikes] = useState(canlikeComment);
+  const [canlike, setCanlike] = useState(canlikeComment);
   const [likes, setLikes] = useState(comment.likes);
+  useEffect(() => {
+    if (user) {
+      likedBefore();
+    }
+  }, [user]);
+  function likedBefore() {
+    if (typeof user !== "undefined") {
+      setCanlike(true);
+    } else {
+      setCanlike(false);
+    }
+    if (user) {
+      axios
+        .post("/api/comment/likeable", {
+          comment_id: comment.id,
+          user_id: user.id,
+        })
+        .then((res) => {
+          if (res.data.success) {
+            setCanlike(true);
+          } else {
+            setCanlike(false);
+          }
+        });
+    } else {
+      setCanlike(true);
+    }
+  }
   function likeComment() {
     axios
       .post("api/comment/like", {
@@ -13,9 +41,9 @@ const Comment = ({ user, comment, canlikeComment }) => {
       })
       .then((res) => {
         if (res.data.success) {
-          setCanlikes(false);
+          setCanlike(false);
         } else {
-          setCanlikes(true);
+          setCanlike(true);
         }
         setLikes(res.data.likes);
       })
@@ -24,7 +52,25 @@ const Comment = ({ user, comment, canlikeComment }) => {
         // setErrors(Object.values(error.response.data.errors).flat());
       });
   }
-  function unlikeComment() {}
+  function unlikeComment() {
+    axios
+      .post("api/comment/unlike", {
+        comment_id: comment.id,
+        user_id: user.id,
+      })
+      .then((res) => {
+        if (res.data.success) {
+          setCanlike(true);
+        } else {
+          setCanlike(false);
+        }
+        setLikes(res.data.likes);
+      })
+      .catch((error) => {
+        // if (error.response.status !== 422) throw error;
+        // setErrors(Object.values(error.response.data.errors).flat());
+      });
+  }
   return (
     <>
       <div className="flex my-4 ">
