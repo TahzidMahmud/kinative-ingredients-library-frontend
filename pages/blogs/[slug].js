@@ -12,6 +12,7 @@ const Blog = ({ blog }) => {
   const { user } = useAuth({ middleware: "guest" });
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [likeable, setLikeable] = useState(true);
+  const [canlikeComment, setCanlikeComment] = useState(true);
   const [likes, setLikes] = useState(blog.likes);
   const [comments, setComments] = useState(blog.comments.data);
   const [isSSR, setIsSSR] = useState(true);
@@ -23,6 +24,11 @@ const Blog = ({ blog }) => {
     }
   }, [user]);
   function canLike() {
+    if (typeof user !== "undefined") {
+      setCanlikeComment(true);
+    } else {
+      setCanlikeComment(false);
+    }
     if (user) {
       axios
         .post("/api/blog/likeable", {
@@ -179,7 +185,12 @@ const Blog = ({ blog }) => {
       <div className="md:min-w-[70%] sm:min-w-[100%] d-flex">
         {console.log(comments)}
         {comments.map((comment, index) => (
-          <Comment key={index} comment={comment} />
+          <Comment
+            key={index}
+            user={user}
+            comment={comment}
+            canlikeComment={canlikeComment}
+          />
         ))}
       </div>
       {/* modal section  */}
