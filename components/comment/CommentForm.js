@@ -6,6 +6,7 @@ import axios from "@/lib/axios";
 const CommentForm = ({
   url,
   model,
+  parent_id,
   modelName,
   user,
   handleClick,
@@ -28,6 +29,9 @@ const CommentForm = ({
       const formData = new FormData(form);
       formData.append(`${modelName}_id`, model.id);
       formData.append("user_id", user.id);
+      if (parent_id != null) {
+        formData.append("parent_id", parent_id);
+      }
       formData.append("body", comment);
       axios
         .post(`${url}`, formData, {

@@ -36,7 +36,6 @@ const Blog = ({ blog }) => {
           user_id: user.id,
         })
         .then((res) => {
-          console.log(res);
           if (res.data.success) {
             setLikeable(true);
           } else {
@@ -176,6 +175,7 @@ const Blog = ({ blog }) => {
       <CommentForm
         url={`api/comments/store`}
         model={blog}
+        parent_id={null}
         modelName={`blog`}
         user={user}
         handleClick={setShowLoginModal}
@@ -183,13 +183,14 @@ const Blog = ({ blog }) => {
       />
       {/* comments  */}
       <div className="md:min-w-[70%] sm:min-w-[100%] d-flex">
-        {console.log(comments)}
         {comments.map((comment, index) => (
           <Comment
             key={index}
             user={user}
+            blog={blog}
             comment={comment}
             canlikeComment={canlikeComment}
+            setShowLoginModal={setShowLoginModal}
           />
         ))}
       </div>
