@@ -9,7 +9,14 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
   const { data: user, error, mutate } = useSWR("/api/user", () =>
     axios
       .get("/api/user")
-      .then((res) => res.data)
+      .then((res) => {
+        if (res.data.email_verified_at == null) {
+          localStorage.setItem("prevRoute", router.asPath);
+          router.push("/verify-mobile");
+        } else {
+          console.log("i am here");
+        }
+      })
       .catch((error) => {
         if (error.response.status !== 409) throw error;
 
@@ -26,7 +33,12 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
 
     axios
       .post("/register", props)
-      .then(() => mutate())
+      .then(() => (res) => {
+        //;
+        if (res.data.success) {
+          mutate();
+        }
+      })
       .catch((error) => {
         if (error.response.status !== 422) throw error;
 
@@ -42,7 +54,10 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
 
     axios
       .post("/login", props)
-      .then(() => mutate())
+      .then(() => (res) => {
+        // window.location.pathname = localStorage.getItem("prevRoute");
+        mutate();
+      })
       .catch((error) => {
         if (error.response.status !== 422) throw error;
 
