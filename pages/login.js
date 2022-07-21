@@ -19,7 +19,7 @@ const Login = () => {
     redirectIfAuthenticated: "/dashboard",
   });
 
-  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
   const [status, setStatus] = useState(null);
@@ -34,7 +34,7 @@ const Login = () => {
 
   const submitForm = async (event) => {
     event.preventDefault();
-
+    let email = `+88${phone}`;
     login({ email, password, setErrors, setStatus });
   };
 
@@ -58,14 +58,14 @@ const Login = () => {
         <form onSubmit={submitForm}>
           {/* Email Address */}
           <div>
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email">Mobile Number</Label>
 
             <Input
               id="email"
-              type="email"
-              value={email}
+              type="text"
+              value={phone}
               className="block mt-1 w-full"
-              onChange={(event) => setEmail(event.target.value)}
+              onChange={(event) => setPhone(event.target.value)}
               required
               autoFocus
             />

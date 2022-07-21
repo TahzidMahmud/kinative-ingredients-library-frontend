@@ -12,13 +12,14 @@ const LoginModal = ({ show, page, closeModal }) => {
     redirectIfAuthenticated: `/${page}/${router.query.slug}`,
   });
 
-  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
   const [status, setStatus] = useState(null);
 
   const submitForm = async (event) => {
     event.preventDefault();
+    let email = `+88${phone}`;
     login({ email, password, setErrors, setStatus });
     closeModal();
   };
@@ -71,14 +72,14 @@ const LoginModal = ({ show, page, closeModal }) => {
               <form className="space-y-6" action="#">
                 <div>
                   <label className="block mb-2 text-sm font-medium text-gray-900">
-                    Your email
+                    Your Phone Number
                   </label>
                   <Input
                     id="email"
-                    type="email"
-                    value={email}
+                    type="text"
+                    value={phone}
                     className="block mt-1 w-full"
-                    onChange={(event) => setEmail(event.target.value)}
+                    onChange={(event) => setPhone(event.target.value)}
                     required
                     autoFocus
                   />

@@ -14,12 +14,11 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
           localStorage.setItem("prevRoute", router.asPath);
           router.push("/verify-mobile");
         } else {
-          console.log("i am here");
+          return res.data;
         }
       })
       .catch((error) => {
         if (error.response.status !== 409) throw error;
-
         router.push("/verify-email");
       })
   );
@@ -109,7 +108,6 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
     if (!error) {
       await axios.post("/logout").then(() => mutate());
     }
-
     window.location.pathname = "/login";
   };
 
