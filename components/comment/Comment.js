@@ -170,7 +170,7 @@ const Comment = ({
       )}
       {/* replies list */}
       {replies.map((reply, index) => (
-        <Reply key={index} reply={reply}  />
+        <Reply key={index} reply={reply} />
       ))}
     </>
   );

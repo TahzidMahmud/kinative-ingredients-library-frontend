@@ -4,14 +4,19 @@ import { useAuth } from "@/hooks/auth";
 import axios from "@/lib/axios";
 import Image from "next/image";
 import RatingStar from "@/components/RatingStar";
+import Ingredient from "@/components/Ingredients/Ingredient";
 import LoginModal from "@/modals/LoginModal";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, createRef } from "react";
 
 const Product = ({ product }) => {
+  const reviews = useRef();
+  const ingredients = useRef();
+
   const { user } = useAuth({ middleware: "guest" });
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [likeable, setLikeable] = useState(false);
   const [likes, setLikes] = useState(product.likes);
+  const [activetab, setActiveTab] = useState("reviews");
   const [isSSR, setIsSSR] = useState(true);
   useEffect(() => {
     setIsSSR(false);
@@ -81,6 +86,15 @@ const Product = ({ product }) => {
   }
   function closeModal() {
     setShowLoginModal(false);
+  }
+  function setTab(name) {
+    if (name === "reviews") {
+      reviews.current.classList.remove("hidden");
+      ingredients.current.classList.add("hidden");
+    } else {
+      ingredients.current.classList.remove("hidden");
+      reviews.current.classList.add("hidden");
+    }
   }
 
   return (
@@ -204,6 +218,7 @@ const Product = ({ product }) => {
             </div>
           </div>
         </div>
+
         {/* modal section  */}
         {isSSR === false ? (
           <LoginModal
@@ -215,6 +230,96 @@ const Product = ({ product }) => {
         ) : (
           <></>
         )}
+      </div>
+      {/* tab section  */}
+      <div className="p-6 mx-4 max-w-full bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 ">
+        <div className="mb-4 border-b border-gray-200 dark:border-gray-700">
+          <ul
+            className="flex flex-wrap -mb-px text-sm font-medium text-center"
+            id="myTab"
+            data-tabs-toggle="#myTabContent"
+            role="tablist"
+          >
+            <li className="mr-2" role="presentation">
+              <button
+                className={`inline-block p-4 rounded-t-lg text-lg font-bold ${
+                  activetab === "reviews"
+                    ? "border-b-2 text-blue-600 hover:text-blue-600 dark:text-blue-500 dark:hover:text-blue-500 border-blue-600 dark:border-blue-500"
+                    : " opacity-60"
+                }`}
+                id="reviews-tab"
+                data-tabs-target="#reviews"
+                type="button"
+                role="tab"
+                aria-controls="reviews"
+                aria-selected="true"
+                onClick={() => {
+                  setActiveTab("reviews");
+                  setTab("reviews");
+                }}
+              >
+                Reviews
+              </button>
+            </li>
+            <li className="mr-2" role="presentation">
+              <button
+                className={`inline-block p-4 rounded-t-lg border-b-2 dark:hover:text-gray-300 text-lg font-bold ${
+                  activetab === "ingredients"
+                    ? "border-b-2 text-blue-600 hover:text-blue-600 dark:text-blue-500 dark:hover:text-blue-500 border-blue-600 dark:border-blue-500 "
+                    : " opacity-60"
+                } `}
+                id="ingredients-tab"
+                data-tabs-target="#ingredients"
+                type="button"
+                role="tab"
+                aria-controls="ingredients"
+                aria-selected="false"
+                onClick={() => {
+                  setTab("ingredients");
+                  setActiveTab("ingredients");
+                }}
+              >
+                Ingredients
+              </button>
+            </li>
+          </ul>
+        </div>
+        <div className="mb-4 border-b border-gray-200 dark:border-gray-700">
+          <div id="myTabContent">
+            <div
+              className="p-4 bg-gray-50 rounded-lg dark:bg-gray-800"
+              id="reviews"
+              ref={reviews}
+              role="tabpanel"
+              aria-labelledby="reviews-tab"
+            >
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                This is some placeholder content the{" "}
+                <strong className="font-medium text-gray-800 dark:text-white">
+                  reviews tab`s associated content
+                </strong>
+                . Clicking another tab will toggle the visibility of this one
+                for the next. The tab JavaScript swaps classNamees to control
+                the content visibility and styling.
+              </p>
+            </div>
+            <div
+              className="hidden p-2  rounded-lg "
+              id="ingredients"
+              ref={ingredients}
+              role="tabpanel"
+              aria-labelledby="ingredients-tab"
+            >
+              {product.ingredients.data.map((ingredient, index) => (
+                <Ingredient
+                  key={index}
+                  ingredient={ingredient}
+                  className="-py-6"
+                />
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </AppLayout>
   );

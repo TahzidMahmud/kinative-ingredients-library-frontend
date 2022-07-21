@@ -78,7 +78,7 @@ const VerifyEmail = () => {
           <form className="space-y-6" onSubmit={submitForm}>
             <div>
               <label className="block mb-2 text-sm font-medium text-gray-900 opacity-60">
-                Enter the OTP sent to your mobile number
+                Enter the 6 Digit OTP sent to your mobile number
               </label>
               <Input
                 id="otp"
@@ -106,9 +106,9 @@ const VerifyEmail = () => {
         )}
 
         <div className="mt-4 flex items-center justify-end">
-          <Button onClick={() => resendEmailVerification({ setStatus })}>
+          {/* <Button onClick={() => resendEmailVerification({ setStatus })}>
             Resend Verification OTP
-          </Button>
+          </Button> */}
 
           {/* <button
             type="button"
