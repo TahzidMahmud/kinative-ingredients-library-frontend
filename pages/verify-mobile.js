@@ -38,10 +38,11 @@ const VerifyEmail = () => {
             })
             .then((res) => {
               if (res.data.success) {
-                if (localStorage.getItem("prevRoute") === "/verify-mobile") {
-                  router.push("/");
-                }
-                router.push(localStorage.getItem("prevRoute"));
+                router.push("/profile/create");
+                // if (localStorage.getItem("prevRoute") === "/verify-mobile") {
+                //   router.push("/");
+                // }
+                // router.push(localStorage.getItem("prevRoute"));
               } else {
                 setStatus(res.data.message);
               }

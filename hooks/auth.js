@@ -13,9 +13,12 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
         if (res.data.email_verified_at == null) {
           localStorage.setItem("prevRoute", router.asPath);
           router.push("/verify-mobile");
-        } else {
-          return res.data;
         }
+        if (res.data.profile_complete == 0) {
+          router.push("/profile/create");
+        }
+
+        return res.data;
       })
       .catch((error) => {
         if (error.response.status !== 409) throw error;
