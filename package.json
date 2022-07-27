@@ -16,6 +16,7 @@
     "flowbite-react": "^0.0.26",
     "next": "12.1.6",
     "react": "18.2.0",
+    "react-datepicker": "^4.8.0",
     "react-dom": "18.2.0",
     "react-input-emoji": "^4.1.0",
     "swr": "^1.2.2",
