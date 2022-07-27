@@ -367,7 +367,7 @@ const Create = ({ Concerns, SkinTypes }) => {
                 </div>
               )}
               selected={birthtDate}
-              onChange={(date) => setBirthtDate(date.totoUTCString)}
+              onChange={(date) => setBirthtDate(date)}
               dateFormat="dd/MM/yyyy"
               onClick={() => console.log("clicked")}
               className="bg-gray-50 border-none text-gray-900 sm:text-sm rounded-lg  block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white "
