@@ -6,6 +6,7 @@ import Image from "next/image";
 import RatingStar from "@/components/RatingStar";
 import Ingredient from "@/components/Ingredients/Ingredient";
 import LoginModal from "@/modals/LoginModal";
+import ReviewModal from "@/modals/ReviewModal";
 import { useState, useEffect, useRef, createRef } from "react";
 
 const Product = ({ product }) => {
@@ -14,10 +15,12 @@ const Product = ({ product }) => {
 
   const { user } = useAuth({ middleware: "guest" });
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showReviewModal, setShowReviewModal] = useState(false);
   const [likeable, setLikeable] = useState(false);
   const [likes, setLikes] = useState(product.likes);
   const [activetab, setActiveTab] = useState("reviews");
   const [isSSR, setIsSSR] = useState(true);
+
   useEffect(() => {
     setIsSSR(false);
     canLike();
@@ -95,6 +98,9 @@ const Product = ({ product }) => {
       ingredients.current.classList.remove("hidden");
       reviews.current.classList.add("hidden");
     }
+  }
+  function closeReviewModal() {
+    setShowReviewModal(false);
   }
 
   return (
@@ -201,11 +207,23 @@ const Product = ({ product }) => {
                 </div>
                 <div className="text-sm opacity-80 ">{product.brand}</div>
               </div>
-              <div className="flex mb-4">
+              <div className="flex items-center mb-4">
                 <div className="min-w-[15%]">
                   <h1 className="text-md font-semibold text-left ">Category</h1>
                 </div>
                 <div className="text-sm opacity-60 ">{product.category}</div>
+                {user != null ? (
+                  <button
+                    className="ml-auto bg-blue-500 rounded-lg p-3 text-white text-sm"
+                    onClick={() => {
+                      setShowReviewModal(true);
+                    }}
+                  >
+                    Write Review
+                  </button>
+                ) : (
+                  <></>
+                )}
               </div>
             </div>
           </div>
@@ -219,7 +237,7 @@ const Product = ({ product }) => {
           </div>
         </div>
 
-        {/* modal section  */}
+        {/*log in  modal section  */}
         {isSSR === false ? (
           <LoginModal
             show={showLoginModal}
@@ -231,6 +249,16 @@ const Product = ({ product }) => {
           <></>
         )}
       </div>
+      {/* review modal section  */}
+      {isSSR === false ? (
+        <ReviewModal
+          show={showReviewModal}
+          closeModal={closeReviewModal}
+          className="z-40 opacity-100"
+        />
+      ) : (
+        <></>
+      )}
       {/* tab section  */}
       <div className="p-6 mx-4 max-w-full bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 ">
         <div className="mb-4 border-b border-gray-200 dark:border-gray-700">
