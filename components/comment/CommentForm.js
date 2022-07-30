@@ -55,7 +55,7 @@ const CommentForm = ({
   }
   return (
     <>
-      <div className="my-4 w-3/4 ">
+      <div className="my-4 mr-6">
         <form onSubmit={handleSubmit}>
           <div className="flex items-center py-2 px-3 bg-gray-50 rounded-lg dark:bg-gray-700 ">
             <InputEmoji
