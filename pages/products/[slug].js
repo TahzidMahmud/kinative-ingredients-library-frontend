@@ -8,8 +8,10 @@ import Ingredient from "@/components/Ingredients/Ingredient";
 import LoginModal from "@/modals/LoginModal";
 import ReviewModal from "@/modals/ReviewModal";
 import { useState, useEffect, useRef, createRef } from "react";
+import Review from "@/components/review/Review";
 
 const Product = ({ product }) => {
+  // console.log(product.revirews.data);
   const reviews = useRef();
   const ingredients = useRef();
 
@@ -317,21 +319,15 @@ const Product = ({ product }) => {
         <div className="mb-4 border-b border-gray-200 dark:border-gray-700">
           <div id="myTabContent">
             <div
-              className="p-4 bg-gray-50 rounded-lg dark:bg-gray-800"
+              className="p-4 bg-gray-50 rounded-lg dark:bg-gray-800 w-[75%] max-w-full overflow-y-auto"
               id="reviews"
               ref={reviews}
               role="tabpanel"
               aria-labelledby="reviews-tab"
             >
-              <p className="text-sm text-gray-500 dark:text-gray-400">
-                This is some placeholder content the{" "}
-                <strong className="font-medium text-gray-800 dark:text-white">
-                  reviews tab`s associated content
-                </strong>
-                . Clicking another tab will toggle the visibility of this one
-                for the next. The tab JavaScript swaps classNamees to control
-                the content visibility and styling.
-              </p>
+              {product.revirews.data.map((review, index) => (
+                <Review key={index} review={review} />
+              ))}
             </div>
             <div
               className="hidden p-2  rounded-lg "
