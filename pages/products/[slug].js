@@ -252,6 +252,8 @@ const Product = ({ product }) => {
       {/* review modal section  */}
       {isSSR === false ? (
         <ReviewModal
+          user={user}
+          product={product}
           show={showReviewModal}
           closeModal={closeReviewModal}
           className="z-40 opacity-100"

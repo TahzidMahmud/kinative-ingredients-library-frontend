@@ -3,9 +3,10 @@ import Button from "@/components/Button";
 import ReviewStar from "@/components/ReviewStar";
 import Label from "@/components/Label";
 import Link from "next/link";
+import axios from "../lib/axios";
 import Image from "next/image";
 
-const ReviewModal = ({ show, closeModal }) => {
+const ReviewModal = ({ user, product, show, closeModal }) => {
   const [stage, setStage] = useState(1);
   const [pros, setPros] = useState(null);
   const [cons, setCons] = useState(null);
@@ -35,7 +36,41 @@ const ReviewModal = ({ show, closeModal }) => {
       setCmntimage(reader.result);
     };
   }
-  function submitForm() {}
+  function submitForm() {
+    let formData = new FormData();
+    formData.append("user_id", user.id);
+    formData.append("product_id", product.id);
+    formData.append("rating", rating);
+    if (unit === "day") {
+      setUsing(using);
+    } else if (unit === "month") {
+      setUsing(using * 30);
+    } else {
+      setUsing(using * 365);
+    }
+
+    formData.append("days_used", using);
+    formData.append("liking_factors", pros);
+    formData.append("disliking_facotrs", cons);
+    formData.append("image", cmntimage);
+    formData.append("imgname", imageInput.current.value);
+    formData.append("likes", 0);
+    formData.append("dislikes", 0);
+    axios
+      .post("/api/reviews", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        if (res.data.success) {
+          closeModal();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
   return (
     <>
       <div
@@ -245,7 +280,7 @@ const ReviewModal = ({ show, closeModal }) => {
                       Next
                     </Button>
                   ) : (
-                    <Button className="ml-4" disabled onClick={nextStep}>
+                    <Button className="ml-4" disabled>
                       Next
                     </Button>
                   )}
@@ -260,7 +295,7 @@ const ReviewModal = ({ show, closeModal }) => {
                       Submit
                     </Button>
                   ) : (
-                    <Button className="ml-4" disabled onClick={submitForm}>
+                    <Button className="ml-4" disabled>
                       Submit
                     </Button>
                   )}
