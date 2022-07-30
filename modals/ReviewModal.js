@@ -1,4 +1,6 @@
+import { useState } from "react";
 const ReviewModal = ({ show, closeModal }) => {
+  const [stage, setStage] = useState(1);
   function submitForm() {}
   return (
     <>

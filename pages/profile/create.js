@@ -207,8 +207,10 @@ const Create = ({ Concerns, SkinTypes }) => {
               <div
                 key={index}
                 className={`${
-                  skinTypes.includes(skinType.id) ? ` border-blue-500` : ``
-                }border flex flex-col justify-center items-center`}
+                  skinTypes.includes(skinType.id)
+                    ? `border-2 border-blue-500 rounded-xl bg-blue-300`
+                    : ``
+                }border flex flex-col justify-center items-center p-3`}
                 onClick={() => {
                   setSkinTypes([...skinTypes, skinType.id]);
                 }}
@@ -246,8 +248,10 @@ const Create = ({ Concerns, SkinTypes }) => {
               <div
                 key={index}
                 className={`${
-                  concerns.includes(concern.id) ? ` border-blue-500` : ``
-                }  border flex flex-col justify-center items-center`}
+                  concerns.includes(concern.id)
+                    ? `border-2 border-blue-500 rounded-xl `
+                    : ``
+                }  border flex flex-col justify-center items-center p-3`}
                 onClick={() => {
                   setConcerns([...concerns, concern.id]);
                 }}
@@ -384,9 +388,15 @@ const Create = ({ Concerns, SkinTypes }) => {
             ) : (
               <></>
             )}
-            <Button className="ml-4" onClick={nextStep}>
-              Next
-            </Button>
+            {cmntimage != null ? (
+              <Button className="ml-4" onClick={nextStep}>
+                Next
+              </Button>
+            ) : (
+              <Button className="ml-4" disabled onClick={nextStep}>
+                Next
+              </Button>
+            )}
           </div>
         ) : (
           <div className="flex items-center justify-end mt-4">
