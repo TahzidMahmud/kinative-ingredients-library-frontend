@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+
+    .c-icon {
+        --star-active: #fece3c;
+        --star-inactive: #6c6962;
+        fill: var(--star-inactive);
+    }
+    
+    .c-icon.active {
+        fill: var(--star-active);
+    }
+}
