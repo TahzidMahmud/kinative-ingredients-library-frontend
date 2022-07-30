@@ -15,6 +15,8 @@ const Create = ({ Concerns, SkinTypes }) => {
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [name, setName] = useState("");
+  const [datechange, setDatechange] = useState(null);
+
   const [stage, setStage] = useState(1);
   const imageInput = useRef(null);
   const [cmntimage, setCmntimage] = useState(null);
@@ -291,7 +293,6 @@ const Create = ({ Concerns, SkinTypes }) => {
                 const elem = document.getElementsByClassName(
                   "react-datepicker-wrapper"
                 );
-                console.log(elem);
                 elem[0].click();
                 elem.click();
               }}
@@ -371,7 +372,10 @@ const Create = ({ Concerns, SkinTypes }) => {
                 </div>
               )}
               selected={birthtDate}
-              onChange={(date) => setBirthtDate(date)}
+              onChange={(date) => {
+                setBirthtDate(date);
+                setDatechange(true);
+              }}
               dateFormat="dd/MM/yyyy"
               onClick={() => console.log("clicked")}
               className="bg-gray-50 border-none text-gray-900 sm:text-sm rounded-lg  block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white "
@@ -388,7 +392,10 @@ const Create = ({ Concerns, SkinTypes }) => {
             ) : (
               <></>
             )}
-            {cmntimage != null ? (
+            {(stage == 1 && cmntimage != null) ||
+            (stage == 2 && skinTypes.length != 0) ||
+            (stage == 3 && concerns.length != 0) ||
+            (stage == 4 && datechange == true) ? (
               <Button className="ml-4" onClick={nextStep}>
                 Next
               </Button>
