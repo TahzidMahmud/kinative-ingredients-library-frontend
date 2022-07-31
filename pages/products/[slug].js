@@ -23,14 +23,16 @@ const Product = ({ product }) => {
   const [activetab, setActiveTab] = useState("reviews");
   const [isSSR, setIsSSR] = useState(true);
   const [canreview, setCanreview] = useState(false);
-
+  const [currentpage, setCurrentpage] = useState(1);
+  const [viewmore, setViewmore] = useState(false);
   const [productreviews, setProductreviews] = useState([]);
 
   useEffect(() => {
     setIsSSR(false);
-    setProductreviews(product.revirews.data);
+    // setProductreviews(product.revirews.data);
     canLike();
     canReview();
+    getProductreviews();
   }, []);
   function canLike() {
     if (user) {
@@ -130,7 +132,28 @@ const Product = ({ product }) => {
     setProductreviews([...productreviews, newReview]);
     setCanreview(false);
   }
-
+  function getProductreviews() {
+    axios
+      .get(`/api/products/${product.id}/review?page=${currentpage}`)
+      .then((res) => {
+        if (res.data.meta.last_page === currentpage) {
+          setViewmore(false);
+        } else {
+          setViewmore(true);
+        }
+        if (productreviews.length > 0) {
+          setProductreviews([...productreviews, ...res.data.data]);
+          setCurrentpage(currentpage + 1);
+        } else {
+          setProductreviews(res.data.data);
+          setCurrentpage(currentpage + 1);
+        }
+      })
+      .catch((error) => {
+        // if (error.response.status !== 422) throw error;
+        // setErrors(Object.values(error.response.data.errors).flat());
+      });
+  }
   return (
     <AppLayout
       header={
@@ -347,7 +370,7 @@ const Product = ({ product }) => {
           <div id="myTabContent">
             <div className="flex">
               <div
-                className="p-4 bg-gray-50 rounded-lg dark:bg-gray-800 w-[75%] max-w-full overflow-y-auto"
+                className="p-4 bg-gray-100 rounded-lg dark:bg-gray-800 w-[75%] max-w-full overflow-y-auto"
                 id="reviews"
                 ref={reviews}
                 role="tabpanel"
@@ -356,6 +379,20 @@ const Product = ({ product }) => {
                 {productreviews.map((review, index) => (
                   <Review key={index} review={review} addReview={addReview} />
                 ))}
+                <div className=" py-6 w-[100%] max-w-full">
+                  {viewmore ? (
+                    <div className="flex justify-center">
+                      <button
+                        onClick={getProductreviews}
+                        className="btn btn-blue bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                      >
+                        View More
+                      </button>
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+                </div>
               </div>
               <div className="w-[25%] px-10 py-3">
                 <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">

@@ -24,19 +24,19 @@ const Review = ({ review }) => {
             <div className="flex my-2">
               <div className="flex">
                 <div className="text-sm font-semibold">Age</div>
-                <div className="text-sm font-semibold opacity-70 mx-2">
+                <div className="text-sm  opacity-60 mx-2">
                   {review.profile.age}
                 </div>
               </div>
               <div className="flex">
                 <div className="text-sm font-semibold">Skin Type:</div>
-                <div className="text-sm font-semibold opacity-70 mx-2">
+                <div className="text-sm  opacity-60 mx-2">
                   {review.profile.skin_type.data[0].name}
                 </div>
               </div>
               <div className="flex">
                 <div className="text-sm font-semibold">Days use:</div>
-                <div className="text-sm font-semibold opacity-70 mx-2">
+                <div className="text-sm  opacity-60 mx-2">
                   {review.days_used}
                 </div>
               </div>
@@ -56,14 +56,14 @@ const Review = ({ review }) => {
         {/* liked section  */}
         <div className="px-7 py-4 mb-4">
           <span className="text-sm font-semibold">what I Liked</span>:
-          <sapn className="text-sm font-semibold opacity-70 ml-2">
+          <sapn className="text-sm opacity-60 ml-2">
             {review.liking_factors}
           </sapn>
         </div>
         {/* dislike section  */}
         <div className="px-7 py-4 mb-4">
           <span className="text-sm font-semibold">what I Liked</span>:
-          <sapn className="text-sm font-semibold opacity-70 ml-2">
+          <sapn className="text-sm  opacity-60 ml-2">
             {review.disliking_facotrs}
           </sapn>
         </div>
@@ -83,6 +83,59 @@ const Review = ({ review }) => {
           ) : (
             <></>
           )}
+        </div>
+        {/* like dislike section  */}
+        <div className="my-6 px-6 flex justify-between items-center">
+          <div className="flex justify-start items-center">
+            <sapn className="text-sm opacity-60 ml-2">{review.created_at}</sapn>
+          </div>
+          <div className="flex justify-end items-center">
+            <div className="flex">
+              <div className="px-2">
+                <Image
+                  src="/comment.PNG"
+                  alt={review.likes}
+                  width={20}
+                  height={20}
+                  className="py-4"
+                />
+              </div>
+              <div className="text-sm font-medium">Reply:</div>
+              <div className="text-sm  opacity-60 mx-2">
+                {`(${review.likes})`}
+              </div>
+            </div>
+            <div className="flex">
+              <div className="px-2">
+                <Image
+                  src="/dislike_icon.png"
+                  alt={review.dislikes}
+                  width={20}
+                  height={20}
+                  className=""
+                />
+              </div>
+              <div className="text-sm font-medium">Dislike:</div>
+              <div className="text-sm  opacity-60 mx-2">
+                {`(${review.dislikes})`}
+              </div>
+            </div>
+            <div className="flex">
+              <div className="px-2">
+                <Image
+                  src="/love_icon.png"
+                  alt={review.likes}
+                  width={20}
+                  height={20}
+                  className=""
+                />
+              </div>
+              <div className="text-sm font-medium">Like:</div>
+              <div className="text-sm  opacity-60 mx-2">
+                {`(${review.likes})`}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <hr className="px-6"></hr>

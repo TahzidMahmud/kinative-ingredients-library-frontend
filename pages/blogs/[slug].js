@@ -251,7 +251,7 @@ const Blog = ({ blog, trendingBlogs }) => {
                           </span>
                         </div>
                         <div className="flex">
-                          {/* avatar image  */}
+                          {/* comment image  */}
                           <Image
                             src="/comment.PNG"
                             alt={blog.title}
@@ -264,7 +264,7 @@ const Blog = ({ blog, trendingBlogs }) => {
                           </span>
                         </div>
                         <div className="flex">
-                          {/* avatar image  */}
+                          {/* like image  */}
                           <Image
                             src="/love_icon.png"
                             alt={blog.title}
