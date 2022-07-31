@@ -105,7 +105,7 @@ const Blog = ({ blog, trendingBlogs }) => {
         <title>Blogs</title>
       </Head>
 
-      <div className="flex">
+      <div className="flex my-6">
         <div className="md:min-w-[70%] sm:min-w-[100%] my-4">
           <div className=" rounded-lg dark:bg-gray-800 dark:border-gray-700">
             <Image
@@ -311,7 +311,9 @@ export async function getStaticProps(context) {
     .catch((error) => console.log(error));
   const [blogs] = await Promise.all([
     axios
-      .get("/api/trending-new-blogs")
+      .get("/api/trending-new-blogs", {
+        type: "trending",
+      })
       .then((response) => {
         return response.data;
       })

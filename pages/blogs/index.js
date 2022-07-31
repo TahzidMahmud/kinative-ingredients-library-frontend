@@ -96,14 +96,14 @@ const blogs = ({ newBlogs, trendingBlogs }) => {
                             {newBlogs[0].autor.name}
                           </span>
                         </div>
-                        <div className="flex">
+                        <div className="flex items-center">
                           {/* avatar image  */}
                           <Image
-                            src="/comment.PNG"
+                            src="/comment.png"
                             alt={newBlogs[0].title}
-                            width={25}
-                            height={25}
-                            className="py-4"
+                            width={20}
+                            height={20}
+                            className="py-1"
                           />
                           <span className="opacity-60 text-sm mx-2">
                             {newBlogs[0].comments}
@@ -114,8 +114,8 @@ const blogs = ({ newBlogs, trendingBlogs }) => {
                           <Image
                             src="/love_icon.png"
                             alt={newBlogs[0].title}
-                            width={15}
-                            height={13}
+                            width={20}
+                            height={10}
                             className=""
                           />
                           <span className="opacity-60 text-sm mx-2">
@@ -186,10 +186,10 @@ const blogs = ({ newBlogs, trendingBlogs }) => {
                             <div className="flex">
                               {/* avatar image  */}
                               <Image
-                                src="/comment.PNG"
+                                src="/comment.png"
                                 alt={blog.title}
-                                width={25}
-                                height={25}
+                                width={20}
+                                height={20}
                                 className="py-4"
                               />
                               <span className="opacity-60 text-sm mx-2">
@@ -201,8 +201,8 @@ const blogs = ({ newBlogs, trendingBlogs }) => {
                               <Image
                                 src="/love_icon.png"
                                 alt={blog.title}
-                                width={15}
-                                height={13}
+                                width={20}
+                                height={10}
                                 className=""
                               />
                               <span className="opacity-60 text-sm mx-2">
@@ -287,8 +287,8 @@ const blogs = ({ newBlogs, trendingBlogs }) => {
                           <Image
                             src="/comment.PNG"
                             alt={blog.title}
-                            width={25}
-                            height={25}
+                            width={20}
+                            height={15}
                             className="py-4"
                           />
                           <span className="opacity-60 text-sm mx-2">
@@ -300,8 +300,8 @@ const blogs = ({ newBlogs, trendingBlogs }) => {
                           <Image
                             src="/love_icon.png"
                             alt={blog.title}
-                            width={15}
-                            height={13}
+                            width={20}
+                            height={10}
                             className=""
                           />
                           <span className="opacity-60 text-sm mx-2">

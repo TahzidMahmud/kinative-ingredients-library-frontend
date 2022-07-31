@@ -22,10 +22,15 @@ const Product = ({ product }) => {
   const [likes, setLikes] = useState(product.likes);
   const [activetab, setActiveTab] = useState("reviews");
   const [isSSR, setIsSSR] = useState(true);
+  const [canreview, setCanreview] = useState(false);
+
+  const [productreviews, setProductreviews] = useState([]);
 
   useEffect(() => {
     setIsSSR(false);
+    setProductreviews(product.revirews.data);
     canLike();
+    canReview();
   }, []);
   function canLike() {
     if (user) {
@@ -40,6 +45,23 @@ const Product = ({ product }) => {
             setLikeable(true);
           } else {
             setLikeable(false);
+          }
+        });
+    }
+    setLikeable(true);
+  }
+  function canReview() {
+    if (user) {
+      axios
+        .post("/api/review/can-review", {
+          product_id: product.id,
+          user_id: user.id,
+        })
+        .then((res) => {
+          if (res.data.success) {
+            setCanreview(true);
+          } else {
+            setCanreview(false);
           }
         });
     }
@@ -103,6 +125,10 @@ const Product = ({ product }) => {
   }
   function closeReviewModal() {
     setShowReviewModal(false);
+  }
+  function addReview(newReview) {
+    setProductreviews([...productreviews, newReview]);
+    setCanreview(false);
   }
 
   return (
@@ -214,7 +240,7 @@ const Product = ({ product }) => {
                   <h1 className="text-md font-semibold text-left ">Category</h1>
                 </div>
                 <div className="text-sm opacity-60 ">{product.category}</div>
-                {user != null ? (
+                {user != null && canreview ? (
                   <button
                     className="ml-auto bg-blue-500 rounded-lg p-3 text-white text-sm"
                     onClick={() => {
@@ -258,6 +284,7 @@ const Product = ({ product }) => {
           product={product}
           show={showReviewModal}
           closeModal={closeReviewModal}
+          addReview={addReview}
           className="z-40 opacity-100"
         />
       ) : (
@@ -318,16 +345,26 @@ const Product = ({ product }) => {
         </div>
         <div className="mb-4 border-b border-gray-200 dark:border-gray-700">
           <div id="myTabContent">
-            <div
-              className="p-4 bg-gray-50 rounded-lg dark:bg-gray-800 w-[75%] max-w-full overflow-y-auto"
-              id="reviews"
-              ref={reviews}
-              role="tabpanel"
-              aria-labelledby="reviews-tab"
-            >
-              {product.revirews.data.map((review, index) => (
-                <Review key={index} review={review} />
-              ))}
+            <div className="flex">
+              <div
+                className="p-4 bg-gray-50 rounded-lg dark:bg-gray-800 w-[75%] max-w-full overflow-y-auto"
+                id="reviews"
+                ref={reviews}
+                role="tabpanel"
+                aria-labelledby="reviews-tab"
+              >
+                {productreviews.map((review, index) => (
+                  <Review key={index} review={review} addReview={addReview} />
+                ))}
+              </div>
+              <div className="w-[25%] px-10 py-3">
+                <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                  <div
+                    className="bg-blue-600 h-2.5 rounded-full"
+                    style={{ width: `45%` }}
+                  ></div>
+                </div>
+              </div>
             </div>
             <div
               className="hidden p-2  rounded-lg "

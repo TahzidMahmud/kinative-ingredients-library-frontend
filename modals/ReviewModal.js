@@ -6,7 +6,7 @@ import Link from "next/link";
 import axios from "../lib/axios";
 import Image from "next/image";
 
-const ReviewModal = ({ user, product, show, closeModal }) => {
+const ReviewModal = ({ user, product, show, closeModal, addReview }) => {
   const [stage, setStage] = useState(1);
   const [pros, setPros] = useState(null);
   const [cons, setCons] = useState(null);
@@ -64,6 +64,7 @@ const ReviewModal = ({ user, product, show, closeModal }) => {
       })
       .then((res) => {
         if (res.data.success) {
+          addReview(res.data.review);
           closeModal();
         }
       })
