@@ -7,7 +7,7 @@ import RatingStar from "@/components/RatingStar";
 import Ingredient from "@/components/Ingredients/Ingredient";
 import LoginModal from "@/modals/LoginModal";
 import ReviewModal from "@/modals/ReviewModal";
-import { useState, useEffect, useRef, createRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import Review from "@/components/review/Review";
 
 const Product = ({ product }) => {
@@ -377,7 +377,12 @@ const Product = ({ product }) => {
                 aria-labelledby="reviews-tab"
               >
                 {productreviews.map((review, index) => (
-                  <Review key={index} review={review} addReview={addReview} />
+                  <Review
+                    key={index}
+                    review={review}
+                    user={user}
+                    setShowLoginModal={setShowLoginModal}
+                  />
                 ))}
                 <div className=" py-6 w-[100%] max-w-full">
                   {viewmore ? (

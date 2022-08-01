@@ -1,7 +1,143 @@
 import RatingStar from "@/components/RatingStar";
 import Image from "next/image";
+import axios from "@/lib/axios";
+import { useAuth } from "@/hooks/auth";
 
-const Review = ({ review }) => {
+import { useState, useEffect, setModal } from "react";
+
+const Review = ({ review, user, setShowLoginModal }) => {
+  const [likeable, setLikeable] = useState(true);
+  const [dislikeable, setDisLikebale] = useState(true);
+  const [likes, setLikes] = useState(review.likes);
+  const [dislikes, setDislikes] = useState(review.dislikes);
+
+  useEffect(() => {
+    canLike();
+    canDisLike();
+  }, []);
+
+  function canLike() {
+    if (user) {
+      axios
+        .post("/api/review/likeable", {
+          review_id: review.id,
+          user_id: user.id,
+        })
+        .then((res) => {
+          if (res.data.success) {
+            setLikeable(true);
+          } else {
+            setLikeable(false);
+          }
+        });
+    }
+    setLikeable(true);
+  }
+  function handleClickLike(e) {
+    if (user) {
+      setShowLoginModal(false);
+      if (likeable) {
+        axios
+          .post("api/review/like", {
+            review_id: review.id,
+            user_id: user.id,
+          })
+          .then((res) => {
+            if (res.data.success) {
+              setLikeable(false);
+            } else {
+              setLikeable(true);
+            }
+            setLikes(res.data.likes);
+          })
+          .catch((error) => {
+            // if (error.response.status !== 422) throw error;
+            // setErrors(Object.values(error.response.data.errors).flat());
+          });
+      } else {
+        axios
+          .post("api/review/unlike", {
+            review_id: review.id,
+            user_id: user.id,
+          })
+          .then((res) => {
+            if (res.data.success) {
+              setLikeable(true);
+            } else {
+              setLikeable(false);
+            }
+            setLikes(res.data.likes);
+          })
+          .catch((error) => {
+            // if (error.response.status !== 422) throw error;
+            // setErrors(Object.values(error.response.data.errors).flat());
+          });
+      }
+    } else {
+      setShowLoginModal(true);
+    }
+  }
+  function canDisLike() {
+    if (user) {
+      axios
+        .post("/api/review/dislikeable", {
+          review_id: review.id,
+          user_id: user.id,
+        })
+        .then((res) => {
+          if (res.data.success) {
+            setDisLikebale(true);
+          } else {
+            setDisLikebale(false);
+          }
+        });
+    }
+    setDisLikebale(true);
+  }
+  function handleClickDislike(e) {
+    if (user) {
+      setShowLoginModal(false);
+      if (dislikeable) {
+        axios
+          .post("api/review/dislike", {
+            review_id: review.id,
+            user_id: user.id,
+          })
+          .then((res) => {
+            if (res.data.success) {
+              setDisLikebale(false);
+            } else {
+              setDisLikebale(true);
+            }
+            setDislikes(res.data.likes);
+          })
+          .catch((error) => {
+            // if (error.response.status !== 422) throw error;
+            // setErrors(Object.values(error.response.data.errors).flat());
+          });
+      } else {
+        axios
+          .post("api/review/undislike", {
+            review_id: review.id,
+            user_id: user.id,
+          })
+          .then((res) => {
+            if (res.data.success) {
+              setDisLikebale(true);
+            } else {
+              setDisLikebale(false);
+            }
+            setDislikes(res.data.likes);
+          })
+          .catch((error) => {
+            // if (error.response.status !== 422) throw error;
+            // setErrors(Object.values(error.response.data.errors).flat());
+          });
+      }
+    } else {
+      setShowLoginModal(true);
+    }
+  }
   return (
     <>
       {/* top section of review */}
@@ -115,10 +251,23 @@ const Review = ({ review }) => {
                   className=""
                 />
               </div>
-              <div className="text-sm font-medium">Dislike:</div>
-              <div className="text-sm  opacity-60 mx-2">
-                {`(${review.dislikes})`}
-              </div>
+
+              {dislikeable ? (
+                <div
+                  className="text-sm  opacity-100 mx-2"
+                  onClick={handleClickDislike}
+                >
+                  Dislike
+                </div>
+              ) : (
+                <div
+                  className="text-sm  opacity-100 mx-2 text-red-600"
+                  onClick={handleClickDislike}
+                >
+                  Dislike
+                </div>
+              )}
+              <div className="text-sm  opacity-60 mx-2">{`(${dislikes})`}</div>
             </div>
             <div className="flex">
               <div className="px-2">
@@ -130,10 +279,19 @@ const Review = ({ review }) => {
                   className=""
                 />
               </div>
-              <div className="text-sm font-medium">Like:</div>
-              <div className="text-sm  opacity-60 mx-2">
-                {`(${review.likes})`}
-              </div>
+              {likeable ? (
+                <div className="text-sm font-medium" onClick={handleClickLike}>
+                  Like:
+                </div>
+              ) : (
+                <div
+                  className="text-sm font-medium text-red-600"
+                  onClick={handleClickLike}
+                >
+                  UnLike:
+                </div>
+              )}
+              <div className="text-sm  opacity-60 mx-2">{`(${dislikes})`}</div>
             </div>
           </div>
         </div>
