@@ -366,11 +366,11 @@ const Product = ({ product }) => {
             </li>
           </ul>
         </div>
-        <div className="mb-4 border-b border-gray-200 dark:border-gray-700">
+        <div className="mb-4 border-b border-gray-200 dark:border-gray-700 rounded-lg my-6">
           <div id="myTabContent">
             <div className="flex">
               <div
-                className="p-4 bg-gray-100 rounded-lg dark:bg-gray-800 w-[75%] max-w-full overflow-y-auto"
+                className="p-4  w-[75%] max-w-full overflow-y-auto"
                 id="reviews"
                 ref={reviews}
                 role="tabpanel"

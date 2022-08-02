@@ -152,179 +152,186 @@ const Review = ({ review, user, setShowLoginModal }) => {
     setComments([...comments, comment]);
   }
   return (
-    <>
-      {/* top section of review */}
-      <div className="flex items-cetner justify-between p-6 ">
-        <div className=" flex">
-          {/* user image  */}
-          <div>
-            <Image
-              loader={() => review.profile.avatar}
-              src={review.profile.avatar}
-              alt={review.profile.name}
-              width={60}
-              height={60}
-              className="rounded-full mr-2"
-            />
-          </div>
-          {/* profile desc  */}
-          <div className="flex flex-col px-3">
-            <div className="text-md font-semibold ">Short Description</div>
-            <div className="flex my-2">
-              <div className="flex">
-                <div className="text-sm font-semibold">Age</div>
-                <div className="text-sm  opacity-60 mx-2">
-                  {review.profile.age}
+    <div className="bg-gray-100 rounded-lg dark:bg-gray-800 my-6 px-10">
+      <div className="p-4 border-b ">
+        {/* top section of review */}
+        <div className="flex items-cetner justify-between ">
+          <div className=" flex">
+            {/* user image  */}
+            <div>
+              <Image
+                loader={() => review.profile.avatar}
+                src={review.profile.avatar}
+                alt={review.profile.name}
+                width={60}
+                height={60}
+                className="rounded-full mr-2"
+              />
+            </div>
+            {/* profile desc  */}
+            <div className="flex flex-col px-3">
+              <div className="text-md font-semibold ">Short Description</div>
+              <div className="flex my-2">
+                <div className="flex">
+                  <div className="text-sm font-semibold">Age</div>
+                  <div className="text-sm  opacity-60 mx-2">
+                    {review.profile.age}
+                  </div>
                 </div>
-              </div>
-              <div className="flex">
-                <div className="text-sm font-semibold">Skin Type:</div>
-                <div className="text-sm  opacity-60 mx-2">
-                  {review.profile.skin_type.data[0].name}
+                <div className="flex">
+                  <div className="text-sm font-semibold">Skin Type:</div>
+                  <div className="text-sm  opacity-60 mx-2">
+                    {review.profile.skin_type.data[0].name}
+                  </div>
                 </div>
-              </div>
-              <div className="flex">
-                <div className="text-sm font-semibold">Days use:</div>
-                <div className="text-sm  opacity-60 mx-2">
-                  {review.days_used}
+                <div className="flex">
+                  <div className="text-sm font-semibold">Days use:</div>
+                  <div className="text-sm  opacity-60 mx-2">
+                    {review.days_used}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+          <div className="flex justify-end ">
+            <RatingStar
+              rating={Array.from(Array(review.rating).keys())}
+              starHeight={20}
+              starWidth={20}
+            />
+          </div>
         </div>
-        <div className="flex justify-end ">
-          <RatingStar
-            rating={Array.from(Array(review.rating).keys())}
-            starHeight={20}
-            starWidth={20}
-          />
-        </div>
-      </div>
-      {/* body section of review */}
-      <div className="flex flex-col ">
-        {/* liked section  */}
-        <div className="px-7 py-4 mb-4">
-          <span className="text-sm font-semibold">what I Liked</span>:
-          <sapn className="text-sm opacity-60 ml-2">
-            {review.liking_factors}
-          </sapn>
-        </div>
-        {/* dislike section  */}
-        <div className="px-7 py-4 mb-4">
-          <span className="text-sm font-semibold">what I Liked</span>:
-          <sapn className="text-sm  opacity-60 ml-2">
-            {review.disliking_facotrs}
-          </sapn>
-        </div>
-        {/* image section  */}
-        <div className="px-6 rounded-md">
-          {review.image != null ? (
-            <Image
-              loader={() => {
-                return review.image;
-              }}
-              src={review.image}
-              alt={review.image}
-              width={300}
-              height={200}
-              className="py-4"
+        {/* body section of review */}
+        <div className="flex flex-col ">
+          {/* liked section  */}
+          <div className="px-7 py-4 mb-4">
+            <span className="text-sm font-semibold">what I Liked</span>:
+            <sapn className="text-sm opacity-60 ml-2">
+              {review.liking_factors}
+            </sapn>
+          </div>
+          {/* dislike section  */}
+          <div className="px-7 py-4 mb-4">
+            <span className="text-sm font-semibold">what I Liked</span>:
+            <sapn className="text-sm  opacity-60 ml-2">
+              {review.disliking_facotrs}
+            </sapn>
+          </div>
+          {/* image section  */}
+          <div className="px-6 rounded-md">
+            {review.image != null ? (
+              <Image
+                loader={() => {
+                  return review.image;
+                }}
+                src={review.image}
+                alt={review.image}
+                width={300}
+                height={200}
+                className="py-4"
+              />
+            ) : (
+              <></>
+            )}
+          </div>
+          {/* like dislike section  */}
+          <div className="my-6 px-6 flex justify-between items-center">
+            <div className="flex justify-start items-center">
+              <sapn className="text-sm opacity-60 ml-2">
+                {review.created_at}
+              </sapn>
+            </div>
+            <div className="flex justify-end items-center">
+              <div className="flex" onClick={handleClickComment}>
+                <div className="px-2">
+                  <Image
+                    src="/comment.PNG"
+                    alt={review.likes}
+                    width={20}
+                    height={20}
+                    className="py-4"
+                  />
+                </div>
+                <div className="text-sm font-medium">Reply:</div>
+                <div className="text-sm  opacity-60 mx-2">
+                  {`(${review.likes})`}
+                </div>
+              </div>
+              <div className="flex">
+                <div className="px-2">
+                  <Image
+                    src="/dislike_icon.png"
+                    alt={review.dislikes}
+                    width={20}
+                    height={20}
+                    className=""
+                  />
+                </div>
+
+                {dislikeable ? (
+                  <div
+                    className="text-sm  opacity-100 mx-2"
+                    onClick={handleClickDislike}
+                  >
+                    Dislike
+                  </div>
+                ) : (
+                  <div
+                    className="text-sm  opacity-100 mx-2 text-red-600"
+                    onClick={handleClickDislike}
+                  >
+                    Dislike
+                  </div>
+                )}
+                <div className="text-sm  opacity-60 mx-2">{`(${dislikes})`}</div>
+              </div>
+              <div className="flex">
+                <div className="px-2">
+                  <Image
+                    src="/love_icon.png"
+                    alt={review.likes}
+                    width={20}
+                    height={20}
+                    className=""
+                  />
+                </div>
+                {likeable ? (
+                  <div
+                    className="text-sm font-medium"
+                    onClick={handleClickLike}
+                  >
+                    Like:
+                  </div>
+                ) : (
+                  <div
+                    className="text-sm font-medium text-red-600"
+                    onClick={handleClickLike}
+                  >
+                    UnLike:
+                  </div>
+                )}
+                <div className="text-sm  opacity-60 mx-2">{`(${dislikes})`}</div>
+              </div>
+            </div>
+          </div>
+          {/* comment section  */}
+          {cancomment ? (
+            <CommentForm
+              url={`api/comments/store`}
+              model={review}
+              parent_id={null}
+              modelName={`review`}
+              user={user}
+              handleClick={setShowLoginModal}
+              addComment={addComment}
             />
           ) : (
             <></>
           )}
         </div>
-        {/* like dislike section  */}
-        <div className="my-6 px-6 flex justify-between items-center">
-          <div className="flex justify-start items-center">
-            <sapn className="text-sm opacity-60 ml-2">{review.created_at}</sapn>
-          </div>
-          <div className="flex justify-end items-center">
-            <div className="flex" onClick={handleClickComment}>
-              <div className="px-2">
-                <Image
-                  src="/comment.PNG"
-                  alt={review.likes}
-                  width={20}
-                  height={20}
-                  className="py-4"
-                />
-              </div>
-              <div className="text-sm font-medium">Reply:</div>
-              <div className="text-sm  opacity-60 mx-2">
-                {`(${review.likes})`}
-              </div>
-            </div>
-            <div className="flex">
-              <div className="px-2">
-                <Image
-                  src="/dislike_icon.png"
-                  alt={review.dislikes}
-                  width={20}
-                  height={20}
-                  className=""
-                />
-              </div>
-
-              {dislikeable ? (
-                <div
-                  className="text-sm  opacity-100 mx-2"
-                  onClick={handleClickDislike}
-                >
-                  Dislike
-                </div>
-              ) : (
-                <div
-                  className="text-sm  opacity-100 mx-2 text-red-600"
-                  onClick={handleClickDislike}
-                >
-                  Dislike
-                </div>
-              )}
-              <div className="text-sm  opacity-60 mx-2">{`(${dislikes})`}</div>
-            </div>
-            <div className="flex">
-              <div className="px-2">
-                <Image
-                  src="/love_icon.png"
-                  alt={review.likes}
-                  width={20}
-                  height={20}
-                  className=""
-                />
-              </div>
-              {likeable ? (
-                <div className="text-sm font-medium" onClick={handleClickLike}>
-                  Like:
-                </div>
-              ) : (
-                <div
-                  className="text-sm font-medium text-red-600"
-                  onClick={handleClickLike}
-                >
-                  UnLike:
-                </div>
-              )}
-              <div className="text-sm  opacity-60 mx-2">{`(${dislikes})`}</div>
-            </div>
-          </div>
-        </div>
-        {/* comment section  */}
-        {cancomment ? (
-          <CommentForm
-            url={`api/comments/store`}
-            model={review}
-            parent_id={null}
-            modelName={`review`}
-            user={user}
-            handleClick={setShowLoginModal}
-            addComment={addComment}
-          />
-        ) : (
-          <></>
-        )}
       </div>
-      <hr className="px-6"></hr>
-    </>
+      {comments.length > 0 ? <></> : <>fuck</>}
+    </div>
   );
 };
 
