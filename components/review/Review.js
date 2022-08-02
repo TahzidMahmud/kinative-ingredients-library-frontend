@@ -1,7 +1,7 @@
 import RatingStar from "@/components/RatingStar";
 import Image from "next/image";
 import axios from "@/lib/axios";
-import { useAuth } from "@/hooks/auth";
+import CommentForm from "../comment/CommentForm";
 
 import { useState, useEffect, setModal } from "react";
 
@@ -10,6 +10,8 @@ const Review = ({ review, user, setShowLoginModal }) => {
   const [dislikeable, setDisLikebale] = useState(true);
   const [likes, setLikes] = useState(review.likes);
   const [dislikes, setDislikes] = useState(review.dislikes);
+  const [comments, setComments] = useState([...review.comments.data]);
+  const [cancomment, setCancomment] = useState(false);
 
   useEffect(() => {
     canLike();
@@ -138,6 +140,17 @@ const Review = ({ review, user, setShowLoginModal }) => {
       setShowLoginModal(true);
     }
   }
+  function handleClickComment(e) {
+    if (user) {
+      setShowLoginModal(false);
+      setCancomment(true);
+    } else {
+      setShowLoginModal(true);
+    }
+  }
+  function addComment(comment) {
+    setComments([...comments, comment]);
+  }
   return (
     <>
       {/* top section of review */}
@@ -226,7 +239,7 @@ const Review = ({ review, user, setShowLoginModal }) => {
             <sapn className="text-sm opacity-60 ml-2">{review.created_at}</sapn>
           </div>
           <div className="flex justify-end items-center">
-            <div className="flex">
+            <div className="flex" onClick={handleClickComment}>
               <div className="px-2">
                 <Image
                   src="/comment.PNG"
@@ -295,6 +308,20 @@ const Review = ({ review, user, setShowLoginModal }) => {
             </div>
           </div>
         </div>
+        {/* comment section  */}
+        {cancomment ? (
+          <CommentForm
+            url={`api/comments/store`}
+            model={review}
+            parent_id={null}
+            modelName={`review`}
+            user={user}
+            handleClick={setShowLoginModal}
+            addComment={addComment}
+          />
+        ) : (
+          <></>
+        )}
       </div>
       <hr className="px-6"></hr>
     </>
