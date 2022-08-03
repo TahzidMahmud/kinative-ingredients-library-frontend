@@ -22,7 +22,7 @@ const Reply = ({ reply }) => {
         <div className="block p-6 bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 w-6/12 my-4">
           <div className="flex mb-3">
             <span className="opacity-100 font-semibold text-sm mx-2">
-              {reply.autor.name}
+              {reply.author.name}
             </span>
             <span className="opacity-60 text-sm mx-2">{reply.created_at}</span>
           </div>
@@ -36,7 +36,7 @@ const Reply = ({ reply }) => {
                   return reply.image;
                 }}
                 src={reply.image}
-                alt={reply.autor.name}
+                alt={reply.author.name}
                 width={300}
                 height={200}
                 className="py-4"

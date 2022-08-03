@@ -6,18 +6,23 @@ import { useState, useEffect } from "react";
 
 const Comment = ({
   user,
-  blog,
+  model,
+  modelName,
   comment,
   canlikeComment,
   setShowLoginModal,
 }) => {
   const [canlike, setCanlike] = useState(canlikeComment);
+  const [candislike, setCandislike] = useState(canlikeComment);
   const [canreply, setCanreply] = useState(false);
   const [replies, setReplies] = useState(comment.reply);
   const [likes, setLikes] = useState(comment.likes);
+  const [dislikes, setDislikes] = useState(comment.dislikes);
+
   useEffect(() => {
     if (user) {
       likedBefore();
+      dislikedBefore();
     }
   }, [user]);
   function likedBefore() {
@@ -41,6 +46,29 @@ const Comment = ({
         });
     } else {
       setCanlike(true);
+    }
+  }
+  function dislikedBefore() {
+    if (typeof user !== "undefined") {
+      setCandislike(true);
+    } else {
+      setCandislike(false);
+    }
+    if (user) {
+      axios
+        .post("/api/comment/dislikeable", {
+          comment_id: comment.id,
+          user_id: user.id,
+        })
+        .then((res) => {
+          if (res.data.success) {
+            setCandislike(true);
+          } else {
+            setCandislike(false);
+          }
+        });
+    } else {
+      setCandislike(true);
     }
   }
   function likeComment() {
@@ -85,6 +113,50 @@ const Comment = ({
         // setErrors(Object.values(error.response.data.errors).flat());
       });
   }
+
+  function dislikeComment() {
+    if (typeof user === "undefined") {
+      setShowLoginModal(true);
+    } else {
+      axios
+        .post("api/comment/dislike", {
+          comment_id: comment.id,
+          user_id: user.id,
+        })
+        .then((res) => {
+          if (res.data.success) {
+            setCandislike(false);
+          } else {
+            setCandislike(true);
+          }
+          setDislikes(res.data.dislikes);
+        })
+        .catch((error) => {
+          // if (error.response.status !== 422) throw error;
+          // setErrors(Object.values(error.response.data.errors).flat());
+        });
+    }
+  }
+  function undislikeComment() {
+    axios
+      .post("api/comment/undislike", {
+        comment_id: comment.id,
+        user_id: user.id,
+      })
+      .then((res) => {
+        if (res.data.success) {
+          setCandislike(true);
+        } else {
+          setCandislike(false);
+        }
+        setDislikes(res.data.dislikes);
+      })
+      .catch((error) => {
+        // if (error.response.status !== 422) throw error;
+        // setErrors(Object.values(error.response.data.errors).flat());
+      });
+  }
+
   function replyComment() {
     if (typeof user === "undefined") {
       setShowLoginModal(true);
@@ -98,58 +170,136 @@ const Comment = ({
   }
   return (
     <>
-      <div className="flex my-4 ">
-        <div>
-          <Image
-            src="/avatar.PNG"
-            alt={comment.name}
-            width={60}
-            height={60}
-            className="py-4"
-          />
-        </div>
-        <div className="block p-6 bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 w-8/12">
-          <div className="flex mb-3">
-            <span className="opacity-100 font-semibold text-sm mx-2">
-              {comment.autor.name}
-            </span>
-            <span className="opacity-60 text-sm mx-2">
-              {comment.created_at}
-            </span>
+      {/* top section of comment */}
+      <div className="flex items-cetner justify-start ml-20 my-6">
+        <div className=" flex">
+          {/* user image  */}
+          <div>
+            <Image
+              loader={() => comment.author.avatar}
+              src={comment.author.avatar}
+              alt={comment.author.name}
+              width={60}
+              height={60}
+              className="rounded-full mr-2"
+            />
           </div>
-          <p className="font-normal text-gray-700 dark:text-gray-400">
-            {comment.body}
-          </p>
-          <div className="p-3 rounded-lg">
-            {comment.image != null ? (
-              <Image
-                loader={() => {
-                  return comment.image;
-                }}
-                src={comment.image}
-                alt={comment.autor.name}
-                width={300}
-                height={200}
-                className="py-4"
-              />
-            ) : (
-              <></>
-            )}
+          {/* profile desc  */}
+          <div className="flex flex-col px-3">
+            <div className="text-md font-semibold ">Short Description</div>
+            <div className="flex my-2">
+              <div className="flex">
+                <div className="text-sm font-semibold">Age</div>
+                <div className="text-sm  opacity-60 mx-2">
+                  {comment.author.age}
+                </div>
+              </div>
+              <div className="flex">
+                <div className="text-sm font-semibold">Skin Type:</div>
+                <div className="text-sm  opacity-60 mx-2">
+                  {comment.author.skin_type.data[0].name}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <div className="flex pt-3 px-6">
-        {canlike === true ? (
-          <div className="flex mx-2" onClick={likeComment}>
-            {likes} Likes
+      <div className="flex flex-col ml-20">
+        <div className="px-7 py-1 mb-4">
+          <sapn className="text-sm opacity-60">{comment.body}</sapn>
+        </div>
+        <div className="p-3 rounded-lg">
+          {comment.image != null ? (
+            <Image
+              loader={() => {
+                return comment.image;
+              }}
+              src={comment.image}
+              alt={comment.author.name}
+              width={300}
+              height={200}
+              className="py-4"
+            />
+          ) : (
+            <></>
+          )}
+        </div>
+        {/* like dislike section  */}
+        <div className="my-6 px-6 flex justify-between items-center">
+          <div className="flex justify-start items-center">
+            <sapn className="text-sm opacity-60 ml-2">
+              {comment.created_at}
+            </sapn>
           </div>
-        ) : (
-          <div className="flex mx-2" onClick={unlikeComment}>
-            {likes} <span className="text-red-400">Unlikes</span>
+          <div className="flex justify-end items-center">
+            <div className="flex" onClick={replyComment}>
+              <div className="px-2">
+                <Image
+                  src="/comment.PNG"
+                  alt={comment.likes}
+                  width={20}
+                  height={20}
+                  className="py-4"
+                />
+              </div>
+              <div className="text-sm font-medium">Reply:</div>
+              <div className="text-sm  opacity-60 mx-2">
+                {`(${comment.reply.length})`}
+              </div>
+            </div>
+            <div className="flex">
+              <div className="px-2">
+                <Image
+                  src="/dislike_icon.png"
+                  alt={comment.dislikes}
+                  width={20}
+                  height={20}
+                  className=""
+                />
+              </div>
+
+              {candislike ? (
+                <div
+                  className="text-sm  opacity-100 mx-2"
+                  onClick={dislikeComment}
+                >
+                  Dislike
+                </div>
+              ) : (
+                <div
+                  className="text-sm  opacity-100 mx-2 text-red-600"
+                  onClick={undislikeComment}
+                >
+                  Dislike
+                </div>
+              )}
+              <div className="text-sm  opacity-60 mx-2">{`(${dislikes})`}</div>
+            </div>
+            <div className="flex">
+              <div className="px-2">
+                <Image
+                  src="/love_icon.png"
+                  alt={comment.likes}
+                  width={20}
+                  height={20}
+                  className=""
+                />
+              </div>
+              {canlike === true ? (
+                <div className="text-sm font-medium" onClick={likeComment}>
+                  Like:
+                </div>
+              ) : (
+                <div
+                  className="text-sm font-medium text-red-600"
+                  onClick={unlikeComment}
+                >
+                  UnLike:
+                </div>
+              )}
+              <div className="text-sm  opacity-60 mx-2">{`(${likes})`}</div>
+            </div>
           </div>
-        )}
-        <div className="flex mx-2 " onClick={replyComment}>
-          Reply
         </div>
       </div>
 
@@ -157,9 +307,9 @@ const Comment = ({
         <div className="md:px-16">
           <CommentForm
             url={`api/comments/store`}
-            model={blog}
+            model={model}
             parent_id={comment.id}
-            modelName={`blog`}
+            modelName={modelName}
             user={user}
             handleClick={null}
             addComment={addReply}

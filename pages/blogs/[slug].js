@@ -186,7 +186,8 @@ const Blog = ({ blog, trendingBlogs }) => {
               <Comment
                 key={index}
                 user={user}
-                blog={blog}
+                model={blog}
+                modelName={`blog`}
                 comment={comment}
                 canlikeComment={canlikeComment}
                 setShowLoginModal={setShowLoginModal}

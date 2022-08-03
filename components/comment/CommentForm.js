@@ -33,6 +33,9 @@ const CommentForm = ({
         formData.append("parent_id", parent_id);
       }
       formData.append("body", comment);
+      formData.append("image", cmntimage);
+      formData.append("imgname", imageInput.current.value);
+
       axios
         .post(`${url}`, formData, {
           headers: {

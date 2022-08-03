@@ -15,6 +15,7 @@ const Navigation = ({ user }) => {
   const router = useRouter();
 
   const { logout } = useAuth();
+  const { login } = useAuth();
 
   const [open, setOpen] = useState(false);
 
@@ -94,7 +95,18 @@ const Navigation = ({ user }) => {
               }
             >
               {/* Authentication */}
-              <DropdownButton onClick={logout}>Logout</DropdownButton>
+              {console.log(user)}
+              {user ? (
+                <DropdownButton onClick={logout}>Logout</DropdownButton>
+              ) : (
+                <DropdownButton
+                  onClick={() => {
+                    router.push("/login");
+                  }}
+                >
+                  Log In
+                </DropdownButton>
+              )}
             </Dropdown>
           </div>
 

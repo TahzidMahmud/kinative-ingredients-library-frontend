@@ -2,6 +2,7 @@ import RatingStar from "@/components/RatingStar";
 import Image from "next/image";
 import axios from "@/lib/axios";
 import CommentForm from "../comment/CommentForm";
+import Comment from "../comment/Comment";
 
 import { useState, useEffect, setModal } from "react";
 
@@ -254,7 +255,7 @@ const Review = ({ review, user, setShowLoginModal }) => {
                 </div>
                 <div className="text-sm font-medium">Reply:</div>
                 <div className="text-sm  opacity-60 mx-2">
-                  {`(${review.likes})`}
+                  {`(${comments.length})`}
                 </div>
               </div>
               <div className="flex">
@@ -330,7 +331,25 @@ const Review = ({ review, user, setShowLoginModal }) => {
           )}
         </div>
       </div>
-      {comments.length > 0 ? <></> : <>fuck</>}
+      {comments.length > 0 ? (
+        comments.map((comment, index) => {
+          return (
+            <>
+              <Comment
+                key={index}
+                user={user}
+                model={review}
+                modelName={`review`}
+                comment={comment}
+                canlikeComment={true}
+                setShowLoginModal={setShowLoginModal}
+              />
+            </>
+          );
+        })
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

@@ -15,7 +15,7 @@ const ReviewModal = ({ user, product, show, closeModal, addReview }) => {
   const [inactiverating, setInactiverating] = useState(5);
   const [rating, setRating] = useState(0);
   const imageInput = useRef(null);
-  const [cmntimage, setCmntimage] = useState(null);
+  const [cmntimagereview, setCmntimagereview] = useState(null);
 
   function nextStep() {
     let prevStage = stage;
@@ -33,7 +33,7 @@ const ReviewModal = ({ user, product, show, closeModal, addReview }) => {
     var reader = new FileReader();
     var url = reader.readAsDataURL(imageInput.current.files[0]);
     reader.onloadend = function (e) {
-      setCmntimage(reader.result);
+      setCmntimagereview(reader.result);
     };
   }
   function submitForm() {
@@ -52,7 +52,7 @@ const ReviewModal = ({ user, product, show, closeModal, addReview }) => {
     formData.append("days_used", using);
     formData.append("liking_factors", pros);
     formData.append("disliking_facotrs", cons);
-    formData.append("image", cmntimage);
+    formData.append("image", cmntimagereview);
     formData.append("imgname", imageInput.current.value);
     formData.append("likes", 0);
     formData.append("dislikes", 0);
@@ -220,11 +220,11 @@ const ReviewModal = ({ user, product, show, closeModal, addReview }) => {
                 className="hidden"
               />
             </div>
-            {cmntimage != null && stage == 4 ? (
+            {cmntimagereview != null && stage == 4 ? (
               <div className="mx-2 my-2 flex items-center justify-between px-6">
                 <Image
-                  loader={() => cmntimage}
-                  src={cmntimage}
+                  loader={() => cmntimagereview}
+                  src={cmntimagereview}
                   alt={`profile-image`}
                   width={150}
                   height={150}
@@ -233,7 +233,7 @@ const ReviewModal = ({ user, product, show, closeModal, addReview }) => {
                 <div
                   className="bg-white text-black md:p-4 sm:p-3 h-6 w-6 rounded-2xl flex justify-center items-center"
                   onClick={() => {
-                    setCmntimage(null);
+                    setCmntimagereview(null);
                   }}
                 >
                   <span>x</span>
@@ -276,7 +276,7 @@ const ReviewModal = ({ user, product, show, closeModal, addReview }) => {
                   {(stage == 1 && pros != null) ||
                   (stage == 2 && cons != null) ||
                   (stage == 3 && using != 0) ||
-                  (stage == 4 && cmntimage != null) ? (
+                  (stage == 4 && cmntimagereview != null) ? (
                     <Button className="ml-4" onClick={nextStep}>
                       Next
                     </Button>
