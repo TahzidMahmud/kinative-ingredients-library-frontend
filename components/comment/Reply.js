@@ -2,52 +2,71 @@ import Image from "next/image";
 
 const Reply = ({ reply }) => {
   return (
-    <>
-      <div className="flex ">
-        <div className="w-1/12"></div>
-        <div className="w-1/12 border-l border-sky-500 ">
-          <div className="flex justify-center items-center ">
-            <div className="border-dashed border-b border-sky-500 w-[100%] mt-10"></div>
+    <div className="ml-36">
+      <hr></hr>
+      {/* top section of reply */}
+      <div className="flex items-cetner justify-start  my-6">
+        <div className=" flex">
+          {/* user image  */}
+          <div>
+            <Image
+              loader={() => reply.author.avatar}
+              src={reply.author.avatar}
+              alt={reply.author.name}
+              width={60}
+              height={60}
+              className="rounded-full mr-2"
+            />
           </div>
-        </div>
-        <div>
-          <Image
-            src="/avatar.PNG"
-            alt={reply.name}
-            width={60}
-            height={60}
-            className="py-4 my-4"
-          />
-        </div>
-        <div className="block p-6 bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 w-6/12 my-4">
-          <div className="flex mb-3">
-            <span className="opacity-100 font-semibold text-sm mx-2">
-              {reply.author.name}
-            </span>
-            <span className="opacity-60 text-sm mx-2">{reply.created_at}</span>
-          </div>
-          <p className="font-normal text-gray-700 dark:text-gray-400">
-            {reply.body}
-          </p>
-          <div className="p-3 rounded-lg">
-            {reply.image != null ? (
-              <Image
-                loader={() => {
-                  return reply.image;
-                }}
-                src={reply.image}
-                alt={reply.author.name}
-                width={300}
-                height={200}
-                className="py-4"
-              />
-            ) : (
-              <></>
-            )}
+          {/* profile desc  */}
+          <div className="flex flex-col px-3">
+            <div className="text-md font-semibold ">Short Description</div>
+            <div className="flex my-2">
+              <div className="flex">
+                <div className="text-sm font-semibold">Age</div>
+                <div className="text-sm  opacity-60 mx-2">
+                  {reply.author.age}
+                </div>
+              </div>
+              <div className="flex">
+                <div className="text-sm font-semibold">Skin Type:</div>
+                <div className="text-sm  opacity-60 mx-2">
+                  {/* {reply.author.skin_type.data[0].name} */}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </>
+      <div className="flex flex-col">
+        <div className="px-7 py-1 mb-4">
+          <sapn className="text-sm opacity-60">{reply.body}</sapn>
+        </div>
+        <div className="p-3 rounded-lg">
+          {reply.image != null ? (
+            <Image
+              loader={() => {
+                return reply.image;
+              }}
+              src={reply.image}
+              alt={reply.author.name}
+              width={300}
+              height={200}
+              className="py-4"
+            />
+          ) : (
+            <></>
+          )}
+        </div>
+        {/* like dislike section  */}
+        <div className="my-6 px-6 flex justify-between items-center">
+          <div className="flex justify-start items-center">
+            <sapn className="text-sm opacity-60 ml-2">{reply.created_at}</sapn>
+          </div>
+        </div>
+      </div>
+      <hr></hr>
+    </div>
   );
 };
 
