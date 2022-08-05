@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Input from "@/components/Input";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Label from "@/components/Label";
 import Image from "next/image";
 import DatePicker from "react-datepicker";
@@ -14,12 +14,15 @@ const ProfileEditModal = ({
   Concerns,
   Skintypes,
 }) => {
+  const [cmntimage, setCmntimage] = useState(null);
+
   const [name, setName] = useState(profile.user.name);
   const [email, setEmail] = useState(profile.user.email);
   const [phone, setPhone] = useState(profile.user.phone);
   const [concerns, setConcerns] = useState([profile.concern.data[0].id]);
   const [skinTypes, setSkinTypes] = useState([profile.skin_type.data[0].id]);
   const [datechange, setDatechange] = useState(null);
+  const imageInput = useRef(null);
 
   const [dateValues, timeValues] = profile.birth_day.split(" ");
   const [month, day, year] = dateValues.split("/");
@@ -63,18 +66,27 @@ const ProfileEditModal = ({
     document.head.appendChild(aScript);
     aScript.onload = () => {};
   }, []);
-
+  function convertImage() {
+    var reader = new FileReader();
+    var url = reader.readAsDataURL(imageInput.current.files[0]);
+    reader.onloadend = function (e) {
+      setCmntimage(reader.result);
+    };
+  }
   function submitForm(event) {
     event.preventDefault();
     let formData = new FormData();
-    formData.append("userid", user.id);
     formData.append("concerns", JSON.stringify(concerns));
     formData.append("skinTypes", JSON.stringify(skinTypes));
     formData.append("birth_date", Math.floor(birthtDate.getTime() / 1000));
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("phone", phone);
     formData.append("image", cmntimage);
     formData.append("imgname", imageInput.current.value);
+
     axios
-      .post("/api/profiles", formData, {
+      .post(`/api/profiles/${profile.id}/update`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -334,6 +346,66 @@ const ProfileEditModal = ({
                           className="bg-gray-50 border-none text-gray-900 sm:text-sm rounded-lg  block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white "
                         />
                       </div>
+                      {/* cover image stage*/}
+                      <div
+                        className={`flex flex-col justify-center items-center`}
+                      >
+                        <Label htmlFor="name" className="text-xl">
+                          Upload Profile Image
+                        </Label>
+
+                        <button
+                          type="button"
+                          className="inline-flex justify-center p-2 text-gray-500 rounded-lg cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600"
+                          htmlFor="imageInput"
+                          onClick={() => imageInput.current.click()}
+                        >
+                          <svg
+                            aria-hidden="true"
+                            className="w-6 h-6"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
+                              clipRule="evenodd"
+                            ></path>
+                          </svg>
+                          <span className="sr-only">Upload image</span>
+                        </button>
+                        <input
+                          ref={imageInput}
+                          type="file"
+                          name="imageInput"
+                          multiple="true"
+                          onChange={convertImage}
+                          className="hidden"
+                        />
+                      </div>
+                      {cmntimage != null ? (
+                        <div className="mx-2 my-2 flex items-center justify-between">
+                          <Image
+                            loader={() => cmntimage}
+                            src={cmntimage}
+                            alt={`profile-image`}
+                            width={150}
+                            height={150}
+                            className="py-6 border border-red-400 rounded-lg m-1"
+                          />
+                          <div
+                            className="bg-white text-black md:p-4 sm:p-3 h-6 w-6 rounded-2xl flex justify-center items-center"
+                            onClick={() => {
+                              setCmntimage(null);
+                            }}
+                          >
+                            <span>x</span>
+                          </div>
+                        </div>
+                      ) : (
+                        <></>
+                      )}
                     </div>
 
                     <button
