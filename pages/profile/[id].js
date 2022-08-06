@@ -7,10 +7,25 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
 
-const Profile = ({ Concerns, SkinTypes, Profile }) => {
+const Profile = ({ Concerns, SkinTypes, Profile, Wishlist }) => {
   const [editProfile, setEditProfile] = useState(false);
+  const [wishlist, setWishlist] = useState(Wishlist);
+
   function closeModal() {
     setEditProfile(false);
+  }
+  function deleteWishlist(id) {
+    axios
+      .delete(`/api/collections/${id}`)
+      .then((res) => {
+        if (res.data.success) {
+          let newWishlist = wishlist.filter((item) => item.id !== id);
+          setWishlist(newWishlist);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
   return (
     <AppLayout
@@ -24,7 +39,7 @@ const Profile = ({ Concerns, SkinTypes, Profile }) => {
         <title>Laravel </title>
       </Head>
 
-      <div className="flex items-center p-10">
+      <div className="flex  p-10">
         {/* left section  */}
         <div className="md:min-w-[30%] px-2 border-r">
           <div className="flex flex-col items-center justify-center">
@@ -48,13 +63,13 @@ const Profile = ({ Concerns, SkinTypes, Profile }) => {
           <div className="p-6 w-full h-96 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 ">
             <div className="flex justify-between imtes-center border-b pb-2">
               <div className="flex items-center ">
-                <Image
+                {/* <Image
                   src="/user.gif"
                   alt={Profile.user.name}
                   width={70}
                   height={70}
                   className="py-2"
-                />
+                /> */}
                 <span className="text-xl font-semibold px-1">About</span>
                 {Profile.rank !== null ? (
                   <button className="rounded-full bg-emerald-300 p-3 text-white text-sm mx-2">
@@ -74,7 +89,7 @@ const Profile = ({ Concerns, SkinTypes, Profile }) => {
                   setEditProfile(true);
                 }}
               >
-                <div className="p-4 bg-stone-100 rounded-full">
+                <div className="p-4 bg-stone-100 rounded-full flex justify-center items-center">
                   <Image
                     src="/edit.svg"
                     alt={Profile.user.name}
@@ -143,6 +158,64 @@ const Profile = ({ Concerns, SkinTypes, Profile }) => {
               </div>
             </div>
           </div>
+
+          <div
+            className={`p-6 w-full ${
+              wishlist.length > 0 ? "h-96" : "d-none"
+            }  bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 my-6 overflow-y-auto`}
+          >
+            {wishlist.length > 0 ? (
+              <div className="text-center font-bold text-lg border-b pb-1">
+                Product Wishlist
+              </div>
+            ) : (
+              <> </>
+            )}
+            <div className="grid grid-cols-1 my-4">
+              {wishlist.length > 0 ? (
+                wishlist.map((wish, index) => (
+                  <div
+                    key={index}
+                    className="flex justify-between items-center my-1"
+                  >
+                    <div className="flex items-center">
+                      <Image
+                        loader={() => wish.image}
+                        src={wish.image}
+                        alt={wish.name}
+                        width={60}
+                        height={60}
+                        className="py-6 border border-blue-500 rounded-sm"
+                      />
+                    </div>
+                    <div className="flex  justify-start items-center cursor-pointer">
+                      <Link href={`/products/${wish.slug}`}>
+                        <div className="font-base text-md mx-4">
+                          {wish.name}
+                        </div>
+                      </Link>
+                    </div>
+                    <div
+                      className="p-2 rounded-full bg-gray-200 flex justify-center items-center"
+                      onClick={() => {
+                        deleteWishlist(wish.id);
+                      }}
+                    >
+                      <Image
+                        src="/trash-icon.svg"
+                        alt={wish.name}
+                        width={20}
+                        height={20}
+                        className="py-6 border border-blue-500 rounded-sm"
+                      />
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <></>
+              )}
+            </div>
+          </div>
         </div>
         {editProfile ? (
           <div className="h-2/3">
@@ -188,6 +261,7 @@ export async function getServerSideProps(context) {
       Concerns: concerns.data,
       SkinTypes: skinTypes.data,
       Profile: profile.data,
+      Wishlist: profile.data.wish_list.data,
     },
   };
 }

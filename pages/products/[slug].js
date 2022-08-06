@@ -26,10 +26,13 @@ const Product = ({ product }) => {
   const [currentpage, setCurrentpage] = useState(1);
   const [viewmore, setViewmore] = useState(false);
   const [productreviews, setProductreviews] = useState([]);
+  const [cansave, setCansave] = useState(true);
 
   useEffect(() => {
     setIsSSR(false);
     // setProductreviews(product.revirews.data);
+
+    canSave();
     canLike();
     canReview();
     getProductreviews();
@@ -154,6 +157,49 @@ const Product = ({ product }) => {
         // setErrors(Object.values(error.response.data.errors).flat());
       });
   }
+  function canSave() {
+    if (user) {
+      axios
+        .post("api/collection/can-save", {
+          product_id: product.id,
+          user_id: user.id,
+        })
+        .then((res) => {
+          if (res.data.success) {
+            setCansave(true);
+          } else {
+            setCansave(false);
+          }
+        })
+        .catch((error) => {
+          // if (error.response.status !== 422) throw error;
+          // setErrors(Object.values(error.response.data.errors).flat());
+        });
+    }
+  }
+  function saveToCollection() {
+    if (user) {
+      setShowLoginModal(false);
+      axios
+        .post("api/collections", {
+          product_id: product.id,
+          user_id: user.id,
+        })
+        .then((res) => {
+          if (res.data.success) {
+            setCansave(false);
+          } else {
+            setCansave(true);
+          }
+        })
+        .catch((error) => {
+          // if (error.response.status !== 422) throw error;
+          // setErrors(Object.values(error.response.data.errors).flat());
+        });
+    } else {
+      setShowLoginModal(true);
+    }
+  }
   return (
     <AppLayout
       header={
@@ -190,7 +236,7 @@ const Product = ({ product }) => {
                   </h1>
                 </div>
                 <div className="flex justify-between">
-                  <div className="flex mr-4">
+                  <div className="flex mr-4" onClick={saveToCollection}>
                     <div className="mx-2">
                       <Image
                         src="/collection_icon.png"
@@ -201,7 +247,11 @@ const Product = ({ product }) => {
                       />
                     </div>
                     <div className="text-sm opacity-80 mb-4">
-                      Save to collection
+                      {cansave ? (
+                        <span>Save to collection</span>
+                      ) : (
+                        <span className="text-red-400">Saved</span>
+                      )}
                     </div>
                   </div>
                   <div className="flex">
