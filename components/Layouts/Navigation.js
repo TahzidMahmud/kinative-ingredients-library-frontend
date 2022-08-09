@@ -100,7 +100,6 @@ const Navigation = ({ user }) => {
               }
             >
               {/* Authentication */}
-              {console.log(user)}
               {user ? (
                 <>
                   <DropdownButton
