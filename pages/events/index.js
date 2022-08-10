@@ -4,7 +4,8 @@ import axios from "@/lib/axios";
 import Link from "next/link";
 import Image from "next/image";
 
-const Events = ({ events }) => {
+const Events = ({ events, winners }) => {
+  // console.log(winners);
   return (
     <AppLayout
       header={
@@ -63,6 +64,34 @@ const Events = ({ events }) => {
           </Link>
         ))}
       </div>
+      <div className="grid grid-flow-col grid-cols-10 grid-rows-1 my-10">
+        <div className="col-span-2 flex flex-col justify-start items-start">
+          <h1 className="text-xl font-bold my-4">Event winners</h1>
+          <div className="flex flex-col w-full">
+            {winners.map((winner, index) => (
+              <div
+                key={index}
+                className="bg-white shadow-sm sm:rounded-lg p-4 my-2 w-full"
+              >
+                <div className="flex items-center">
+                  <Image
+                    loader={() => winner.avatar}
+                    src={winner.avatar}
+                    alt={winner.name}
+                    width={50}
+                    height={50}
+                    className="py-6 rounded-full"
+                  />
+                  <span className="text-md font-medium mx-4">
+                    {winner.name}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="col-span-10">fuck</div>
+      </div>
     </AppLayout>
   );
 };
@@ -78,9 +107,21 @@ export async function getServerSideProps(context) {
       return response.data;
     })
     .catch((error) => console.log(error));
+  const winners = await axios
+    .get("/api/event-winners", {
+      headers: {
+        Cookie: context.req.headers.cookie,
+      },
+    })
+    .then((response) => {
+      console.log(response.data.winners);
+      return response.data.winners;
+    })
+    .catch((error) => console.log(error));
   return {
     props: {
       events: events.data,
+      winners: winners,
     },
   };
 }
