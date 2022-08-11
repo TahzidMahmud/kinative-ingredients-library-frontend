@@ -41,7 +41,7 @@ const Profile = ({ Concerns, SkinTypes, Profile, Wishlist }) => {
 
       <div className="flex  p-10">
         {/* left section  */}
-        <div className="md:min-w-[30%] px-2 border-r">
+        <div className="md:min-w-[30%] px-8 border-r">
           <div className="flex flex-col items-center justify-center">
             {/* image  */}
             <div>
@@ -55,7 +55,15 @@ const Profile = ({ Concerns, SkinTypes, Profile, Wishlist }) => {
               />
             </div>
             {/* details  */}
-            <div></div>
+            <div className="p-6 w-full  h-96 bg-white rounded-lg border border-gray-200 shadow-md cursor-pointer">
+              <ul>
+                <Link href={`/blogs/create`}>
+                  <li className="text-gray-800 border-b py-2 hover:bg-gray-100 hover:text-blue-400 rounded-md">
+                    <span className="font-semibold px-3">Crea New Post</span>
+                  </li>
+                </Link>
+              </ul>
+            </div>
           </div>
         </div>
         {/* right section  */}

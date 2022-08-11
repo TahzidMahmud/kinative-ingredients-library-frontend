@@ -13,4 +13,7 @@
     .c-icon.active {
         fill: var(--star-active);
     }
+    .ql-editor{
+        min-height:30vh!important;
+    }
 }
