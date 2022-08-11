@@ -45,7 +45,7 @@ const Event = ({ event, running_events }) => {
           console.log(err);
         });
     } else {
-      setParticipated(true);
+      setParticipated(false);
     }
   }
   function canParticipate(e) {
