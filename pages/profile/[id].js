@@ -62,6 +62,13 @@ const Profile = ({ Concerns, SkinTypes, Profile, Wishlist }) => {
                     <span className="font-semibold px-3">Crea New Post</span>
                   </li>
                 </Link>
+                <Link href={`/products/Request`}>
+                  <li className="text-gray-800 border-b py-2 hover:bg-gray-100 hover:text-blue-400 rounded-md">
+                    <span className="font-semibold px-3">
+                      Add Review Request
+                    </span>
+                  </li>
+                </Link>
               </ul>
             </div>
           </div>
