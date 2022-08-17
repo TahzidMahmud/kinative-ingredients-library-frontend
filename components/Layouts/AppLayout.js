@@ -1,5 +1,6 @@
 import Navigation from "@/components/Layouts/Navigation";
 import { useAuth } from "@/hooks/auth";
+import Footer from "@/components/Layouts/Footer";
 
 const AppLayout = ({ header, children }) => {
   const { user } = useAuth({ middleware: "guest" });
@@ -7,7 +8,7 @@ const AppLayout = ({ header, children }) => {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <Navigation user={user} />
+      <Navigation className="" user={user} />
 
       {/* Page Heading */}
       {/* <header className="bg-white shadow">
@@ -17,7 +18,8 @@ const AppLayout = ({ header, children }) => {
       </header> */}
 
       {/* Page Content */}
-      <main className="container mx-auto">{children}</main>
+      <main className="container mx-auto ">{children}</main>
+      <Footer />
     </div>
   );
 };

@@ -1,6 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   theme: {
+    extend: {
+      colors: {
+        "footer-bg": "#210373",
+        "copy-bg": "#ff2b03",
+      },
+    },
     minWidth: {
       50: "50%",
       60: "60%",
@@ -13,6 +19,7 @@ module.exports = {
       18: "18%",
       75: "75%",
       100: "100%",
+      // 100: "100vh",
     },
     minHeight: {
       50: "50%",
@@ -26,6 +33,7 @@ module.exports = {
 
     height: {
       128: "32rem",
+      100: "100vh",
     },
   },
   content: [
@@ -34,9 +42,7 @@ module.exports = {
     "node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}",
     "./node_modules/tw-elements/dist/js/**/*.js",
   ],
-  theme: {
-    extend: {},
-  },
+
   plugins: [
     require("flowbite/plugin"),
     require("@tailwindcss/line-clamp"),
