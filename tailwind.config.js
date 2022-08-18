@@ -5,6 +5,7 @@ module.exports = {
       colors: {
         "footer-bg": "#210373",
         "copy-bg": "#ff2b03",
+        "border-color": "#ead05b",
         facebook: "#385899",
         twitter: "#16a2f2",
         instragram: "#be2ea3",
