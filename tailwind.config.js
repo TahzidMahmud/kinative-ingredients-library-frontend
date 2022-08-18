@@ -5,6 +5,11 @@ module.exports = {
       colors: {
         "footer-bg": "#210373",
         "copy-bg": "#ff2b03",
+        facebook: "#385899",
+        twitter: "#16a2f2",
+        instragram: "#be2ea3",
+        youtube: "#ff0000",
+        linkedin: "#0070ae",
       },
     },
     minWidth: {
@@ -34,6 +39,9 @@ module.exports = {
     height: {
       128: "32rem",
       100: "100vh",
+    },
+    width: {
+      3: "3rem",
     },
   },
   content: [
