@@ -3,7 +3,10 @@ import Head from "next/head";
 import axios from "@/lib/axios";
 import Link from "next/link";
 import Image from "next/image";
-const index = ({
+import Slider from "react-slick";
+import { useState } from "react";
+
+const Index = ({
   main_banner,
   site_stats,
   home_brands,
@@ -13,6 +16,123 @@ const index = ({
   events,
   winners,
 }) => {
+  const [settingsblog, setSettingsblog] = useState({
+    dots: false,
+    infinite: true,
+    speed: 400,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    initialSlide: 0,
+    autoplay: true,
+    speed: 2000,
+    autoplaySpeed: 2000,
+    cssEase: "linear",
+    responsive: [
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          initialSlide: 1,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  });
+  const [settingsproducts, setSettingsproducts] = useState({
+    dots: false,
+    infinite: true,
+    speed: 400,
+    slidesToShow: 5,
+    slidesToScroll: 1,
+    initialSlide: 0,
+    autoplay: true,
+    speed: 2000,
+    autoplaySpeed: 2000,
+    cssEase: "linear",
+    responsive: [
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          initialSlide: 1,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  });
+  const [settingsbrands, setSettingsbrands] = useState({
+    dots: false,
+    infinite: true,
+    speed: 400,
+    slidesToShow: 6,
+    slidesToScroll: 1,
+    initialSlide: 0,
+    autoplay: true,
+    speed: 2000,
+    autoplaySpeed: 2000,
+    cssEase: "linear",
+    responsive: [
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          initialSlide: 1,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  });
+  const [settingsingredients, setSettingsingredients] = useState({
+    dots: false,
+    infinite: true,
+    speed: 400,
+    slidesToShow: 6,
+    slidesToScroll: 1,
+    initialSlide: 0,
+    autoplay: true,
+    speed: 2000,
+    autoplaySpeed: 2000,
+    cssEase: "linear",
+    responsive: [
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          initialSlide: 1,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  });
+
   return (
     <>
       <AppLayout
@@ -76,17 +196,19 @@ const index = ({
                 </span>
               </div>
               <div className="flex md:justify-end justify-center">
-                <span className="inline-flex items-center md:px-6 px-2 py-2 md:text-md text-xs text-white font-semibold  bg-[#ff2b03] rounded-md border  border-[#ff2b03] h-6">
-                  View All
-                </span>
+                <Link href={`/blogs`}>
+                  <span className="inline-flex items-center md:px-6 px-2 py-2 md:text-md text-xs text-white font-semibold  bg-[#ff2b03] rounded-md border  border-[#ff2b03] h-6">
+                    View All
+                  </span>
+                </Link>
               </div>
             </div>
             {/* blogs list  */}
-            <div className="grid md:grid-cols-3 grid-cols-1 my-6 gap-5 mb-10">
+            <Slider {...settingsblog}>
               {home_blogs.map((blog, index) => (
                 <div key={index}>
                   <Link href={`/blogs/${blog.slug.toString()}`}>
-                    <>
+                    <div className="px-2">
                       <div className="  rounded-lg dark:bg-gray-800 dark:border-gray-700">
                         <div className="flex flex-col justify-start items-baseline">
                           <div className="z-0">
@@ -162,11 +284,11 @@ const index = ({
                           </div>
                         </div>
                       </div>
-                    </>
+                    </div>
                   </Link>
                 </div>
               ))}
-            </div>
+            </Slider>
             {/* products section  */}
             <div className="grid md:grid-cols-2 grid-cols-1 mb-4 mt-10">
               <div className="flex md:justify-start justify-center items-center">
@@ -178,15 +300,17 @@ const index = ({
                 </span>
               </div>
               <div className="flex md:justify-end justify-center">
-                <span className="inline-flex items-center md:px-6 px-2 py-2 md:text-md text-xs text-white font-semibold  bg-[#ff2b03] rounded-md border  border-[#ff2b03] h-6">
-                  View All
-                </span>
+                <Link href={`/products`}>
+                  <span className="inline-flex items-center md:px-6 px-2 py-2 md:text-md text-xs text-white font-semibold  bg-[#ff2b03] rounded-md border  border-[#ff2b03] h-6">
+                    View All
+                  </span>
+                </Link>
               </div>
             </div>
             {/* products list  */}
-            <div className="grid md:grid-cols-5 grid-cols-2 my-6 gap-4">
+            <Slider {...settingsproducts}>
               {home_products.map((product, index) => (
-                <div key={index}>
+                <div key={index} className="px-1.5">
                   <Link href={`/products/${product.slug}`}>
                     <div className="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
                       <Image
@@ -197,8 +321,8 @@ const index = ({
                         width={300}
                         height={300}
                       />
-                      <div className="px-5 py-2">
-                        <h5 className="mb-2 text-md font-semibold tracking-tight text-gray-900 dark:text-white text-center ">
+                      <div className="px-5 py-2" style={{ height: "6.5rem" }}>
+                        <h5 className="mb-2 text-md font-semibold tracking-tight text-gray-900 dark:text-white text-center">
                           {product.name}
                         </h5>
                         <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 text-center text-sm opacity-70  text-clip overflow-hidden h-10 line-clamp-2">
@@ -238,18 +362,20 @@ const index = ({
                   </Link>
                 </div>
               ))}
-            </div>
+            </Slider>
             {/* brands section  */}
-            <div className="grid grid-cols-2 md:grid-cols-6 py-6 mb-10 gap-4">
+            <Slider {...settingsbrands}>
               {home_brands.map((brand, index) => (
-                <div
-                  key={index}
-                  className="bg-white px-6 py-8 rounded-md drop-shadow-lg flex justify-center items-center truncate "
-                >
-                  <span className="text-sm opacity-70 truncate ">{brand}</span>
+                <div key={index} className="px-2 my-10  drop-shadow-lg  ">
+                  <div className="bg-white rounded-md px-6 py-8 flex justify-center items-center truncate">
+                    {" "}
+                    <span className="text-sm opacity-70 truncate ">
+                      {brand}
+                    </span>
+                  </div>
                 </div>
               ))}
-            </div>
+            </Slider>
             {/* ingredients section  */}
             <div className="grid md:grid-cols-2 grid-cols-1 mb-4 mt-10">
               <div className="flex md:justify-start justify-center items-center">
@@ -261,40 +387,50 @@ const index = ({
                 </span>
               </div>
               <div className="flex md:justify-end justify-center">
-                <span className="inline-flex items-center md:px-6 px-2 py-2 md:text-md text-xs text-white font-semibold  bg-[#ff2b03] rounded-md border  border-[#ff2b03] h-6">
-                  View All
-                </span>
+                <Link href={`/ingredients`}>
+                  <span className="inline-flex items-center md:px-6 px-2 py-2 md:text-md text-xs text-white font-semibold  bg-[#ff2b03] rounded-md border  border-[#ff2b03] h-6">
+                    View All
+                  </span>
+                </Link>
               </div>
             </div>
             {/* ingredients list  */}
-            <div className="grid md:grid-cols-6 grid-cols-2 my-6 gap-4">
+            <Slider {...settingsbrands}>
               {home_ingredients.map((ingredient, index) => (
-                <div key={index} className="bg-white rounded-md">
-                  <Link href={`/ingredients/${ingredient.id.toString()}`}>
-                    <div className=" rounded-md flex flex-col p-4 items-center">
-                      <div className="flex justify-center items-center">
-                        <Image
-                          loader={() => ingredient.thumbnail}
-                          src={ingredient.thumbnail}
-                          alt={ingredient.name}
-                          width={85}
-                          height={85}
-                          className="py-4"
-                        />
+                <div key={index} className="md:px-2 px-1.5 my-3">
+                  <div className="bg-white rounded-md">
+                    <Link href={`/ingredients/${ingredient.id.toString()}`}>
+                      <div className=" rounded-md flex flex-col p-4 items-center">
+                        <div className="flex justify-center items-center">
+                          <Image
+                            loader={() => ingredient.thumbnail}
+                            src={ingredient.thumbnail}
+                            alt={ingredient.name}
+                            width={85}
+                            height={85}
+                            className="py-4"
+                          />
+                        </div>
+                        <div
+                          className="text-md font-bold text-center line-clamp-2 my-2 h-10"
+                          style={{ height: "2.8rem" }}
+                        >
+                          {ingredient.name}
+                        </div>
+                        <div
+                          className="text-md font-bold text-center line-clamp-2 opacity-70 h-10"
+                          style={{ height: "2.8rem" }}
+                        >
+                          {ingredient.short_description}
+                        </div>
                       </div>
-                      <div className="text-md font-bold text-center line-clamp-2 my-2 h-10">
-                        {ingredient.name}
-                      </div>
-                      <div className="text-md font-bold text-center line-clamp-2 opacity-70 h-10">
-                        {ingredient.short_description}
-                      </div>
-                    </div>
-                  </Link>
+                    </Link>
+                  </div>
                 </div>
               ))}
-            </div>
+            </Slider>
             {/* events section */}
-            {/* ingredients section  */}
+            {/* event section  */}
             <div className="grid md:grid-cols-2 grid-cols-1 mb-4 mt-10">
               <div className="flex md:justify-start justify-center items-center">
                 <span className="text-xl font-bold uppercase pr-3 border-r border-[#ead05b] border-r-4">
@@ -305,9 +441,11 @@ const index = ({
                 </span>
               </div>
               <div className="flex md:justify-end justify-center">
-                <span className="inline-flex items-center md:px-6 px-2 py-2 md:text-md text-xs text-white font-semibold  bg-[#ff2b03] rounded-md border  border-[#ff2b03] h-6">
-                  View All
-                </span>
+                <Link href={`/events`}>
+                  <span className="inline-flex items-center md:px-6 px-2 py-2 md:text-md text-xs text-white font-semibold  bg-[#ff2b03] rounded-md border  border-[#ff2b03] h-6">
+                    View All
+                  </span>
+                </Link>
               </div>
             </div>
             {/* events list  */}
@@ -358,93 +496,103 @@ const index = ({
                 <h1 className="text-xl font-bold my-4">
                   Win Points to Participate
                 </h1>
-                <div className="flex flex-col grid grid-cols-1 md:grid-cols-5 gap-4 w-full">
-                  <div className="bg-white shadow-sm sm:rounded-lg p-4 my-2 w-full">
-                    <div className="flex  flex-col items-center">
-                      <Image
-                        src="/post.PNG"
-                        alt={`post`}
-                        width={150}
-                        height={200}
-                        className=""
-                      />
-                      <span className="text-xs text-center my-2 font-medium mx-2 opacity-70 turncate">
-                        Write a Post and Get
-                      </span>
-                      <span className="text-md font-semibold mx-4">
-                        20 points
-                      </span>
+                <Slider {...settingsproducts}>
+                  <div className="px-2 ">
+                    <div className="bg-white  shadow-sm sm:rounded-lg p-4 my-2  w-full">
+                      <div className="flex  flex-col items-center">
+                        <Image
+                          src="/post.PNG"
+                          alt={`post`}
+                          width={150}
+                          height={200}
+                          className=""
+                        />
+                        <span className="text-xs text-center my-2 font-medium mx-2 opacity-70 turncate">
+                          Write a Post and Get
+                        </span>
+                        <span className="text-md font-semibold mx-4">
+                          20 points
+                        </span>
+                      </div>
                     </div>
                   </div>
-                  <div className="bg-white shadow-sm sm:rounded-lg p-4 my-2 w-full">
-                    <div className="flex  flex-col items-center">
-                      <Image
-                        src="/post.PNG"
-                        alt={`post`}
-                        width={150}
-                        height={200}
-                        className=""
-                      />
-                      <span className="text-xs text-center my-2 font-medium mx-2 opacity-70 turncate">
-                        Like a Comment and Get
-                      </span>
-                      <span className="text-md font-semibold mx-4">
-                        1 point
-                      </span>
+                  <div className="px-2 ">
+                    <div className="bg-white  shadow-sm sm:rounded-lg p-4 my-2 w-full">
+                      <div className="flex  flex-col items-center">
+                        <Image
+                          src="/post.PNG"
+                          alt={`post`}
+                          width={150}
+                          height={200}
+                          className=""
+                        />
+                        <span className="text-xs text-center my-2 font-medium mx-2 opacity-70 turncate">
+                          Like a Comment and Get
+                        </span>
+                        <span className="text-md font-semibold mx-4">
+                          1 point
+                        </span>
+                      </div>
                     </div>
                   </div>
-                  <div className="bg-white shadow-sm sm:rounded-lg p-4 my-2 w-full">
-                    <div className="flex  flex-col items-center">
-                      <Image
-                        src="/post.PNG"
-                        alt={`post`}
-                        width={150}
-                        height={200}
-                        className=""
-                      />
-                      <span className="text-xs text-center my-2 font-medium mx-2 opacity-70 turncate">
-                        Write a Post and Get
-                      </span>
-                      <span className="text-md font-semibold mx-4">
-                        20 points
-                      </span>
+                  <div className="px-2 ">
+                    <div className="bg-white  shadow-sm sm:rounded-lg p-4 my-2 w-full">
+                      <div className="flex  flex-col items-center">
+                        <Image
+                          src="/post.PNG"
+                          alt={`post`}
+                          width={150}
+                          height={200}
+                          className=""
+                        />
+                        <span className="text-xs text-center my-2 font-medium mx-2 opacity-70 turncate">
+                          Write a Post and Get
+                        </span>
+                        <span className="text-md font-semibold mx-4">
+                          20 points
+                        </span>
+                      </div>
                     </div>
                   </div>
-                  <div className="bg-white shadow-sm sm:rounded-lg p-4 my-2 w-full">
-                    <div className="flex  flex-col items-center">
-                      <Image
-                        src="/profile.PNG"
-                        alt={`post`}
-                        width={150}
-                        height={200}
-                        className=""
-                      />
-                      <span className="text-xs text-center turncate my-2 font-medium mx-2 opacity-70">
-                        Create Account and Get
-                      </span>
-                      <span className="text-md font-semibold mx-4">
-                        500 points
-                      </span>
+                  <div className="px-2 ">
+                    <div className="bg-white  shadow-sm sm:rounded-lg p-4 my-2 w-full">
+                      <div className="flex  flex-col items-center">
+                        <Image
+                          src="/profile.PNG"
+                          alt={`post`}
+                          width={150}
+                          height={200}
+                          className=""
+                        />
+                        <span className="text-xs text-center turncate my-2 font-medium mx-2 opacity-70 ">
+                          Create Account and Get
+                        </span>
+                        <span className="text-md font-semibold mx-4">
+                          500 points
+                        </span>
+                      </div>
                     </div>
                   </div>
-                  <div className="bg-white shadow-sm sm:rounded-lg p-4 my-2 w-full">
-                    <div className="flex  flex-col items-center">
-                      <Image
-                        src="/review.PNG"
-                        alt={`post`}
-                        width={150}
-                        height={200}
-                        className=""
-                      />
-                      <span className="text-xs text-center turncate my-2 font-medium mx-2 opacity-70">
-                        Write a Review and Get
-                      </span>
-                      <span className="text-md font-semibold mx-4">
-                        50 points
-                      </span>
+                  <div className="px-2 ">
+                    <div className="bg-white shadow-sm sm:rounded-lg p-4 my-2 w-full">
+                      <div className="flex  flex-col items-center">
+                        <Image
+                          src="/review.PNG"
+                          alt={`post`}
+                          width={150}
+                          height={200}
+                          className=""
+                        />
+                        <span className="text-xs text-center turncate my-2 font-medium mx-2 opacity-70">
+                          Write a Review and Get
+                        </span>
+                        <span className="text-md font-semibold mx-4">
+                          50 points
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </Slider>
               </div>
             </div>
           </div>
@@ -531,4 +679,4 @@ export async function getServerSideProps(context) {
     },
   };
 }
-export default index;
+export default Index;
