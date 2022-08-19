@@ -229,7 +229,7 @@ const Index = ({
                           </div>
                         </div>
                       </div>
-                      <div className="h-10 mt-2">
+                      <div className="h-10 mt-2" style={{ height: "3.5rem" }}>
                         <p className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white line-clamp-2">
                           {blog.title}
                         </p>
