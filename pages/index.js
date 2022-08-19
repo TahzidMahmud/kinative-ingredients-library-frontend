@@ -15,6 +15,7 @@ const Index = ({
   home_ingredients,
   events,
   winners,
+  points,
 }) => {
   const [settingsblog, setSettingsblog] = useState({
     dots: false,
@@ -497,101 +498,30 @@ const Index = ({
                   Win Points to Participate
                 </h1>
                 <Slider {...settingsproducts}>
-                  <div className="px-2 ">
-                    <div className="bg-white  shadow-sm sm:rounded-lg p-4 my-2  w-full">
-                      <div className="flex  flex-col items-center">
-                        <Image
-                          src="/post.PNG"
-                          alt={`post`}
-                          width={150}
-                          height={200}
-                          className=""
-                        />
-                        <span className="text-xs text-center my-2 font-medium mx-2 opacity-70 turncate">
-                          Write a Post and Get
-                        </span>
-                        <span className="text-md font-semibold mx-4">
-                          20 points
-                        </span>
+                  {points.map((point, index) => (
+                    <div key={index} className="px-2 ">
+                      <div className="bg-white  shadow-sm sm:rounded-lg p-4 my-2  w-full">
+                        <div className="flex  flex-col items-center">
+                          <Image
+                            src="/post.PNG"
+                            alt={`post`}
+                            width={150}
+                            height={200}
+                            className=""
+                          />
+                          <span
+                            className="text-xs text-center my-2 font-medium mx-2 opacity-70 line-clamp-2"
+                            style={{ height: "2rem" }}
+                          >
+                            {point.description}
+                          </span>
+                          <span className="text-md font-semibold mx-4">
+                            {point.points} point{point.points > 1 ? "s" : ""}
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="px-2 ">
-                    <div className="bg-white  shadow-sm sm:rounded-lg p-4 my-2 w-full">
-                      <div className="flex  flex-col items-center">
-                        <Image
-                          src="/post.PNG"
-                          alt={`post`}
-                          width={150}
-                          height={200}
-                          className=""
-                        />
-                        <span className="text-xs text-center my-2 font-medium mx-2 opacity-70 turncate">
-                          Like a Comment and Get
-                        </span>
-                        <span className="text-md font-semibold mx-4">
-                          1 point
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="px-2 ">
-                    <div className="bg-white  shadow-sm sm:rounded-lg p-4 my-2 w-full">
-                      <div className="flex  flex-col items-center">
-                        <Image
-                          src="/post.PNG"
-                          alt={`post`}
-                          width={150}
-                          height={200}
-                          className=""
-                        />
-                        <span className="text-xs text-center my-2 font-medium mx-2 opacity-70 turncate">
-                          Write a Post and Get
-                        </span>
-                        <span className="text-md font-semibold mx-4">
-                          20 points
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="px-2 ">
-                    <div className="bg-white  shadow-sm sm:rounded-lg p-4 my-2 w-full">
-                      <div className="flex  flex-col items-center">
-                        <Image
-                          src="/profile.PNG"
-                          alt={`post`}
-                          width={150}
-                          height={200}
-                          className=""
-                        />
-                        <span className="text-xs text-center turncate my-2 font-medium mx-2 opacity-70 ">
-                          Create Account and Get
-                        </span>
-                        <span className="text-md font-semibold mx-4">
-                          500 points
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="px-2 ">
-                    <div className="bg-white shadow-sm sm:rounded-lg p-4 my-2 w-full">
-                      <div className="flex  flex-col items-center">
-                        <Image
-                          src="/review.PNG"
-                          alt={`post`}
-                          width={150}
-                          height={200}
-                          className=""
-                        />
-                        <span className="text-xs text-center turncate my-2 font-medium mx-2 opacity-70">
-                          Write a Review and Get
-                        </span>
-                        <span className="text-md font-semibold mx-4">
-                          50 points
-                        </span>
-                      </div>
-                    </div>
-                  </div>
+                  ))}
                 </Slider>
               </div>
             </div>
@@ -612,6 +542,7 @@ export async function getServerSideProps(context) {
     home_ingredients,
     events,
     winners,
+    points,
   ] = await Promise.all([
     axios
       .get("/api/home-settings/main_banner")
@@ -664,6 +595,12 @@ export async function getServerSideProps(context) {
         return response.data.winners;
       })
       .catch((error) => console.log(error)),
+    axios
+      .get("/api/home-settings/home_points")
+      .then((response) => {
+        return response.data.data;
+      })
+      .catch((error) => console.log(error)),
   ]);
 
   return {
@@ -676,6 +613,7 @@ export async function getServerSideProps(context) {
       home_ingredients,
       events,
       winners,
+      points,
     },
   };
 }
