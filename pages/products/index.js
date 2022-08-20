@@ -1,13 +1,24 @@
 /* eslint-disable react/jsx-key */
 import AppLayout from "@/components/Layouts/AppLayout";
+import Paginate from "@/components/Paginate";
 import Head from "next/head";
 import axios from "@/lib/axios";
 import Link from "next/link";
 import Image from "next/image";
+import { useState, useEffect } from "react";
 
 import ProductList from "@/components/Products/ProductList";
 
-const products = ({ categories, products, brands, meta_Data }) => {
+const Products = ({ categories, products, link_data, brands, meta_Data }) => {
+  const [isSSR, setIsSSR] = useState(true);
+  const [Products, setProducts] = useState(products);
+  useEffect(() => {
+    setIsSSR(false);
+  }, []);
+
+  function onPageChange(products) {
+    setProducts(products);
+  }
   return (
     <>
       <Head>
@@ -69,9 +80,20 @@ const products = ({ categories, products, brands, meta_Data }) => {
         </div>
         <ProductList
           categories={categories}
-          products={products}
+          products={Products}
           brands={brands}
         />
+        {/* {isSSR === false ? (
+          <Paginate
+            from_page={link_data.from}
+            current_page={link_data.current_page}
+            last_page={link_data.last_page}
+            page_Links={link_data.links}
+            onPageChange={onPageChange}
+          />
+        ) : (
+          <></>
+        )} */}
       </AppLayout>
     </>
   );
@@ -86,7 +108,7 @@ export async function getServerSideProps(context) {
       })
       .catch((error) => console.log(error)),
     axios
-      .post("/api/filter-products")
+      .get("/api/filter-products")
       .then((response) => {
         return response.data;
       })
@@ -110,10 +132,11 @@ export async function getServerSideProps(context) {
     props: {
       categories: categories.data,
       products: products.data,
+      link_data: products.meta,
       brands: brands.data,
       meta_Data,
     },
   };
 }
 
-export default products;
+export default Products;

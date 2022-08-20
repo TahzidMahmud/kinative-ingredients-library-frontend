@@ -77,7 +77,7 @@ const ProductList = ({ categories, products, brands }) => {
   }
   return (
     <>
-      <div className="flex pt-4">
+      <div className="flex pt-4 mb-6">
         <div className="invisible md:visible pr-2 min-w-[25%]">
           <Side
             categories={categories}

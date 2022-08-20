@@ -481,9 +481,72 @@ const Index = ({
               ))}
             </div>
             {/* point instruction section  */}
-            <div className="grid grid-flow-col grid-cols-10 grid-rows-1 my-10 pb-10">
-              <div className="col-span-2 flex flex-col justify-start items-start">
-                <h1 className="text-xl font-bold my-4">Event winners</h1>
+            <div className="d-none md:block">
+              <div className="grid grid-flow-col grid-cols-10 grid-rows-1 my-10 pb-10">
+                <div className="col-span-2 flex flex-col justify-start items-start">
+                  <h1 className="text-xl font-bold my-4">Event winners</h1>
+                  <div className="flex flex-col w-full">
+                    {winners.map((winner, index) => (
+                      <div
+                        key={index}
+                        className="bg-white shadow-sm sm:rounded-lg p-4 my-2 w-full"
+                      >
+                        <div className="flex items-center">
+                          <Image
+                            loader={() => winner.avatar}
+                            src={winner.avatar}
+                            alt={winner.name}
+                            width={50}
+                            height={50}
+                            className="py-6 rounded-full"
+                          />
+                          <span className="text-md font-medium mx-4">
+                            {winner.name}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="col-span-10 pl-10">
+                  <h1 className="text-xl font-bold my-4">
+                    Win Points to Participate
+                  </h1>
+                  <Slider {...settingsproducts}>
+                    {points.map((point, index) => (
+                      <div key={index} className="px-2 ">
+                        <div className="bg-white  shadow-sm sm:rounded-lg p-4 my-2  w-full">
+                          <div className="flex  flex-col items-center">
+                            <Image
+                              src="/post.PNG"
+                              alt={`post`}
+                              width={150}
+                              height={200}
+                              className=""
+                            />
+                            <span
+                              className="text-xs text-center my-2 font-medium mx-2 opacity-70 line-clamp-2"
+                              style={{ height: "2rem" }}
+                            >
+                              {point.description}
+                            </span>
+                            <span className="text-md font-semibold mx-4">
+                              {point.points} point{point.points > 1 ? "s" : ""}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </Slider>
+                </div>
+              </div>
+            </div>
+            {/* point section mobile  */}
+            <div className="md:hidden">
+              <div className=" flex flex-col justify-center items-center my-4">
+                <h1 className="text-xl text-center font-bold my-4 ">
+                  Event winners
+                </h1>
                 <div className="flex flex-col w-full">
                   {winners.map((winner, index) => (
                     <div
@@ -507,8 +570,8 @@ const Index = ({
                   ))}
                 </div>
               </div>
-              <div className="col-span-10 pl-10">
-                <h1 className="text-xl font-bold my-4">
+              <div className="px-2">
+                <h1 className="text-xl text-center font-bold my-4">
                   Win Points to Participate
                 </h1>
                 <Slider {...settingsproducts}>
