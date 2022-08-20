@@ -4,7 +4,7 @@ import axios from "@/lib/axios";
 import Link from "next/link";
 import Image from "next/image";
 import Slider from "react-slick";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -20,6 +20,11 @@ const Index = ({
   points,
   meta_Data,
 }) => {
+  useEffect(() => {
+    document.oncontextmenu = document.body.oncontextmenu = function () {
+      return false;
+    };
+  }, []);
   const [settingsblog, setSettingsblog] = useState({
     dots: false,
     infinite: true,
