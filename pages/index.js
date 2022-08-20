@@ -5,6 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 import Slider from "react-slick";
 import { useState } from "react";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const Index = ({
   main_banner,
@@ -16,6 +18,7 @@ const Index = ({
   events,
   winners,
   points,
+  meta_Data,
 }) => {
   const [settingsblog, setSettingsblog] = useState({
     dots: false,
@@ -136,6 +139,17 @@ const Index = ({
 
   return (
     <>
+      <Head>
+        <title>{`${meta_Data.title}`}</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta itemProp="name" content={`${meta_Data.meta_title}`}></meta>
+        <meta
+          itemProp="description"
+          content={`${meta_Data.meta_description}`}
+        ></meta>
+        <meta itemProp="image" content={`${meta_Data.meta_image}`}></meta>
+      </Head>
+
       <AppLayout
         header={
           <h2 className="font-semibold text-xl text-gray-800 leading-tight">
@@ -543,6 +557,7 @@ export async function getServerSideProps(context) {
     events,
     winners,
     points,
+    meta_Data,
   ] = await Promise.all([
     axios
       .get("/api/home-settings/main_banner")
@@ -601,6 +616,13 @@ export async function getServerSideProps(context) {
         return response.data.data;
       })
       .catch((error) => console.log(error)),
+    // fetch meta data
+    axios
+      .get(`/api/page-meta/home`)
+      .then((response) => {
+        return response.data.data;
+      })
+      .catch((error) => console.log(error)),
   ]);
 
   return {
@@ -614,6 +636,7 @@ export async function getServerSideProps(context) {
       events,
       winners,
       points,
+      meta_Data,
     },
   };
 }
