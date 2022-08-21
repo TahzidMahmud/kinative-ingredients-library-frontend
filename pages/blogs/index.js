@@ -4,8 +4,17 @@ import Head from "next/head";
 import axios from "@/lib/axios";
 import Link from "next/link";
 import Image from "next/image";
+import { useEffect } from "react";
 
-const blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
+const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
+  useEffect(() => {
+    document.oncontextmenu = document.body.oncontextmenu = function () {
+      return false;
+    };
+    document.oncopy = document.body.oncopy = function () {
+      return false;
+    };
+  }, []);
   return (
     <>
       <Head>
@@ -358,4 +367,4 @@ export async function getServerSideProps(context) {
   };
 }
 
-export default blogs;
+export default Blogs;

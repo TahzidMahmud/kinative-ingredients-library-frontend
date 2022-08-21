@@ -2,16 +2,21 @@ import React from "react";
 import Side from "../Side";
 import Product from "./Product";
 import axios from "@/lib/axios";
+import Paginate from "@/components/Paginate";
+
 import { useState, useEffect } from "react";
 
-const ProductList = ({ categories, products, brands }) => {
+const ProductList = ({ categories, products, brands, link_data }) => {
   const [fetchproducts, setFetchProducts] = useState([]);
   const [queryparams, setQueryPrams] = useState({
     categories: [],
     brands: [],
     search_q: "",
   });
+  const [isSSR, setIsSSR] = useState(true);
+  // const [Products, setProducts] = useState(products);
   useEffect(() => {
+    setIsSSR(false);
     setFetchProducts([...fetchproducts, ...products]);
   }, []);
 
@@ -75,6 +80,9 @@ const ProductList = ({ categories, products, brands }) => {
       })
       .catch((error) => console.log(error));
   }
+  function onPageChange(products) {
+    setFetchProducts(products);
+  }
   return (
     <>
       <div className="flex pt-4 mb-6">
@@ -133,6 +141,17 @@ const ProductList = ({ categories, products, brands }) => {
           </div>
         </div>
       </div>
+      {isSSR === false ? (
+        <Paginate
+          from_page={link_data.from}
+          current_page={link_data.current_page}
+          last_page={link_data.last_page}
+          page_Links={link_data.links}
+          onPageChange={onPageChange}
+        />
+      ) : (
+        <></>
+      )}
     </>
   );
 };

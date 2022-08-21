@@ -4,8 +4,17 @@ import Head from "next/head";
 import path from "path";
 import axios from "@/lib/axios";
 import Image from "next/image";
+import { useEffect } from "react";
 
-const ingredient = ({ ingredient }) => {
+const Ingredient = ({ ingredient }) => {
+  useEffect(() => {
+    document.oncontextmenu = document.body.oncontextmenu = function () {
+      return false;
+    };
+    document.oncopy = document.body.oncopy = function () {
+      return false;
+    };
+  }, []);
   return (
     <AppLayout
       header={
@@ -142,4 +151,4 @@ export async function getStaticPaths() {
   };
 }
 
-export default ingredient;
+export default Ingredient;

@@ -1,8 +1,17 @@
 import Navigation from "@/components/Layouts/Navigation";
 import { useAuth } from "@/hooks/auth";
 import Footer from "@/components/Layouts/Footer";
+import { useEffect } from "react";
 
 const AppLayout = ({ header, children }) => {
+  useEffect(() => {
+    document.oncontextmenu = document.body.oncontextmenu = function () {
+      return false;
+    };
+    document.oncopy = document.body.oncopy = function () {
+      return false;
+    };
+  }, []);
   const { user } = useAuth({ middleware: "guest" });
   // const { user } = {};
 

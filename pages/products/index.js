@@ -13,6 +13,12 @@ const Products = ({ categories, products, link_data, brands, meta_Data }) => {
   const [isSSR, setIsSSR] = useState(true);
   const [Products, setProducts] = useState(products);
   useEffect(() => {
+    document.oncontextmenu = document.body.oncontextmenu = function () {
+      return false;
+    };
+    document.oncopy = document.body.oncopy = function () {
+      return false;
+    };
     setIsSSR(false);
   }, []);
 
@@ -82,6 +88,7 @@ const Products = ({ categories, products, link_data, brands, meta_Data }) => {
           categories={categories}
           products={Products}
           brands={brands}
+          link_data={link_data}
         />
         {/* {isSSR === false ? (
           <Paginate

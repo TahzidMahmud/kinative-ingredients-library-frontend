@@ -4,8 +4,17 @@ import Head from "next/head";
 import axios from "@/lib/axios";
 import Link from "next/link";
 import Image from "next/image";
+import { useEffect } from "react";
 
-const ingredients = ({ ingredients, meta_Data }) => {
+const Ingredients = ({ ingredients, meta_Data }) => {
+  useEffect(() => {
+    document.oncontextmenu = document.body.oncontextmenu = function () {
+      return false;
+    };
+    document.oncopy = document.body.oncopy = function () {
+      return false;
+    };
+  }, []);
   return (
     <>
       <Head>
@@ -163,4 +172,4 @@ export async function getServerSideProps(context) {
   };
 }
 
-export default ingredients;
+export default Ingredients;

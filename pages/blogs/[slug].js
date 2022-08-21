@@ -20,6 +20,12 @@ const Blog = ({ blog, trendingBlogs }) => {
   const [isSSR, setIsSSR] = useState(true);
 
   useEffect(() => {
+    document.oncontextmenu = document.body.oncontextmenu = function () {
+      return false;
+    };
+    document.oncopy = document.body.oncopy = function () {
+      return false;
+    };
     setIsSSR(false);
     if (user) {
       canLike();

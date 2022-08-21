@@ -5,7 +5,16 @@ import axios from "@/lib/axios";
 import Link from "next/link";
 import Image from "next/image";
 import Search from "@/components/Ingredients/Search";
-const ingredients = ({ ingredients }) => {
+import { useEffect } from "react";
+const Ingredients = ({ ingredients }) => {
+  useEffect(() => {
+    document.oncontextmenu = document.body.oncontextmenu = function () {
+      return false;
+    };
+    document.oncopy = document.body.oncopy = function () {
+      return false;
+    };
+  }, []);
   return (
     <AppLayout
       header={
@@ -111,4 +120,4 @@ export async function getServerSideProps(context) {
   };
 }
 
-export default ingredients;
+export default Ingredients;
