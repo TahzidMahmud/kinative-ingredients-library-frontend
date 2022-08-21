@@ -392,7 +392,7 @@ const Create = ({ Concerns, SkinTypes }) => {
             ) : (
               <></>
             )}
-            {(stage == 1 && cmntimage != null) ||
+            {stage == 1 ||
             (stage == 2 && skinTypes.length != 0) ||
             (stage == 3 && concerns.length != 0) ||
             (stage == 4 && datechange == true) ? (

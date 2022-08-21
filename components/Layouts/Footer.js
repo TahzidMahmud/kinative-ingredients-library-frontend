@@ -100,7 +100,7 @@ const Footer = () => {
                   <div className=" flex h-[3rem] md:pl-8  my-2 md:my-0">
                     <input
                       type="email"
-                      className="rounded-none rounded-l-md  bg-white border border-gray-300 text-gray-900 focus:ring-[#ff2b03] focus:border-[#ff2b03] block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.2 h-6"
+                      className="roundehidden rounded-l-md  bg-white border border-gray-300 text-gray-900 focus:ring-[#ff2b03] focus:border-[#ff2b03] block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.2 h-6"
                       placeholder="Your Email Here"
                       onChange={(e) => setemail(e.target.value)}
                     />
@@ -141,7 +141,7 @@ const Footer = () => {
                           className={`${
                             social.type == "facebook" && social.link != ""
                               ? "p-2 bg-[#385899] rounded-full flex items-center justify-center"
-                              : "d-none"
+                              : "hidden"
                           } `}
                         >
                           <Link key={index} href={`${social.link}`}>
@@ -158,7 +158,7 @@ const Footer = () => {
                           className={`${
                             social.type == "twitter" && social.link != ""
                               ? "p-2 bg-[#16a2f2] rounded-full flex items-center justify-center"
-                              : "d-none"
+                              : "hidden"
                           }`}
                         >
                           <Link key={index} href={`${social.link}`}>
@@ -175,7 +175,7 @@ const Footer = () => {
                           className={`${
                             social.type == "instagram" && social.link != ""
                               ? "p-2 bg-[#be2ea3] rounded-full flex items-center justify-center"
-                              : "d-none"
+                              : "hidden"
                           }`}
                         >
                           <Link key={index} href={`${social.link}`}>
@@ -192,7 +192,7 @@ const Footer = () => {
                           className={`${
                             social.type == "youtube" && social.link != ""
                               ? "p-2 bg-[#ff0000] rounded-full flex items-center justify-center"
-                              : "d-none"
+                              : "hidden"
                           }`}
                         >
                           <Link key={index} href={`${social.link}`}>
@@ -209,7 +209,7 @@ const Footer = () => {
                           className={`${
                             social.type == "linkedin" && social.link != ""
                               ? "p-2 bg-[#0070ae] rounded-full flex items-center justify-center"
-                              : "d-none"
+                              : "hidden"
                           }`}
                         >
                           <Link key={index} href={`${social.link}`}>

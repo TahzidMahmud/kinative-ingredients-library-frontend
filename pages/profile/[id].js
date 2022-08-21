@@ -233,7 +233,7 @@ const Profile = ({ Concerns, SkinTypes, Profile, Wishlist }) => {
           </div>
         </div>
         {editProfile ? (
-          <div className="h-2/3">
+          <div className="h-2/3 ">
             <ProfileEditModal
               show={editProfile}
               closeModal={closeModal}

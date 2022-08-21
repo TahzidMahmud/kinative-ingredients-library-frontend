@@ -117,7 +117,7 @@ const ProfileEditModal = ({
         aria-modal="true"
         role="dialog"
       >
-        <div className="relative p-4 w-full max-w-md h-full md:h-auto">
+        <div className="relative p-4 w-full md:max-w-xl max-w-md h-full md:h-auto">
           <div className="relative bg-white rounded-lg shadow ">
             <button
               type="button"
