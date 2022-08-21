@@ -13,7 +13,7 @@ const Paginate = ({
   page_Links,
   onPageChange,
 }) => {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(current_page);
   const [fromPage, setFromPage] = useState(from_page);
   const [lastPage, setLastPage] = useState(last_page);
   const [links, setLinks] = useState(page_Links);
@@ -44,7 +44,9 @@ const Paginate = ({
                 >
                   <div
                     className={`py-2 px-3 rounded-sm text-blue-500 hover:text-white bg-blue-200 hover:bg-blue-500 ${
-                      index + 1 == currentPage ? " bg-blue-500 text-white" : ""
+                      (index == currentPage) === true
+                        ? "bg-blue-500 text-white"
+                        : ""
                     }`}
                   >
                     <HtmlFormat data={link.label} />

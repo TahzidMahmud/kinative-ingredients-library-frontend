@@ -5,12 +5,12 @@ import { useEffect } from "react";
 
 const AppLayout = ({ header, children }) => {
   useEffect(() => {
-    document.oncontextmenu = document.body.oncontextmenu = function () {
-      return false;
-    };
-    document.oncopy = document.body.oncopy = function () {
-      return false;
-    };
+    // document.oncontextmenu = document.body.oncontextmenu = function () {
+    //   return false;
+    // };
+    // document.oncopy = document.body.oncopy = function () {
+    //   return false;
+    // };
   }, []);
   const { user } = useAuth({ middleware: "guest" });
   // const { user } = {};

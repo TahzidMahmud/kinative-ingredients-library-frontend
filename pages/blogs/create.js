@@ -8,6 +8,7 @@ import Button from "@/components/Button";
 import LoginModal from "@/modals/LoginModal";
 import { useRouter } from "next/router";
 import { useEffect, useState, useRef } from "react";
+import "react-quill/dist/quill.snow.css";
 
 const Create = ({ categories }) => {
   const router = useRouter();
