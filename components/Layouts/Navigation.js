@@ -1,4 +1,3 @@
-import ApplicationLogo from "@/components/ApplicationLogo";
 import Dropdown from "@/components/Dropdown";
 import Link from "next/link";
 import NavLink from "@/components/NavLink";
@@ -8,8 +7,9 @@ import ResponsiveNavLink, {
 import { DropdownButton } from "@/components/DropdownLink";
 import { useAuth } from "@/hooks/auth";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
+import axios from "@/lib/axios";
 
 const Navigation = ({ user }) => {
   const router = useRouter();
@@ -18,22 +18,47 @@ const Navigation = ({ user }) => {
   const { login } = useAuth();
 
   const [open, setOpen] = useState(false);
+  const [headerlogo, setHeaderlogo] = useState([]);
+  const [headerLinks, setHeaderLinks] = useState([]);
+  const [header, setHeader] = useState(false);
+
+  useEffect(() => {
+    getHeaderData();
+  }, [header]);
+  async function getHeaderData() {
+    await Promise.all([
+      axios
+        .get("/api/header-settings/header_logo")
+        .then((response) => {
+          setHeaderlogo(response.data.data.logo_image);
+        })
+        .catch((error) => console.log(error)),
+
+      axios
+        .get("/api/header-settings/header_links")
+        .then((response) => {
+          setHeaderLinks(response.data.data);
+        })
+        .catch((error) => console.log(error)),
+    ]);
+  }
 
   return (
     <nav className="bg-white border-b border-gray-100 shadow ">
       {/* Primary Navigation Menu */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <div className="flex">
+      <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          <div className="flex flex  items-center justify-center">
             {/* Logo */}
-            <div className="flex-shrink-0 flex  items-center">
+            <div className="flex-shrink-0 flex  items-center justify-center">
               <Link href="/">
                 <Image
-                  className="rounded-t-lg"
-                  src="/logo.svg"
+                  loader={() => (headerlogo != null ? headerlogo : "/logo.svg")}
+                  src={"/logo.svg"}
                   alt="logo"
-                  width={100}
-                  height={100}
+                  width={110}
+                  height={30}
+                  className="rounded-t-lg py-6"
                 />
 
                 {/* <ApplicationLogo className="block h-10 w-auto fill-current text-gray-600" /> */}
@@ -41,37 +66,19 @@ const Navigation = ({ user }) => {
             </div>
 
             {/* Navigation Links */}
-            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex text-uppercase">
-              <NavLink href="/" active={router.pathname === "/"}>
-                Home
-              </NavLink>
-            </div>
-            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-              <NavLink
-                href="/ingredients"
-                active={router.pathname === "/ingredients"}
+            {headerLinks.map((header, index) => (
+              <div
+                key={`footer-${index}`}
+                className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex text-uppercase"
               >
-                Ingredients
-              </NavLink>
-            </div>
-            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-              <NavLink
-                href="/products"
-                active={router.pathname === "/products"}
-              >
-                Products
-              </NavLink>
-            </div>
-            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex  text-uppercase">
-              <NavLink href="/blogs" active={router.pathname === "/blogs"}>
-                Blog
-              </NavLink>
-            </div>
-            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex  text-uppercase">
-              <NavLink href="/events" active={router.pathname === "/events"}>
-                Events
-              </NavLink>
-            </div>
+                <NavLink
+                  href={`${header.link}`}
+                  active={router.pathname === `${header.link}`}
+                >
+                  {header.title}
+                </NavLink>
+              </div>
+            ))}
           </div>
 
           {/* Settings Dropdown */}
@@ -188,24 +195,15 @@ const Navigation = ({ user }) => {
       {open && (
         <div className="block sm:hidden">
           <div className="pt-2 pb-3 space-y-1">
-            <ResponsiveNavLink
-              href="/dashboard"
-              active={router.pathname === "/dashboard"}
-            >
-              Dashboard
-            </ResponsiveNavLink>
-            <ResponsiveNavLink
-              href="/ingredients"
-              active={router.pathname === "/ingredients"}
-            >
-              Ingredients
-            </ResponsiveNavLink>
-            <ResponsiveNavLink
-              href="/products"
-              active={router.pathname === "/products"}
-            >
-              Products
-            </ResponsiveNavLink>
+            {headerLinks.map((header, index) => (
+              <ResponsiveNavLink
+                key={`footer-${index}`}
+                href={`${header.link}`}
+                active={router.pathname === header.link}
+              >
+                {header.title}
+              </ResponsiveNavLink>
+            ))}
           </div>
 
           {/* Responsive Settings Options */}

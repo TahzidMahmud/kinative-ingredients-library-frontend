@@ -20,11 +20,6 @@ const Index = ({
   points,
   meta_Data,
 }) => {
-  useEffect(() => {
-    document.oncontextmenu = document.body.oncontextmenu = function () {
-      return false;
-    };
-  }, []);
   const [settingsblog, setSettingsblog] = useState({
     dots: false,
     infinite: true,
