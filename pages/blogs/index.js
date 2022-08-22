@@ -2,11 +2,20 @@
 import AppLayout from "@/components/Layouts/AppLayout";
 import Head from "next/head";
 import axios from "@/lib/axios";
-import Link from "next/link";
+import Link from "next/Link";
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { useAuth } from "@/hooks/auth";
+import LoginModal from "@/modals/LoginModal";
 
 const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
+  const router = useRouter();
+  const { user } = useAuth({ middleware: "guest" });
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [isSSR, setIsSSR] = useState(true);
+  const [url, setUrl] = useState(null);
+
   useEffect(() => {
     document.oncontextmenu = document.body.oncontextmenu = function () {
       return false;
@@ -14,7 +23,19 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
     document.oncopy = document.body.oncopy = function () {
       return false;
     };
+    setIsSSR(false);
   }, []);
+  function goTo(url) {
+    setUrl(url);
+    if (user) {
+      router.push(`${url}`);
+    } else {
+      setShowLoginModal(true);
+    }
+  }
+  function closeModal() {
+    setShowLoginModal(false);
+  }
   return (
     <>
       <Head>
@@ -69,7 +90,11 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
             <div className="md:pr-9">
               <div className="grid grid-cols-1 gap-4 md:mb-4 sm:mb-3">
                 {
-                  <Link href={`/blogs/${newBlogs[0].slug.toString()}`}>
+                  <div
+                    onClick={() => {
+                      goTo(`/blogs/${newBlogs[0].slug.toString()}`);
+                    }}
+                  >
                     <div className="  rounded-lg dark:bg-gray-800 dark:border-gray-700">
                       <div className="flex flex-col justify-start items-baseline">
                         <div className="z-0">
@@ -100,6 +125,12 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
                             {newBlogs[0].created_at}
                           </span>
                         </h6>
+                        <p className="my-2">
+                          {newBlogs[0].body}...{" "}
+                          <span className="text-blue-500 text-md font-bold cursor-pointer">
+                            Read More
+                          </span>
+                        </p>
                       </div>
                       <div className="mb-3 mt-1">
                         <div className="flex text-black py-2">
@@ -145,7 +176,7 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
                         </div>
                       </div>
                     </div>
-                  </Link>
+                  </div>
                 }
               </div>
               <div className="grid grid-cols-2 gap-4">
@@ -154,7 +185,11 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
                     <></>;
                   } else {
                     return (
-                      <Link href={`/blogs/${blog.slug.toString()}`}>
+                      <div
+                        onClick={() => {
+                          goTo(`/blogs/${blog.slug.toString()}`);
+                        }}
+                      >
                         <div>
                           <div className="  rounded-lg dark:bg-gray-800 dark:border-gray-700">
                             <div className="flex flex-col justify-start items-baseline">
@@ -187,6 +222,12 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
                                 {blog.created_at}
                               </span>
                             </h6>
+                            <p className="my-2">
+                              {blog.body}...{" "}
+                              <span className="text-blue-500 text-md font-bold cursor-pointer">
+                                Read More
+                              </span>
+                            </p>
                           </div>
                           <div className="mb-3 mt-1">
                             <div className="flex text-black py-2">
@@ -232,7 +273,7 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
                             </div>
                           </div>
                         </div>
-                      </Link>
+                      </div>
                     );
                   }
                 })}
@@ -253,7 +294,11 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
             <div className="border-l md:pl-7">
               {trendingBlogs?.map((blog, index) => {
                 return (
-                  <Link href={`/blogs/${blog.slug.toString()}`}>
+                  <div
+                    onClick={() => {
+                      goTo(`/blogs/${blog.slug.toString()}`);
+                    }}
+                  >
                     <div>
                       <div className="  rounded-lg dark:bg-gray-800 dark:border-gray-700">
                         <div className="flex flex-col justify-start items-baseline">
@@ -286,6 +331,12 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
                             {blog.created_at}
                           </span>
                         </h6>
+                        <p className="my-2">
+                          {blog.body}...{" "}
+                          <span className="text-blue-500 text-md font-bold cursor-pointer">
+                            Read More
+                          </span>
+                        </p>
                       </div>
                       <div className="mb-3 mt-1">
                         <div className="flex text-black py-2">
@@ -331,12 +382,24 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
                         </div>
                       </div>
                     </div>
-                  </Link>
+                  </div>
                 );
               })}
             </div>
           </div>
         </div>
+        {/* modal section  */}
+        {isSSR === false ? (
+          <LoginModal
+            show={showLoginModal}
+            page={`blogs`}
+            closeModal={closeModal}
+            url={url}
+            className="z-40 opacity-100"
+          />
+        ) : (
+          <></>
+        )}
       </AppLayout>
     </>
   );

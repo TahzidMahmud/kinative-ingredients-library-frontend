@@ -5,11 +5,15 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import AuthValidationErrors from "@/components/AuthValidationErrors";
 
-const LoginModal = ({ show, page, closeModal }) => {
+const LoginModal = ({ show, page, closeModal, url = null }) => {
   const router = useRouter();
+  const redirect =
+    url == null
+      ? `/${page}/${router.query.slug == undefined ? "" : router.query.slug}`
+      : url;
   const { login } = useAuth({
     middleware: "guest",
-    redirectIfAuthenticated: `/${page}/${router.query.slug}`,
+    redirectIfAuthenticated: redirect,
   });
 
   const [phone, setPhone] = useState("");

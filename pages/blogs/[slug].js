@@ -18,7 +18,6 @@ const Blog = ({ blog, trendingBlogs }) => {
   const [likes, setLikes] = useState(blog.likes);
   const [comments, setComments] = useState(blog.comments.data);
   const [isSSR, setIsSSR] = useState(true);
-
   useEffect(() => {
     document.oncontextmenu = document.body.oncontextmenu = function () {
       return false;
