@@ -111,7 +111,7 @@ const Blog = ({ blog, trendingBlogs }) => {
         <title>Blogs</title>
       </Head>
 
-      <div className="flex my-6">
+      <div className={`flex my-6`}>
         <div className="md:min-w-[70%] sm:min-w-[100%] my-4">
           <div className=" rounded-lg dark:bg-gray-800 dark:border-gray-700">
             <Image
@@ -187,7 +187,9 @@ const Blog = ({ blog, trendingBlogs }) => {
             addComment={addComment}
           />
           {/* comments  */}
-          <div className=" d-flex">
+          <div
+            className={`d-flex  ${comments.length > 0 ? "my-6" : ""} bg-white`}
+          >
             {comments.map((comment, index) => (
               <Comment
                 key={index}

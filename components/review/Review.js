@@ -258,60 +258,64 @@ const Review = ({ review, user, setShowLoginModal }) => {
                   {`(${comments.length})`}
                 </div>
               </div>
-              <div className="flex">
-                <div className="px-2">
-                  <Image
-                    src="/dislike_icon.png"
-                    alt={review.dislikes}
-                    width={20}
-                    height={20}
-                    className=""
-                  />
-                </div>
+              <div className={`${likeable == false ? "hidden" : ""}`}>
+                <div className="flex">
+                  <div className="px-2">
+                    <Image
+                      src="/dislike_icon.png"
+                      alt={review.dislikes}
+                      width={20}
+                      height={20}
+                      className=""
+                    />
+                  </div>
 
-                {dislikeable ? (
-                  <div
-                    className="text-sm  opacity-100 mx-2"
-                    onClick={handleClickDislike}
-                  >
-                    Dislike
-                  </div>
-                ) : (
-                  <div
-                    className="text-sm  opacity-100 mx-2 text-red-600"
-                    onClick={handleClickDislike}
-                  >
-                    Dislike
-                  </div>
-                )}
-                <div className="text-sm  opacity-60 mx-2">{`(${dislikes})`}</div>
-              </div>
-              <div className="flex">
-                <div className="px-2">
-                  <Image
-                    src="/love_icon.png"
-                    alt={review.likes}
-                    width={20}
-                    height={20}
-                    className=""
-                  />
+                  {dislikeable ? (
+                    <div
+                      className="text-sm  opacity-100 mx-2"
+                      onClick={handleClickDislike}
+                    >
+                      Dislike
+                    </div>
+                  ) : (
+                    <div
+                      className="text-sm  opacity-100 mx-2 text-red-600"
+                      onClick={handleClickDislike}
+                    >
+                      Dislike
+                    </div>
+                  )}
+                  <div className="text-sm  opacity-60 mx-2">{`(${dislikes})`}</div>
                 </div>
-                {likeable ? (
-                  <div
-                    className="text-sm font-medium"
-                    onClick={handleClickLike}
-                  >
-                    Like:
+              </div>
+              <div className={`${dislikeable == false ? "hidden" : ""}`}>
+                <div className="flex">
+                  <div className="px-2">
+                    <Image
+                      src="/love_icon.png"
+                      alt={review.likes}
+                      width={20}
+                      height={20}
+                      className=""
+                    />
                   </div>
-                ) : (
-                  <div
-                    className="text-sm font-medium text-red-600"
-                    onClick={handleClickLike}
-                  >
-                    UnLike:
-                  </div>
-                )}
-                <div className="text-sm  opacity-60 mx-2">{`(${dislikes})`}</div>
+                  {likeable ? (
+                    <div
+                      className="text-sm font-medium"
+                      onClick={handleClickLike}
+                    >
+                      Like:
+                    </div>
+                  ) : (
+                    <div
+                      className="text-sm font-medium text-red-600"
+                      onClick={handleClickLike}
+                    >
+                      UnLike:
+                    </div>
+                  )}
+                  <div className="text-sm  opacity-60 mx-2">{`(${likes})`}</div>
+                </div>
               </div>
             </div>
           </div>
