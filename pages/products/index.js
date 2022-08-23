@@ -51,7 +51,6 @@ const Products = ({ categories, products, link_data, brands, meta_Data }) => {
         </Link> */}
         </div>
         {/* main banner section  */}
-
         <div className="grid md:gird-cols-1">
           <div className="bg-white shadow-sm sm:rounded-lg h-48 my-8">
             <div className="grid grid-cols-2">
