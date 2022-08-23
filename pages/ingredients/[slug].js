@@ -7,14 +7,6 @@ import Image from "next/image";
 import { useEffect } from "react";
 
 const Ingredient = ({ ingredient }) => {
-  useEffect(() => {
-    document.oncontextmenu = document.body.oncontextmenu = function () {
-      return false;
-    };
-    document.oncopy = document.body.oncopy = function () {
-      return false;
-    };
-  }, []);
   return (
     <AppLayout
       header={
@@ -26,9 +18,9 @@ const Ingredient = ({ ingredient }) => {
       <Head>
         <title>Laravel </title>
       </Head>
-      <div className="flex py-7">
+      <div className="flex py-7 grid grid-cols-4 gap-5">
         {/* left side  */}
-        <div className="min-w-[30%]">
+        <div className="md:col-span-1 col-span-4">
           <div className="p-6 mx-4 max-w-full bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 flex items-center justify-center">
             <Image
               loader={() => ingredient.images[0]}
@@ -41,7 +33,7 @@ const Ingredient = ({ ingredient }) => {
           </div>
         </div>
         {/* right side  */}
-        <div className="min-w-[70%]">
+        <div className="md:col-span-3 col-span-4 px-3 md:px-0">
           <div className="p-6 mb-4 max-w-full bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 flex items-center justify-center">
             <div className="flex flex-col justify-left px-6 py-4 min-h-20 min-w-full">
               <div className="flex justify-between min-w-full border-b pb-4 mb-3">

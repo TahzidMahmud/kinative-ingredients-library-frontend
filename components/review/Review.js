@@ -153,11 +153,11 @@ const Review = ({ review, user, setShowLoginModal }) => {
     setComments([...comments, comment]);
   }
   return (
-    <div className="bg-gray-100 rounded-lg dark:bg-gray-800 my-6 px-10">
-      <div className="p-4 border-b ">
+    <div className="bg-gray-100 rounded-lg dark:bg-gray-800 my-6 md:px-10">
+      <div className="md:p-4 border-b ">
         {/* top section of review */}
         <div className="flex items-cetner justify-between ">
-          <div className=" flex">
+          <div className=" flex  md:py-1 py-3 px-1">
             {/* user image  */}
             <div>
               <Image
@@ -166,13 +166,13 @@ const Review = ({ review, user, setShowLoginModal }) => {
                 alt={review.profile.name}
                 width={60}
                 height={60}
-                className="rounded-full mr-2"
+                className="rounded-full mr-2 "
               />
             </div>
             {/* profile desc  */}
-            <div className="flex flex-col px-3">
+            <div className="flex flex-col px-3 ">
               <div className="text-md font-semibold ">Short Description</div>
-              <div className="flex my-2">
+              <div className="flex grid grid-cols-1 md:grid-cols-3 my-2">
                 <div className="flex">
                   <div className="text-sm font-semibold">Age</div>
                   <div className="text-sm  opacity-60 mx-2">
@@ -236,13 +236,13 @@ const Review = ({ review, user, setShowLoginModal }) => {
             )}
           </div>
           {/* like dislike section  */}
-          <div className="my-6 px-6 flex justify-between items-center">
-            <div className="flex justify-start items-center">
+          <div className="my-6 px-6 grid grid-cols-1 md:grid-col-3">
+            <div className="flex justify-start items-center md:col-span-1 col-span-3 my-2 md:my-0">
               <sapn className="text-sm opacity-60 ml-2">
                 {review.created_at}
               </sapn>
             </div>
-            <div className="flex justify-end items-center">
+            <div className="flex justify-end items-center  md:col-span-2 col-span-3">
               <div className="flex" onClick={handleClickComment}>
                 <div className="px-2">
                   <Image

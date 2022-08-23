@@ -217,9 +217,9 @@ const Product = ({ product }) => {
       <Head>
         <title>Laravel </title>
       </Head>
-      <div className="flex py-7">
+      <div className="flex py-7 grid grid-cols-4">
         {/* left side  */}
-        <div className="min-w-[30%]">
+        <div className="md:col-span-1 col-span-4 my-3 md:my-0">
           <div className="p-6 mx-4 max-w-full bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 flex items-center justify-center">
             <Image
               loader={() => product.images[0]}
@@ -227,12 +227,12 @@ const Product = ({ product }) => {
               alt={product.name}
               width={350}
               height={420}
-              className="py-4"
+              className="py-2"
             />
           </div>
         </div>
         {/* right side  */}
-        <div className="min-w-[70%]">
+        <div className="md:col-span-3 col-span-4 px-4 md:px-0">
           <div className="p-6 mb-4 max-w-full bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 flex items-center justify-center">
             <div className="flex flex-col justify-left px-6 py-4 min-h-20 min-w-full">
               <div className="flex justify-between min-w-full border-b pb-4 mb-3">
@@ -423,10 +423,10 @@ const Product = ({ product }) => {
           </ul>
         </div>
         <div className="mb-4 border-b border-gray-200 dark:border-gray-700 rounded-lg my-6">
-          <div id="myTabContent">
+          <div id="myTabContent ">
             <div className="flex">
               <div
-                className="p-4  w-[75%] max-w-full overflow-y-auto"
+                className="md:p-4  md:w-[100%] w-[100%]  overflow-y-auto"
                 id="reviews"
                 ref={reviews}
                 role="tabpanel"
@@ -455,14 +455,14 @@ const Product = ({ product }) => {
                   )}
                 </div>
               </div>
-              <div className="w-[25%] px-10 py-3">
+              {/* <div className="w-[25%] px-10 py-3">
                 <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
                   <div
                     className="bg-blue-600 h-2.5 rounded-full"
                     style={{ width: `45%` }}
                   ></div>
                 </div>
-              </div>
+              </div> */}
             </div>
             <div
               className="hidden p-2  rounded-lg "
