@@ -17,12 +17,6 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
   const [url, setUrl] = useState(null);
 
   useEffect(() => {
-    document.oncontextmenu = document.body.oncontextmenu = function () {
-      return false;
-    };
-    document.oncopy = document.body.oncopy = function () {
-      return false;
-    };
     setIsSSR(false);
   }, []);
   function goTo(url) {
