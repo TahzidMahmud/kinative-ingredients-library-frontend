@@ -4,7 +4,7 @@ import { useAuth } from "@/hooks/auth";
 const GuestLayout = ({ children }) => {
   const { user } = {};
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className=" bg-gray-100  ">
       <Navigation user={user} />
 
       {/* Page Heading */}
@@ -15,7 +15,9 @@ const GuestLayout = ({ children }) => {
           </header> */}
 
       {/* Page Content */}
-      <main className="container mx-auto">{children}</main>
+      <main className="font-sans text-gray-900 antialiased max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 ">
+        {children}
+      </main>
     </div>
   );
 };

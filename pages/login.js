@@ -4,6 +4,8 @@ import AuthSessionStatus from "@/components/AuthSessionStatus";
 import AuthValidationErrors from "@/components/AuthValidationErrors";
 import Button from "@/components/Button";
 import GuestLayout from "@/components/Layouts/GuestLayout";
+import AppLayout from "@/components/Layouts/AppLayout";
+
 import Input from "@/components/Input";
 import Label from "@/components/Label";
 import Link from "next/link";
@@ -39,7 +41,7 @@ const Login = () => {
   };
 
   return (
-    <GuestLayout>
+    <AppLayout>
       <AuthCard
         logo={
           <Link href="/">
@@ -111,7 +113,7 @@ const Login = () => {
           </div>
         </form>
       </AuthCard>
-    </GuestLayout>
+    </AppLayout>
   );
 };
 

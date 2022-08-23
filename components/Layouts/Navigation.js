@@ -109,10 +109,10 @@ const Navigation = ({ user, data = null }) => {
           </div>
 
           {/* Settings Dropdown */}
-          <div className="hidden sm:flex sm:items-center sm:ml-6">
+          <div className="hidden sm:flex sm:items-center sm:ml-6 z-50">
             <Dropdown
               align="right"
-              width="48"
+              width="60"
               trigger={
                 <button className="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none transition duration-150 ease-in-out">
                   <div className="flex items-cetner">
@@ -158,10 +158,11 @@ const Navigation = ({ user, data = null }) => {
                   </div>
                 </button>
               }
+              // style={{ width: "10rem" }}
             >
               {/* Authentication */}
               {user ? (
-                <>
+                <div>
                   <DropdownButton
                     onClick={() => {
                       router.push(`/profile/${user.id}`);
@@ -170,15 +171,17 @@ const Navigation = ({ user, data = null }) => {
                     Profile
                   </DropdownButton>
                   <DropdownButton onClick={logout}>Logout</DropdownButton>
-                </>
+                </div>
               ) : (
-                <DropdownButton
-                  onClick={() => {
-                    router.push("/login");
-                  }}
-                >
-                  Log In
-                </DropdownButton>
+                <div className="w-20 z-20" style={{ minWidth: "8rem" }}>
+                  <DropdownButton
+                    onClick={() => {
+                      router.push("/login");
+                    }}
+                  >
+                    Log In
+                  </DropdownButton>
+                </div>
               )}
             </Dropdown>
           </div>

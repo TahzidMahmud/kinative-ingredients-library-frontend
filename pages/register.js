@@ -3,6 +3,8 @@ import AuthCard from "@/components/AuthCard";
 import AuthValidationErrors from "@/components/AuthValidationErrors";
 import Button from "@/components/Button";
 import GuestLayout from "@/components/Layouts/GuestLayout";
+import AppLayout from "@/components/Layouts/AppLayout";
+
 import Input from "@/components/Input";
 import Label from "@/components/Label";
 import Link from "next/link";
@@ -35,7 +37,7 @@ const Register = () => {
   };
 
   return (
-    <GuestLayout>
+    <AppLayout>
       <AuthCard
         logo={
           <Link href="/">
@@ -124,7 +126,7 @@ const Register = () => {
           </div>
         </form>
       </AuthCard>
-    </GuestLayout>
+    </AppLayout>
   );
 };
 

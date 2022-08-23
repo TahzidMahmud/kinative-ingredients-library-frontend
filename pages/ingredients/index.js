@@ -4,17 +4,8 @@ import Head from "next/head";
 import axios from "@/lib/axios";
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect } from "react";
 
 const Ingredients = ({ ingredients, meta_Data }) => {
-  useEffect(() => {
-    document.oncontextmenu = document.body.oncontextmenu = function () {
-      return false;
-    };
-    document.oncopy = document.body.oncopy = function () {
-      return false;
-    };
-  }, []);
   return (
     <>
       <Head>
@@ -31,31 +22,32 @@ const Ingredients = ({ ingredients, meta_Data }) => {
         <Head>
           <title>Laravel - Ingredients</title>
         </Head>
-        <div className="grid gird-cols-1">
+        <div className="grid md:gird-cols-1">
           <div className="bg-white shadow-sm sm:rounded-lg h-48 my-8">
-            <div className="flex justify-between">
-              <div className="flex items-center h-48 pl-14">
-                <div className="flex items-center">
-                  <div className="border-r-4 border-blue-600 h-10 px-4 flex items-center">
+            <div className="grid grid-cols-2">
+              <div className="flex items-center h-48 md:pl-14 pl-1.5">
+                <div className="flex md:flex-row flex-col items-center">
+                  <div className="md:border-r-4 border-blue-600 h-10 md:px-4 px-0 flex items-center">
                     {" "}
-                    <h1 className="uppercase text-3xl font-bold text-center">
+                    <h1 className="uppercase md:text-3xl text-2xl font-bold text-center">
                       {" "}
                       ingredients
                     </h1>
                   </div>
-                  <h6 className="opacity-80 text-sm mx-2">
+                  <h6 className="opacity-80 text-sm md:mx-2 md:px-0 px-3">
                     Get Fresh Blog Posts Everyday
                   </h6>
                 </div>
               </div>
-
-              <Image
-                src="/ingredient_banner.jpg"
-                alt="ingredient_banner"
-                width={246}
-                height={186}
-                className="py-4"
-              />
+              <div className="h-full w-full flex justify-end ">
+                <Image
+                  src="/ingredient_banner.jpg"
+                  alt="ingredient_banner"
+                  width={246}
+                  height={186}
+                  className="py-4 "
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -70,7 +62,7 @@ const Ingredients = ({ ingredients, meta_Data }) => {
             </button>
           </Link>
         </div>
-        <div className="grid md:grid-cols-6 grid-cols-2  gap-4 my-6">
+        <div className="grid md:grid-cols-6 grid-cols-1  gap-4 my-6 md:px-1 px-4">
           {ingredients.top_ingredient ? (
             ingredients.top_ingredient.data?.map((ingredient) => {
               return (
@@ -91,7 +83,7 @@ const Ingredients = ({ ingredients, meta_Data }) => {
                             {ingredient.name}
                           </h6>
                         </div>
-                        <div className="truncate px-4 pt-1 h-6 opacity-80">
+                        <div className="truncate md:px-4 pt-1 h-6 opacity-80">
                           {ingredient.short_description}
                         </div>
                       </div>
@@ -108,7 +100,7 @@ const Ingredients = ({ ingredients, meta_Data }) => {
         <div className="flex px-2 ">
           <h4 className="text-xl font-bold">New Ingredients</h4>
         </div>
-        <div className="grid md:grid-cols-6 grid-cols-2  gap-4 my-6">
+        <div className="grid md:grid-cols-6 grid-cols-1  gap-4 my-6 md:px-1 px-4">
           {ingredients.new_ingredient ? (
             ingredients.new_ingredient.data?.map((ingredient) => {
               return (
@@ -129,7 +121,7 @@ const Ingredients = ({ ingredients, meta_Data }) => {
                             {ingredient.name}
                           </h6>
                         </div>
-                        <div className="truncate px-4 pt-1 h-6 opacity-80">
+                        <div className="truncate md:px-4 pt-1 h-6 opacity-80">
                           {ingredient.short_description}
                         </div>
                       </div>

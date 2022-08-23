@@ -41,7 +41,7 @@ const AppLayout = ({ header, children }) => {
       </header> */}
 
       {/* Page Content */}
-      <main className="container mx-auto ">{children}</main>
+      <main className="container mx-auto my-6">{children}</main>
       {/* {console.log(footerState)} */}
       {footerState.length > 0 ? <Footer data={footerState} /> : <Footer />}
     </div>

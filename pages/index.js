@@ -157,7 +157,7 @@ const Index = ({
           </h2>
         }
       >
-        <div className="py-6">
+        <div className="">
           <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
             {/* main banner  */}
             <Link href={`${main_banner[0].link}`}>
