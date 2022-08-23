@@ -17,12 +17,12 @@ export const footerSlice = createSlice({
       // state.footerData = [...state.footerData, action.payload.footerData];
       if (
         state.footerData.forEach((item, index) => {
-          if (item.name == action.payload.footerData.name) {
+          if (item && item.name == action.payload.footerData.name) {
             return true;
           }
         })
       ) {
-        console.log(action.payload.footerData.name);
+        // don't add
       } else {
         state.footerData = [...state.footerData, action.payload.footerData];
       }

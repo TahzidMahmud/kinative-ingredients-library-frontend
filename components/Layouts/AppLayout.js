@@ -4,6 +4,7 @@ import Footer from "@/components/Layouts/Footer";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectFooterState, setFooterState } from "../../store/footerSlice";
+import { selectHeaderState, setHeaderState } from "../../store/headerSlice";
 
 const AppLayout = ({ header, children }) => {
   useEffect(() => {
@@ -19,11 +20,18 @@ const AppLayout = ({ header, children }) => {
   const [footerState, setfooterState] = useState(
     useSelector(selectFooterState)
   );
+  const [headerState, setheaderState] = useState(
+    useSelector(selectHeaderState)
+  );
   // const { user } = {};
 
   return (
     <div className=" bg-gray-100">
-      <Navigation className="" user={user} />
+      {headerState.length > 0 ? (
+        <Navigation className="" user={user} data={headerState} />
+      ) : (
+        <Navigation className="" user={user} />
+      )}
 
       {/* Page Heading */}
       {/* <header className="bg-white shadow">

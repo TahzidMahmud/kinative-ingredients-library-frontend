@@ -10,27 +10,46 @@ import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import axios from "@/lib/axios";
+import { useDispatch, useSelector } from "react-redux";
+import { selectHeaderState, setHeaderState } from "../../store/headerSlice";
 
-const Navigation = ({ user }) => {
+const Navigation = ({ user, data = null }) => {
   const router = useRouter();
 
   const { logout } = useAuth();
   const { login } = useAuth();
 
   const [open, setOpen] = useState(false);
-  const [headerlogo, setHeaderlogo] = useState([]);
-  const [headerLinks, setHeaderLinks] = useState([]);
+  const [headerlogo, setHeaderlogo] = useState(
+    data != null ? data[0].data : null
+  );
+  const [headerLinks, setHeaderLinks] = useState(
+    data != null ? data[1].data : []
+  );
   const [header, setHeader] = useState(false);
-
+  const [headerState, setheaderState] = useState(
+    useSelector(selectHeaderState)
+  );
+  const dispatch = useDispatch();
   useEffect(() => {
-    getHeaderData();
-  }, [header]);
+    if (data == null && data == undefined) {
+      getHeaderData();
+    }
+  }, []);
   async function getHeaderData() {
     await Promise.all([
       axios
         .get("/api/header-settings/header_logo")
         .then((response) => {
           setHeaderlogo(response.data.data.logo_image);
+          dispatch(
+            setHeaderState({
+              headerData: {
+                data: response.data.data.logo_image,
+                name: "header_logo",
+              },
+            })
+          );
         })
         .catch((error) => console.log(error)),
 
@@ -38,6 +57,14 @@ const Navigation = ({ user }) => {
         .get("/api/header-settings/header_links")
         .then((response) => {
           setHeaderLinks(response.data.data);
+          dispatch(
+            setHeaderState({
+              headerData: {
+                data: response.data.data,
+                name: "header_links",
+              },
+            })
+          );
         })
         .catch((error) => console.log(error)),
     ]);
