@@ -1,13 +1,22 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
-import { authSlice } from "./footerSlice";
+import { footerSlice } from "./footerSlice";
 import { createWrapper } from "next-redux-wrapper";
 
 const makeStore = () =>
   configureStore({
     reducer: {
-      [authSlice.name]: authSlice.reducer,
+      [footerSlice.name]: footerSlice.reducer,
     },
     devTools: true,
   });
 
-export const wrapper = createWrapper < AppStore > makeStore;
+export const AppStore = () => makeStore;
+export const AppState = () => AppStore["getState"];
+// export type AppThunk<ReturnType = void> = ThunkAction<
+//   ReturnType,
+//   AppState,
+//   unknown,
+//   Action
+// >;
+
+export const wrapper = createWrapper(makeStore);

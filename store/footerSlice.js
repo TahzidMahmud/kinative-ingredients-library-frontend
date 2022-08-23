@@ -3,12 +3,29 @@ import { createSlice } from "@reduxjs/toolkit";
 import { AppState } from "./store";
 import { HYDRATE } from "next-redux-wrapper";
 
-export const authSlice = createSlice({
-  name: "auth",
-  initialState,
+const initialState = {
+  footerData: [],
+};
+const nam = "";
+export const footerSlice = createSlice({
+  name: "footer",
+  initialState: {
+    footerData: [],
+  },
   reducers: {
-    setAuthState(state, action) {
-      state.authState = action.payload;
+    setFooterState(state, action) {
+      // state.footerData = [...state.footerData, action.payload.footerData];
+      if (
+        state.footerData.forEach((item, index) => {
+          if (item.name == action.payload.footerData.name) {
+            return true;
+          }
+        })
+      ) {
+        console.log(action.payload.footerData.name);
+      } else {
+        state.footerData = [...state.footerData, action.payload.footerData];
+      }
     },
   },
 
@@ -17,14 +34,14 @@ export const authSlice = createSlice({
       console.log("HYDRATE", action.payload);
       return {
         ...state,
-        ...action.payload.auth,
+        ...action.payload.footer,
       };
     },
   },
 });
 
-export const { setAuthState } = authSlice.actions;
+export const { setFooterState } = footerSlice.actions;
 
-// export const selectAuthState = (state: AppState) => state.auth.authState;
+export const selectFooterState = (state) => state.footer.footerData;
 
-export default authSlice.reducer;
+export default footerSlice.reducer;

@@ -1,7 +1,9 @@
 import Navigation from "@/components/Layouts/Navigation";
 import { useAuth } from "@/hooks/auth";
 import Footer from "@/components/Layouts/Footer";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { selectFooterState, setFooterState } from "../../store/footerSlice";
 
 const AppLayout = ({ header, children }) => {
   useEffect(() => {
@@ -12,7 +14,11 @@ const AppLayout = ({ header, children }) => {
     //   return false;
     // };
   }, []);
+
   const { user } = useAuth({ middleware: "guest" });
+  const [footerState, setfooterState] = useState(
+    useSelector(selectFooterState)
+  );
   // const { user } = {};
 
   return (
@@ -28,7 +34,8 @@ const AppLayout = ({ header, children }) => {
 
       {/* Page Content */}
       <main className="container mx-auto ">{children}</main>
-      <Footer />
+      {/* {console.log(footerState)} */}
+      {footerState.length > 0 ? <Footer data={footerState} /> : <Footer />}
     </div>
   );
 };

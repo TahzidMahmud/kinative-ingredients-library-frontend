@@ -3,21 +3,43 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import HtmlFormat from "@/components/HtmlFormat";
 import Link from "next/link";
-
-const Footer = () => {
+import { useDispatch, useSelector } from "react-redux";
+import { selectFooterState, setFooterState } from "../../store/footerSlice";
+const Footer = ({ data = null }) => {
   const [footer, setFooter] = useState(false);
-  const [footerlogo, setFooterlogo] = useState([]);
-  const [footerabout, setFooterabout] = useState([]);
-  const [footersociallinks, setFootersociallinks] = useState([]);
-  const [footerquicklinks, setFooterquicklinks] = useState([]);
-  const [footerquicklinks2, setFooterquicklinks2] = useState([]);
-  const [footercontactinfo, setFootercontactinfo] = useState([]);
-  const [footercopyright, setFootercopyright] = useState([]);
-  const [email, setemail] = useState(null);
-
+  const [footerlogo, setFooterlogo] = useState(
+    data != null ? data[0].data : null
+  );
+  const [footerabout, setFooterabout] = useState(
+    data != null ? data[1].data : null
+  );
+  const [footersociallinks, setFootersociallinks] = useState(
+    data != null ? data[2].data : []
+  );
+  const [footerquicklinks, setFooterquicklinks] = useState(
+    data != null ? data[3].data : []
+  );
+  const [footerquicklinks2, setFooterquicklinks2] = useState(
+    data != null ? data[4].data : []
+  );
+  const [footercontactinfo, setFootercontactinfo] = useState(
+    data != null ? data[5].data : []
+  );
+  const [footercopyright, setFootercopyright] = useState(
+    data != null ? data[6].data : null
+  );
+  const [email, setEmail] = useState(null);
+  const [footerState, setfooterState] = useState(
+    useSelector(selectFooterState)
+  );
+  const dispatch = useDispatch();
   useEffect(() => {
-    getFooterData();
-  }, [footer]);
+    if (data == null && data == undefined) {
+      getFooterData();
+    } else {
+      setFooter(true);
+    }
+  }, []);
   async function getFooterData() {
     await Promise.all([
       axios
@@ -25,6 +47,22 @@ const Footer = () => {
         .then((response) => {
           setFooterlogo(response.data.data.logo_image);
           setFooterabout(response.data.data.description);
+          dispatch(
+            setFooterState({
+              footerData: {
+                data: response.data.data.logo_image,
+                name: "footer_logo",
+              },
+            })
+          );
+          dispatch(
+            setFooterState({
+              footerData: {
+                data: response.data.data.description,
+                name: "footer_about",
+              },
+            })
+          );
         })
         .catch((error) => console.log(error)),
 
@@ -32,6 +70,14 @@ const Footer = () => {
         .get("/api/footer-settings/footer_social_links")
         .then((response) => {
           setFootersociallinks(response.data.data);
+          dispatch(
+            setFooterState({
+              footerData: {
+                data: response.data.data,
+                name: "footer_social_links",
+              },
+            })
+          );
         })
         .catch((error) => console.log(error)),
 
@@ -40,6 +86,22 @@ const Footer = () => {
         .then((response) => {
           setFooterquicklinks(response.data.data.widget_one);
           setFooterquicklinks2(response.data.data.widget_two);
+          dispatch(
+            setFooterState({
+              footerData: {
+                data: response.data.data.widget_one,
+                name: "footer_links1",
+              },
+            })
+          );
+          dispatch(
+            setFooterState({
+              footerData: {
+                data: response.data.data.widget_two,
+                name: "footer_links2",
+              },
+            })
+          );
         })
         .catch((error) => console.log(error)),
 
@@ -47,12 +109,28 @@ const Footer = () => {
         .get("/api/footer-settings/footer_contact_info")
         .then((response) => {
           setFootercontactinfo(response.data.data);
+          dispatch(
+            setFooterState({
+              footerData: {
+                data: response.data.data,
+                name: "footer_contact_info",
+              },
+            })
+          );
         })
         .catch((error) => console.log(error)),
       axios
         .get("/api/footer-settings/footer_copyright")
         .then((response) => {
           setFootercopyright(response.data.data);
+          dispatch(
+            setFooterState({
+              footerData: {
+                data: response.data.data,
+                name: "footer_copyright",
+              },
+            })
+          );
           setFooter(true);
         })
         .catch((error) => console.log(error)),
