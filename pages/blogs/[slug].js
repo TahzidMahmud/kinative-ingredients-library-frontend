@@ -19,12 +19,6 @@ const Blog = ({ blog, trendingBlogs }) => {
   const [comments, setComments] = useState(blog.comments.data);
   const [isSSR, setIsSSR] = useState(true);
   useEffect(() => {
-    document.oncontextmenu = document.body.oncontextmenu = function () {
-      return false;
-    };
-    document.oncopy = document.body.oncopy = function () {
-      return false;
-    };
     setIsSSR(false);
     if (user) {
       canLike();
@@ -110,8 +104,8 @@ const Blog = ({ blog, trendingBlogs }) => {
         <title>Blogs</title>
       </Head>
 
-      <div className={`flex my-6`}>
-        <div className="md:min-w-[70%] sm:min-w-[100%] my-4">
+      <div className={`flex my-6 grid grid-cols-1 md:grid-cols-3 gap-4`}>
+        <div className="md:col-span-2  my-4 mx-3 md:mx-0">
           <div className=" rounded-lg dark:bg-gray-800 dark:border-gray-700">
             <Image
               loader={() => blog.image}
@@ -202,11 +196,11 @@ const Blog = ({ blog, trendingBlogs }) => {
             ))}
           </div>
         </div>
-        <div className="md:min-w-[30%] sm:min-w-[100%] ">
-          <div className="flex justify-left md:my-4 sm:my-3">
+        <div className="md:col-span-1  mx-3 md:mx-0">
+          <div className="flex justify-left md:my-4 my-3">
             <h1 className="text-xl font-bold">Trending Posts</h1>
           </div>
-          <div className="border-l md:pl-7">
+          <div className="md:border-l  md:pl-7">
             {trendingBlogs?.map((blog, index) => {
               return (
                 <Link key={index} href={`/blogs/${blog.slug.toString()}`}>

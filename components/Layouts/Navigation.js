@@ -80,8 +80,8 @@ const Navigation = ({ user, data = null }) => {
             <div className="flex-shrink-0 flex  items-center justify-center">
               <Link href="/">
                 <Image
-                  loader={() => (headerlogo != null ? headerlogo : "/logo.svg")}
-                  src={"/logo.svg"}
+                  // loader={() => (headerlogo != null ? headerlogo : "/logo.svg")}
+                  src="/logo.svg"
                   alt="logo"
                   width={110}
                   height={30}

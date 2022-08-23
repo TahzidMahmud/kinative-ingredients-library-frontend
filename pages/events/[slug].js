@@ -97,13 +97,13 @@ const Event = ({ event, running_events }) => {
           />
         </div>
       </div>
-      <div className="grid grid-cols-1 ">
-        <div className="p-6 md:px-16 sm:px-10 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
-          <div className="grid grid-cols-2 border-b pb-4 flex items-center">
+      <div className="grid grid-cols-1 px-2 md:px-0">
+        <div className="p-6 md:px-16  bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+          <div className="grid md:grid-cols-2 grid-cols-1 border-b pb-4 flex items-center">
             <div className="flex justify-start items-cetner">
               <h1 className="text-xl font-bold ">{event.title}</h1>
             </div>
-            <div className="flex justify-end items-cetner">
+            <div className="flex md:justify-end justify-center items-cetner">
               <div className={`${participated ? "d-none" : ""}`}>
                 {timeleft ? (
                   <button
@@ -124,23 +124,23 @@ const Event = ({ event, running_events }) => {
               </div>
             </div>
           </div>
-          <div className="grid grid-cols-2 flex items-center my-4">
+          <div className="grid md:grid-cols-2 grid-cols-1 flex items-center my-4">
             <div className="flex justify-start items-cetner">
-              <div className="flex items-center">
-                <span className="text-md font-semibold mx-2">
+              <div className="flex items-center ">
+                <span className="md:text-md text-sm font-semibold mx-2">
                   Event Entry Expiry:
                 </span>
-                <div className="flex ml-2">
-                  <span className="m-1 px-3 rounded-md py-3 bg-blue-100 text-blue-500">
+                <div className="flex md:ml-2">
+                  <span className="m-1 md:px-3 px-1.5 rounded-md py-3 bg-blue-100 text-blue-500">
                     {days}d
                   </span>
-                  <span className="m-1 px-3 rounded-md py-3 bg-blue-100 text-blue-500">
+                  <span className="m-1 md:px-3 px-1.5 rounded-md py-3 bg-blue-100 text-blue-500">
                     {hours}h
                   </span>
-                  <span className="m-1 px-3 rounded-md py-3 bg-blue-100 text-blue-500">
+                  <span className="m-1 md:px-3 px-1.5 rounded-md py-3 bg-blue-100 text-blue-500">
                     {minutes}m
                   </span>
-                  <span className="m-1 px-3 rounded-md py-3 bg-blue-100 text-blue-500">
+                  <span className="m-1 md:px-3 px-1.5 rounded-md py-3 bg-blue-100 text-blue-500">
                     {seconds}s
                   </span>
                 </div>
@@ -179,12 +179,12 @@ const Event = ({ event, running_events }) => {
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-1 my-4 mb-16">
+      <div className="grid grid-cols-1 my-4 mb-16 mx-3 md:mx-0">
         <div className="p-6 md:px-16 sm:px-10 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
           <div className="flex justify-start items-cetner mx-2 my-6">
             <h1 className="text-xl font-bold ">This Month Events</h1>
           </div>
-          <div className="flex items-center">
+          <div className="flex items-center grid grid-cols-1 md:grid-cols-3 gap-4">
             {running_events.map((itm, index) => (
               <Link key={index} href={`/events/${itm.slug}`}>
                 <div className={`px-3 ${itm.id == event.id ? "d-none" : ""}`}>
