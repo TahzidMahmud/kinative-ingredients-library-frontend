@@ -47,39 +47,42 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
           <title>Blogs</title>
         </Head>
         {/* top part  */}
-        <div className="grid gird-cols-1">
+        <div className="grid md:gird-cols-1">
           <div className="bg-white shadow-sm sm:rounded-lg h-48 my-8">
-            <div className="flex justify-between">
-              <div className="flex items-center h-48 pl-14">
-                <div className="flex items-center">
-                  <div className="border-r-4 border-blue-600 h-10 px-4 flex items-center">
+            <div className="grid grid-cols-2">
+              <div className="flex items-center h-48 md:pl-14 pl-1.5">
+                <div className="flex md:flex-row flex-col items-center">
+                  <div className="md:border-r-4 border-blue-600 h-10 md:px-4 px-0 flex items-center">
                     {" "}
-                    <h1 className="uppercase text-3xl font-bold text-center">
+                    <h1 className="uppercase md:text-3xl text-2xl font-bold text-center">
                       {" "}
                       our blog
                     </h1>
                   </div>
-                  <h6 className="opacity-80 text-sm mx-2">
+                  <h6 className="opacity-80 text-sm md:mx-2 md:px-0 px-4 ml-2">
                     Get Fresh Blog Posts Everyday
                   </h6>
                 </div>
               </div>
-
-              <Image
-                src="/ingredient_banner.jpg"
-                alt="ingredient_banner"
-                width={246}
-                height={186}
-                className="py-4"
-              />
+              <div className="h-full w-full flex justify-end ">
+                <Image
+                  src="/ingredient_banner.jpg"
+                  alt="ingredient_banner"
+                  width={246}
+                  height={186}
+                  className="py-4 "
+                />
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="flex">
-          <div className="md:min-w-[70%] sm:min-w-[100%] my-4">
-            <div className="flex justify-left md:my-4 sm:my-3">
-              <h1 className="text-xl font-bold">New From the Blog</h1>
+        <div className="flex grid md:grid-cols-3 grid-cols-1">
+          <div className="md:min-w-[70%] min-w-[100%] my-4 md:col-span-2">
+            <div className="flex justify-left md:my-4 my-5">
+              <h1 className="text-xl font-bold px-3 md:p-0">
+                New From the Blog
+              </h1>
             </div>
             <div className="md:pr-9">
               <div className="grid grid-cols-1 gap-4 md:mb-4 sm:mb-3">
@@ -89,7 +92,7 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
                       goTo(`/blogs/${newBlogs[0].slug.toString()}`);
                     }}
                   >
-                    <div className="  rounded-lg dark:bg-gray-800 dark:border-gray-700">
+                    <div className=" p-3 md:p-0  rounded-lg dark:bg-gray-800 dark:border-gray-700">
                       <div className="flex flex-col justify-start items-baseline">
                         <div className="z-0">
                           <Image
@@ -173,7 +176,7 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
                   </div>
                 }
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
                 {newBlogs.map((blog, index) => {
                   if (index === 0) {
                     <></>;
@@ -184,7 +187,7 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
                           goTo(`/blogs/${blog.slug.toString()}`);
                         }}
                       >
-                        <div>
+                        <div className="p-3 md:p-0">
                           <div className="  rounded-lg dark:bg-gray-800 dark:border-gray-700">
                             <div className="flex flex-col justify-start items-baseline">
                               <div className="z-0">
@@ -273,7 +276,7 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
                 })}
               </div>
             </div>
-            <div className="flex justify-center items-center md:my-10 sm:my-5">
+            <div className="flex justify-center items-center md:my-10 my-5">
               <Link href={`/blogs/all-blogs`}>
                 <button className="bg-blue-600 px-4 py-2 rounded-md text-white">
                   View All
@@ -281,11 +284,11 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
               </Link>
             </div>
           </div>
-          <div className="md:min-w-[30%] sm:min-w-[100%] ">
-            <div className="flex justify-left md:my-4 sm:my-3">
-              <h1 className="text-xl font-bold">Trending Posts</h1>
+          <div className="md:min-w-[30%] min-w-[100%] md:col-span-1">
+            <div className="flex justify-left md:my-4 my-5">
+              <h1 className="text-xl font-bold px-3 md:p-0">Trending Posts</h1>
             </div>
-            <div className="border-l md:pl-7">
+            <div className="md:border-l md:pl-7">
               {trendingBlogs?.map((blog, index) => {
                 return (
                   <div
@@ -293,7 +296,7 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
                       goTo(`/blogs/${blog.slug.toString()}`);
                     }}
                   >
-                    <div>
+                    <div className="p-3 md:p-0">
                       <div className="  rounded-lg dark:bg-gray-800 dark:border-gray-700">
                         <div className="flex flex-col justify-start items-baseline">
                           <div className="z-0">
