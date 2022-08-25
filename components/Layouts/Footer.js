@@ -184,7 +184,7 @@ const Footer = ({ data = null }) => {
                     />
                     <span
                       onClick={submit}
-                      className="inline-flex items-center md:px-10 px-2 md:text-sm text-xs text-white font-semibold uppercase bg-[#ff2b03] rounded-r-md border border-r-0 border-[#ff2b03] h-6"
+                      className="cursor-pointer inline-flex items-center md:px-10 px-2 md:text-sm text-xs text-white font-semibold uppercase bg-[#ff2b03] rounded-r-md border border-r-0 border-[#ff2b03] h-6"
                     >
                       submit
                     </span>
