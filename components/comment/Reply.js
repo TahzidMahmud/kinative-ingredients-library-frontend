@@ -59,7 +59,7 @@ const Reply = ({ reply }) => {
           )}
         </div>
         {/* like dislike section  */}
-        <div className="my-6 px-6 flex justify-between items-center">
+        <div className="my-6 md:px-6 px-3 flex justify-between items-center">
           <div className="flex justify-start items-center">
             <sapn className="text-sm opacity-60 ml-2">{reply.created_at}</sapn>
           </div>

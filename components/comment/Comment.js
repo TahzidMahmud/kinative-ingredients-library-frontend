@@ -205,7 +205,7 @@ const Comment = ({
         </div>
       </div>
       <div className="flex flex-col ml-20">
-        <div className="px-7 py-1 mb-4">
+        <div className="md:px-7 py-1 mb-4">
           <sapn className="text-sm opacity-60">{comment.body}</sapn>
         </div>
         <div className="p-3 rounded-lg">
@@ -225,13 +225,13 @@ const Comment = ({
           )}
         </div>
         {/* like dislike section  */}
-        <div className="my-6 px-6 flex justify-between items-center">
-          <div className="flex justify-start items-center">
+        <div className="my-6 md:px-6 flex justify-between items-center grid grid-cols-1 md:grid-cols-2">
+          <div className="flex justify-start items-center ">
             <sapn className="text-sm opacity-60 ml-2">
               {comment.created_at}
             </sapn>
           </div>
-          <div className="flex justify-end items-center">
+          <div className="flex justify-end items-center my-2 md:my-0 mx-2 md:mx-0">
             <div className="flex cursor-pointer" onClick={replyComment}>
               <div className="px-2 cursor-pointer">
                 <Image

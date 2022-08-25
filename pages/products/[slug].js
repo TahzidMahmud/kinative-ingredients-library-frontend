@@ -252,7 +252,7 @@ const Product = ({ product }) => {
                         className="py-4"
                       />
                     </div>
-                    <div className="text-sm opacity-80 mb-4">
+                    <div className="text-sm opacity-80 mb-4 cursor-pointer">
                       {cansave ? (
                         <span>Save to collection</span>
                       ) : (
@@ -272,14 +272,14 @@ const Product = ({ product }) => {
                     </div>
                     {likeable == true ? (
                       <div
-                        className="text-sm mr-2 opacity-80 mb-4"
+                        className="text-sm mr-2 opacity-80 mb-4 cursor-pointer"
                         onClick={handleClick}
                       >
                         Like It
                       </div>
                     ) : (
                       <div
-                        className="text-sm text-red-600 mr-2 opacity-100 mb-4"
+                        className="text-sm text-red-600 mr-2 opacity-100 mb-4 cursor-pointer"
                         onClick={handleClick}
                       >
                         Unlike

@@ -36,13 +36,13 @@ const Profile = ({ Concerns, SkinTypes, Profile, Wishlist }) => {
       }
     >
       <Head>
-        <title>Laravel </title>
+        <title>Profile </title>
       </Head>
 
-      <div className="flex  p-10">
+      <div className="flex grid md:grid-cols-3  grid-cols-2  md:p-10">
         {/* left section  */}
-        <div className="md:min-w-[30%] px-8 border-r">
-          <div className="flex flex-col items-center justify-center">
+        <div className="col-span-2 md:col-span-1 md:px-8 border-r">
+          <div className="flex flex-col items-center justify-center px-3">
             {/* image  */}
             <div>
               <Image
@@ -55,7 +55,7 @@ const Profile = ({ Concerns, SkinTypes, Profile, Wishlist }) => {
               />
             </div>
             {/* details  */}
-            <div className="p-6 w-full  h-96 bg-white rounded-lg border border-gray-200 shadow-md cursor-pointer">
+            <div className=" p-6 w-[100%]  h-96 bg-white rounded-lg border border-gray-200 shadow-md cursor-pointer my-2">
               <ul>
                 <Link href={`/blogs/create`}>
                   <li className="text-gray-800 border-b py-2 hover:bg-gray-100 hover:text-blue-400 rounded-md">
@@ -74,8 +74,8 @@ const Profile = ({ Concerns, SkinTypes, Profile, Wishlist }) => {
           </div>
         </div>
         {/* right section  */}
-        <div className="md:min-w-[70%] px-6">
-          <div className="p-6 w-full h-96 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 ">
+        <div className=" md:col-span-2 col-span-2  md:px-6 px-3">
+          <div className="p-6 h-96 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 ">
             <div className="flex justify-between imtes-center border-b pb-2">
               <div className="flex items-center ">
                 {/* <Image
@@ -232,8 +232,8 @@ const Profile = ({ Concerns, SkinTypes, Profile, Wishlist }) => {
             </div>
           </div>
         </div>
-        {editProfile ? (
-          <div className="h-2/3 ">
+        {/* {editProfile ? (
+          <div className="h-2/3">
             <ProfileEditModal
               show={editProfile}
               closeModal={closeModal}
@@ -244,7 +244,16 @@ const Profile = ({ Concerns, SkinTypes, Profile, Wishlist }) => {
           </div>
         ) : (
           <></>
-        )}
+        )} */}
+        <div className={`${editProfile ? "" : "invisible"} h-2/3`}>
+          <ProfileEditModal
+            show={editProfile}
+            closeModal={closeModal}
+            profile={Profile}
+            Concerns={Concerns}
+            Skintypes={SkinTypes}
+          />
+        </div>
       </div>
     </AppLayout>
   );
