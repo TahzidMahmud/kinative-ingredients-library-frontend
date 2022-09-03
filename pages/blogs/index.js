@@ -2,7 +2,7 @@
 import AppLayout from "@/components/Layouts/AppLayout";
 import Head from "next/head";
 import axios from "@/lib/axios";
-import Link from "next/Link";
+import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";

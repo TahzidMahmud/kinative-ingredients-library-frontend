@@ -120,9 +120,9 @@ const Navigation = ({ user, data = null }) => {
                       {user?.profile && user.profile.avatar ? (
                         <Image
                           loader={() =>
-                            `http://139.59.11.234/profile-image/${user.profile.avatar}`
+                            `http://139.59.11.234:8080/profile-image/${user.profile.avatar}`
                           }
-                          src={`http://139.59.11.234/profile-image/${user.profile.avatar}`}
+                          src={`http://139.59.11.234:8080/profile-image/${user.profile.avatar}`}
                           alt={user.name}
                           width={50}
                           height={50}
