@@ -363,7 +363,6 @@ export async function getServerSideProps(context) {
   const blogs = await axios
     .post(`/api/profiles/${id}/blogs`)
     .then((response) => {
-      console.log(response);
       return response.data;
     })
     .catch((error) => console.log(error));

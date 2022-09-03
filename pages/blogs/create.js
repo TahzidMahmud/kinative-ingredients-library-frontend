@@ -9,6 +9,8 @@ import LoginModal from "@/modals/LoginModal";
 import { useRouter } from "next/router";
 import { useEffect, useState, useRef } from "react";
 import "react-quill/dist/quill.snow.css";
+import ToasterContainer from "@/components/ToasterContainer";
+import Toaster from "@/components/Toaster";
 
 const Create = ({ categories }) => {
   const router = useRouter();
@@ -51,7 +53,8 @@ const Create = ({ categories }) => {
       .post("/api/blogs", formData)
       .then((res) => {
         if (res.data.success) {
-          router.push(`/blogs/${res.data.blog.slug}`);
+          Toaster.notify(res.data.message, { type: "success" });
+          // router.push(`/blogs/${res.data.blog.slug}`);
         }
       })
       .catch((err) => {
@@ -152,7 +155,6 @@ const Create = ({ categories }) => {
             ref={imageInput}
             type="file"
             name="imageInput"
-            multiple="true"
             onChange={convertImage}
             className="hidden"
           />
@@ -187,14 +189,18 @@ const Create = ({ categories }) => {
           </div>
         </div>
       </div>
+      <ToasterContainer />
       {/*log in  modal section  */}
       {isSSR === false ? (
-        <LoginModal
-          show={showLoginModal}
-          page={`/events`}
-          closeModal={closeModal}
-          className="z-40 opacity-100"
-        />
+        <>
+          {" "}
+          <LoginModal
+            show={showLoginModal}
+            page={`/events`}
+            closeModal={closeModal}
+            className="z-40 opacity-100"
+          />
+        </>
       ) : (
         <></>
       )}
@@ -206,7 +212,6 @@ export async function getServerSideProps(context) {
   const categories = await axios
     .get("/api/blog/categories")
     .then((response) => {
-      console.log(response.data.categories);
       return response.data.categories;
     })
     .catch((error) => console.log(error));
