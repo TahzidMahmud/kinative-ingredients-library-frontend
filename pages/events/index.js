@@ -227,7 +227,6 @@ export async function getServerSideProps(context) {
       },
     })
     .then((response) => {
-      console.log(response.data.winners);
       return response.data.winners;
     })
     .catch((error) => console.log(error));
