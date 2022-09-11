@@ -302,7 +302,7 @@ const Blog = ({ blog, trendingBlogs }) => {
     </AppLayout>
   );
 };
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   const { params } = context;
   const slug = params.slug;
   const blog = await axios
@@ -329,19 +329,19 @@ export async function getStaticProps(context) {
   };
 }
 
-export async function getStaticPaths() {
-  const slugs = await axios
-    .get("/api/blog/slugs")
-    .then((response) => {
-      return response.data.slugs;
-    })
-    .catch((error) => console.log(error));
+// export async function getStaticPaths() {
+//   const slugs = await axios
+//     .get("/api/blog/slugs")
+//     .then((response) => {
+//       return response.data.slugs;
+//     })
+//     .catch((error) => console.log(error));
 
-  const paths = slugs.map((slug) => ({ params: { slug: slug.toString() } }));
-  return {
-    paths,
-    fallback: false,
-  };
-}
+//   const paths = slugs.map((slug) => ({ params: { slug: slug.toString() } }));
+//   return {
+//     paths,
+//     fallback: false,
+//   };
+// }
 
 export default Blog;

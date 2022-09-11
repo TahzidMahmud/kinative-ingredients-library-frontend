@@ -9,8 +9,8 @@ import LoginModal from "@/modals/LoginModal";
 import { useRouter } from "next/router";
 import { useEffect, useState, useRef } from "react";
 import "react-quill/dist/quill.snow.css";
-import ToasterContainer from "@/components/ToasterContainer";
-import Toaster from "@/components/Toaster";
+// import ToasterContainer from "@/components/ToasterContainer";
+// import Toaster from "@/components/Toaster";
 
 const Create = ({ categories }) => {
   const router = useRouter();
@@ -189,7 +189,7 @@ const Create = ({ categories }) => {
           </div>
         </div>
       </div>
-      <ToasterContainer />
+      {/* <ToasterContainer /> */}
       {/*log in  modal section  */}
       {isSSR === false ? (
         <>

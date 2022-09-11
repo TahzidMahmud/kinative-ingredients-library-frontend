@@ -112,7 +112,7 @@ const Ingredient = ({ ingredient }) => {
   );
 };
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   const { params } = context;
   const slug = params.slug;
   const ingredient = await axios
@@ -128,19 +128,19 @@ export async function getStaticProps(context) {
   };
 }
 
-export async function getStaticPaths() {
-  const ids = await axios
-    .get("/api/ingredient/ids")
-    .then((response) => {
-      return response.data.ids;
-    })
-    .catch((error) => console.log(error));
+// export async function getStaticPaths() {
+//   const ids = await axios
+//     .get("/api/ingredient/ids")
+//     .then((response) => {
+//       return response.data.ids;
+//     })
+//     .catch((error) => console.log(error));
 
-  const paths = ids.map((id) => ({ params: { slug: id.toString() } }));
-  return {
-    paths,
-    fallback: false,
-  };
-}
+//   const paths = ids.map((id) => ({ params: { slug: id.toString() } }));
+//   return {
+//     paths,
+//     fallback: false,
+//   };
+// }
 
 export default Ingredient;
