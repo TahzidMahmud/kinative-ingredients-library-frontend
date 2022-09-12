@@ -1,11 +1,24 @@
 // Hey, I am toast component
+import Image from "next/image";
+import Toaster from "@/components/Toaster";
+
 export const Toast = (props) => {
   return (
     <div className="toast-message-container">
       <div className="side-bar"></div>
-      <div id="toast-message" className="toast-message">
+      <div id="toast-message" className="toast-message flex justify-between">
         {/* Message to be added here */}
-        {props.message}
+        {props.message}{" "}
+        <Image
+          className="rounded-full"
+          src="/icons8-close.svg"
+          alt="logo"
+          width={12}
+          height={12}
+          onClick={() => {
+            Toaster.remove();
+          }}
+        />
       </div>
       {/* Static Styling */}
       <style jsx>{`

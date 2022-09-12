@@ -1,18 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   theme: {
-    extend: {
-      colors: {
-        "footer-bg": "#210373",
-        "copy-bg": "#ff2b03",
-        "border-color": "#ead05b",
-        facebook: "#385899",
-        twitter: "#16a2f2",
-        instragram: "#be2ea3",
-        youtube: "#ff0000",
-        linkedin: "#0070ae",
-      },
-    },
     minWidth: {
       0: "0%",
       50: "50%",
@@ -44,6 +32,18 @@ module.exports = {
     },
     width: {
       3: "3rem",
+    },
+    extend: {
+      colors: {
+        "footer-bg": "#210373",
+        "copy-bg": "#ff2b03",
+        "border-color": "#ead05b",
+        facebook: "#385899",
+        twitter: "#16a2f2",
+        instragram: "#be2ea3",
+        youtube: "#ff0000",
+        linkedin: "#0070ae",
+      },
     },
   },
   content: [

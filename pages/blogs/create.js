@@ -1,3 +1,4 @@
+import Toaster from "@/components/Toaster";
 import QuillNoSSRWrapper from "@/components/Quil";
 import { modules, formats } from "@/components/Quil";
 import AppLayout from "@/components/Layouts/AppLayout";
@@ -9,8 +10,6 @@ import LoginModal from "@/modals/LoginModal";
 import { useRouter } from "next/router";
 import { useEffect, useState, useRef } from "react";
 import "react-quill/dist/quill.snow.css";
-// import ToasterContainer from "@/components/ToasterContainer";
-// import Toaster from "@/components/Toaster";
 
 const Create = ({ categories }) => {
   const router = useRouter();
@@ -54,7 +53,7 @@ const Create = ({ categories }) => {
       .then((res) => {
         if (res.data.success) {
           Toaster.notify(res.data.message, { type: "success" });
-          // router.push(`/blogs/${res.data.blog.slug}`);
+          router.push(`/blogs/${res.data.blog.slug}`);
         }
       })
       .catch((err) => {
@@ -74,27 +73,21 @@ const Create = ({ categories }) => {
         <title>Laravel - event</title>
       </Head>
       <div className="p-6 w-full  bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 my-10">
-        <label
-          htmlFor="countries"
-          className="block mb-2 text-md font-large text-gray-900 dark:text-gray-400"
-        >
+        <label className="block mb-2 text-md font-large text-gray-900 dark:text-gray-400">
           Blog Title
         </label>
         <input
           type="text"
           id="base-input"
           onChange={(e) => setBlogtitle(e.target.value)}
-          className="my-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+          className="my-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 w-[100%]"
         />
-        <label
-          htmlFor="countries"
-          className="block mb-2 text-md font-large text-gray-900 dark:text-gray-400"
-        >
+        <label className="block mb-2 text-md font-large text-gray-900 dark:text-gray-400">
           Select Blog Category
         </label>
         <select
           id="countries"
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 w-[100%]"
           onChange={(e) => {
             if (e.target.value != "") {
               setBlogcategory(e.target.value);
@@ -103,15 +96,15 @@ const Create = ({ categories }) => {
         >
           <option value="">Select Category</option>
           {categories.map((category, index) => (
-            <option key={category.index} value={category.id}>
+            <option
+              key={`${category.id}-${category.index}`}
+              value={category.id}
+            >
               {category.name}
             </option>
           ))}
         </select>
-        <label
-          htmlFor="countries"
-          className="block mb-2 text-md font-large text-gray-900 dark:text-gray-400 my-4"
-        >
+        <label className="block mb-2 text-md font-large text-gray-900 dark:text-gray-400 my-4">
           Write Blog Content
         </label>
         <QuillNoSSRWrapper
@@ -123,32 +116,22 @@ const Create = ({ categories }) => {
         />
         {/* cover image stage*/}
         <div className={`flex flex-col justify-center items-center`}>
-          <label
-            htmlFor="countries"
-            className="block mb-2 text-md font-large text-gray-900 dark:text-gray-400 my-4"
-          >
+          <label className="block mb-2 text-md font-large text-gray-900 dark:text-gray-400 my-4">
             Upload Cover Image
           </label>
 
           <button
             type="button"
             className="inline-flex justify-center p-2 text-gray-500 rounded-lg cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600"
-            htmlFor="imageInput"
             onClick={() => imageInput.current.click()}
           >
-            <svg
-              aria-hidden="true"
-              className="w-16 h-16"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fillRule="evenodd"
-                d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
-                clipRule="evenodd"
-              ></path>
-            </svg>
+            <Image
+              src="/icons8-picture.svg"
+              alt="logo"
+              width={35}
+              height={35}
+              className="rounded-t-lg py-6"
+            />
             <span className="sr-only">Upload image</span>
           </button>
           <input
@@ -189,7 +172,6 @@ const Create = ({ categories }) => {
           </div>
         </div>
       </div>
-      {/* <ToasterContainer /> */}
       {/*log in  modal section  */}
       {isSSR === false ? (
         <>

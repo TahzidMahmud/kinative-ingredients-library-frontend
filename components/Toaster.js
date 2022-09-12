@@ -5,15 +5,18 @@ if (typeof window !== "undefined") {
   const root = ReactDOMClient.createRoot(
     document.getElementById("toast-container")
   );
+  // console.log(root);
 }
 
 const Toaster = {
   remove: () => {
-    root.unmount();
-    Toaster.currentToast = false;
-    if (Toaster.timeout) {
-      clearTimeout(Toaster.timeout);
-      Toaster.timeout = null;
+    if (root != null) {
+      root.unmount();
+      Toaster.currentToast = false;
+      if (Toaster.timeout) {
+        clearTimeout(Toaster.timeout);
+        Toaster.timeout = null;
+      }
     }
   },
   currentToast: false,
@@ -34,15 +37,17 @@ const Toaster = {
     }
     let trasitionPercentage = 0.3 * (100 / duration);
 
-    root.render(
-      <Toast
-        message={message}
-        slideIn={true}
-        color={color || null}
-        transitionPercentage={trasitionPercentage}
-        duration={duration}
-      />
-    );
+    if (root != null) {
+      root.render(
+        <Toast
+          message={message}
+          slideIn={true}
+          color={color || null}
+          transitionPercentage={trasitionPercentage}
+          duration={duration}
+        />
+      );
+    }
     Toaster.currentToast = true;
     Toaster.timeout = setTimeout(Toaster.remove, duration * 1000);
   },

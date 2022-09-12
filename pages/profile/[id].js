@@ -33,6 +33,7 @@ const Profile = ({ Concerns, SkinTypes, Profile, Wishlist, Blogs }) => {
       .delete(`/api/blogs/${id}`)
       .then((res) => {
         if (res.data.success) {
+          location.reload();
           let nblogs = blogs.filter((item) => item.id !== id);
           setBlogs(nblogs);
         }
@@ -313,20 +314,8 @@ const Profile = ({ Concerns, SkinTypes, Profile, Wishlist, Blogs }) => {
             </div>
           </div>
         </div>
-        {/* {editProfile ? (
-          <div className="h-2/3">
-            <ProfileEditModal
-              show={editProfile}
-              closeModal={closeModal}
-              profile={Profile}
-              Concerns={Concerns}
-              Skintypes={SkinTypes}
-            />
-          </div>
-        ) : (
-          <></>
-        )} */}
-        <div className={`${editProfile ? "" : "invisible"} h-2/3`}>
+
+        {editProfile ? (
           <ProfileEditModal
             show={editProfile}
             closeModal={closeModal}
@@ -334,7 +323,19 @@ const Profile = ({ Concerns, SkinTypes, Profile, Wishlist, Blogs }) => {
             Concerns={Concerns}
             Skintypes={SkinTypes}
           />
-        </div>
+        ) : (
+          <div></div>
+        )}
+
+        {/* <div className={`${editProfile ? "z-10" : "invisible"}`}>
+          <ProfileEditModal
+            show={editProfile}
+            closeModal={closeModal}
+            profile={Profile}
+            Concerns={Concerns}
+            Skintypes={SkinTypes}
+          />
+        </div> */}
       </div>
     </AppLayout>
   );

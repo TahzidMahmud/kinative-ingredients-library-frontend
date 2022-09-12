@@ -88,6 +88,7 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
               <div className="grid grid-cols-1 gap-4 md:mb-4 sm:mb-3">
                 {
                   <div
+                    key={`blog.id-`.index}
                     onClick={() => {
                       goTo(`/blogs/${newBlogs[0].slug.toString()}`);
                     }}
@@ -177,103 +178,108 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
                 }
               </div>
               <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
-                {newBlogs.map((blog, index) => {
-                  if (index === 0) {
-                    <></>;
-                  } else {
-                    return (
-                      <div
-                        onClick={() => {
-                          goTo(`/blogs/${blog.slug.toString()}`);
-                        }}
-                      >
-                        <div className="p-3 md:p-0">
-                          <div className="  rounded-lg dark:bg-gray-800 dark:border-gray-700">
-                            <div className="flex flex-col justify-start items-baseline">
-                              <div className="z-0">
-                                <Image
-                                  loader={() => blog.image}
-                                  src={blog.image}
-                                  alt={blog.title}
-                                  width={1040}
-                                  height={530}
-                                  className="py-4"
-                                />
-                              </div>
-                              <div className=" bg-black text-black px-3 py-2 md:-mt-14 md:mb-2  flex justify-center align-center md:ml-4  z-10 rounded">
-                                <h2 className="text-md font-semibold text-white uppercase text-center rounded-md">
-                                  {blog.category}
-                                </h2>
+                {newBlogs.length > 0 ? (
+                  newBlogs.map((blog, index) => {
+                    if (index === 0) {
+                      <></>;
+                    } else {
+                      return (
+                        <div
+                          key={`blog.id-`.index}
+                          onClick={() => {
+                            goTo(`/blogs/${blog.slug.toString()}`);
+                          }}
+                        >
+                          <div className="p-3 md:p-0">
+                            <div className="  rounded-lg dark:bg-gray-800 dark:border-gray-700">
+                              <div className="flex flex-col justify-start items-baseline">
+                                <div className="z-0">
+                                  <Image
+                                    loader={() => blog.image}
+                                    src={blog.image}
+                                    alt={blog.title}
+                                    width={1040}
+                                    height={530}
+                                    className="py-4"
+                                  />
+                                </div>
+                                <div className=" bg-black text-black px-3 py-2 md:-mt-14 md:mb-2  flex justify-center align-center md:ml-4  z-10 rounded">
+                                  <h2 className="text-md font-semibold text-white uppercase text-center rounded-md">
+                                    {blog.category}
+                                  </h2>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                          <div className="h-10 mt-2">
-                            <p className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white line-clamp-2">
-                              {blog.title}
-                            </p>
-                          </div>
-                          <div className="md:py-5 md:pb-3sm:py-2  flex flex-col justify-start border-b ">
-                            <h6 className="text-md font-semibold tracking-tight text-gray-900 dark:text-white">
-                              Posted On:
-                              <span className=" mx-2 opacity-60">
-                                {blog.created_at}
-                              </span>
-                            </h6>
-                            <p className="my-2">
-                              {blog.body}...{" "}
-                              <span className="text-blue-500 text-md font-bold cursor-pointer">
-                                Read More
-                              </span>
-                            </p>
-                          </div>
-                          <div className="mb-3 mt-1">
-                            <div className="flex text-black py-2">
-                              <div className="flex">
-                                {/* avatar image  */}
-                                <Image
-                                  src="/avatar.PNG"
-                                  alt={blog.title}
-                                  width={25}
-                                  height={25}
-                                  className="py-4"
-                                />
-                                <span className="opacity-60 text-sm mx-2">
-                                  {blog.autor.name}
+                            <div className="h-10 mt-2">
+                              <p className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white line-clamp-2">
+                                {blog.title}
+                              </p>
+                            </div>
+                            <div className="md:py-5 md:pb-3sm:py-2  flex flex-col justify-start border-b ">
+                              <h6 className="text-md font-semibold tracking-tight text-gray-900 dark:text-white">
+                                Posted On:
+                                <span className=" mx-2 opacity-60">
+                                  {blog.created_at}
                                 </span>
-                              </div>
-                              <div className="flex">
-                                {/* avatar image  */}
-                                <Image
-                                  src="/comment.png"
-                                  alt={blog.title}
-                                  width={20}
-                                  height={20}
-                                  className="py-4"
-                                />
-                                <span className="opacity-60 text-sm mx-2">
-                                  {blog.comments}
+                              </h6>
+                              <p className="my-2">
+                                {blog.body}...{" "}
+                                <span className="text-blue-500 text-md font-bold cursor-pointer">
+                                  Read More
                                 </span>
-                              </div>
-                              <div className="flex">
-                                {/* avatar image  */}
-                                <Image
-                                  src="/love_icon.png"
-                                  alt={blog.title}
-                                  width={20}
-                                  height={10}
-                                  className=""
-                                />
-                                <span className="opacity-60 text-sm mx-2">
-                                  {blog.likes}
-                                </span>
+                              </p>
+                            </div>
+                            <div className="mb-3 mt-1">
+                              <div className="flex text-black py-2">
+                                <div className="flex">
+                                  {/* avatar image  */}
+                                  <Image
+                                    src="/avatar.PNG"
+                                    alt={blog.title}
+                                    width={25}
+                                    height={25}
+                                    className="py-4"
+                                  />
+                                  <span className="opacity-60 text-sm mx-2">
+                                    {blog.autor.name}
+                                  </span>
+                                </div>
+                                <div className="flex">
+                                  {/* avatar image  */}
+                                  <Image
+                                    src="/comment.png"
+                                    alt={blog.title}
+                                    width={20}
+                                    height={20}
+                                    className="py-4"
+                                  />
+                                  <span className="opacity-60 text-sm mx-2">
+                                    {blog.comments}
+                                  </span>
+                                </div>
+                                <div className="flex">
+                                  {/* avatar image  */}
+                                  <Image
+                                    src="/love_icon.png"
+                                    alt={blog.title}
+                                    width={20}
+                                    height={10}
+                                    className=""
+                                  />
+                                  <span className="opacity-60 text-sm mx-2">
+                                    {blog.likes}
+                                  </span>
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    );
-                  }
-                })}
+                      );
+                    }
+                  })
+                ) : (
+                  <></>
+                )}
               </div>
             </div>
             <div className="flex justify-center items-center md:my-10 my-5">
@@ -289,99 +295,103 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
               <h1 className="text-xl font-bold px-3 md:p-0">Trending Posts</h1>
             </div>
             <div className="md:border-l md:pl-7">
-              {trendingBlogs?.map((blog, index) => {
-                return (
-                  <div
-                    onClick={() => {
-                      goTo(`/blogs/${blog.slug.toString()}`);
-                    }}
-                  >
-                    <div className="p-3 md:p-0">
-                      <div className="  rounded-lg dark:bg-gray-800 dark:border-gray-700">
-                        <div className="flex flex-col justify-start items-baseline">
-                          <div className="z-0">
-                            <Image
-                              loader={() => blog.image}
-                              src={blog.image}
-                              alt={blog.title}
-                              width={1040}
-                              height={530}
-                              className="py-4"
-                            />
-                          </div>
-                          <div className=" bg-black text-black px-3 py-2 md:-mt-14 md:mb-2  flex justify-center align-center md:ml-4  z-10 rounded">
-                            <h2 className="text-md font-semibold text-white uppercase text-center rounded-md">
-                              {blog.category}
-                            </h2>
+              {trendingBlogs.length > 0 ? (
+                trendingBlogs?.map((blog, index) => {
+                  return (
+                    <div
+                      onClick={() => {
+                        goTo(`/blogs/${blog.slug.toString()}`);
+                      }}
+                    >
+                      <div className="p-3 md:p-0">
+                        <div className="  rounded-lg dark:bg-gray-800 dark:border-gray-700">
+                          <div className="flex flex-col justify-start items-baseline">
+                            <div className="z-0">
+                              <Image
+                                loader={() => blog.image}
+                                src={blog.image}
+                                alt={blog.title}
+                                width={1040}
+                                height={530}
+                                className="py-4"
+                              />
+                            </div>
+                            <div className=" bg-black text-black px-3 py-2 md:-mt-14 md:mb-2  flex justify-center align-center md:ml-4  z-10 rounded">
+                              <h2 className="text-md font-semibold text-white uppercase text-center rounded-md">
+                                {blog.category}
+                              </h2>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div className="h-10 mt-2">
-                        <p className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white line-clamp-2">
-                          {blog.title}
-                        </p>
-                      </div>
-                      <div className="md:py-5 md:pb-3sm:py-2  flex flex-col justify-start border-b ">
-                        <h6 className="text-md font-semibold tracking-tight text-gray-900 dark:text-white">
-                          Posted On:
-                          <span className=" mx-2 opacity-60">
-                            {blog.created_at}
-                          </span>
-                        </h6>
-                        <p className="my-2">
-                          {blog.body}...{" "}
-                          <span className="text-blue-500 text-md font-bold cursor-pointer">
-                            Read More
-                          </span>
-                        </p>
-                      </div>
-                      <div className="mb-3 mt-1">
-                        <div className="flex text-black py-2">
-                          <div className="flex">
-                            {/* avatar image  */}
-                            <Image
-                              src="/avatar.PNG"
-                              alt={blog.title}
-                              width={25}
-                              height={25}
-                              className="py-4"
-                            />
-                            <span className="opacity-60 text-sm mx-2">
-                              {blog.autor.name}
+                        <div className="h-10 mt-2">
+                          <p className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white line-clamp-2">
+                            {blog.title}
+                          </p>
+                        </div>
+                        <div className="md:py-5 md:pb-3sm:py-2  flex flex-col justify-start border-b ">
+                          <h6 className="text-md font-semibold tracking-tight text-gray-900 dark:text-white">
+                            Posted On:
+                            <span className=" mx-2 opacity-60">
+                              {blog.created_at}
                             </span>
-                          </div>
-                          <div className="flex">
-                            {/* avatar image  */}
-                            <Image
-                              src="/comment.PNG"
-                              alt={blog.title}
-                              width={20}
-                              height={15}
-                              className="py-4"
-                            />
-                            <span className="opacity-60 text-sm mx-2">
-                              {blog.comments}
+                          </h6>
+                          <p className="my-2">
+                            {blog.body}...{" "}
+                            <span className="text-blue-500 text-md font-bold cursor-pointer">
+                              Read More
                             </span>
-                          </div>
-                          <div className="flex">
-                            {/* avatar image  */}
-                            <Image
-                              src="/love_icon.png"
-                              alt={blog.title}
-                              width={20}
-                              height={10}
-                              className=""
-                            />
-                            <span className="opacity-60 text-sm mx-2">
-                              {blog.likes}
-                            </span>
+                          </p>
+                        </div>
+                        <div className="mb-3 mt-1">
+                          <div className="flex text-black py-2">
+                            <div className="flex">
+                              {/* avatar image  */}
+                              <Image
+                                src="/avatar.PNG"
+                                alt={blog.title}
+                                width={25}
+                                height={25}
+                                className="py-4"
+                              />
+                              <span className="opacity-60 text-sm mx-2">
+                                {blog.autor.name}
+                              </span>
+                            </div>
+                            <div className="flex">
+                              {/* avatar image  */}
+                              <Image
+                                src="/comment.PNG"
+                                alt={blog.title}
+                                width={20}
+                                height={15}
+                                className="py-4"
+                              />
+                              <span className="opacity-60 text-sm mx-2">
+                                {blog.comments}
+                              </span>
+                            </div>
+                            <div className="flex">
+                              {/* avatar image  */}
+                              <Image
+                                src="/love_icon.png"
+                                alt={blog.title}
+                                width={20}
+                                height={10}
+                                className=""
+                              />
+                              <span className="opacity-60 text-sm mx-2">
+                                {blog.likes}
+                              </span>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })
+              ) : (
+                <></>
+              )}
             </div>
           </div>
         </div>
