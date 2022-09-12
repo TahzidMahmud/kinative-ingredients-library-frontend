@@ -233,15 +233,15 @@ const Product = ({ product }) => {
         </div>
         {/* right side  */}
         <div className="md:col-span-3 col-span-4 px-4 md:px-0">
-          <div className="p-6 mb-4 max-w-full bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 flex items-center justify-center">
+          <div className="p-6 mb-4 max-w-full bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
             <div className="flex flex-col justify-left px-6 py-4 min-h-20 min-w-full">
-              <div className="flex justify-between min-w-full border-b pb-4 mb-3">
+              <div className="flex md:flex-row flex-col  justify-between min-w-full border-b pb-4 mb-3">
                 <div>
                   <h1 className="text-2xl font-semibold text-center">
                     {product.name}
                   </h1>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex md:flex-row flex-col justify-between">
                   <div className="flex mr-4" onClick={saveToCollection}>
                     <div className="mx-2">
                       <Image
@@ -289,7 +289,7 @@ const Product = ({ product }) => {
                   </div>
                 </div>
               </div>
-              <div className="flex justify-between">
+              <div className="flex  md:flex-row flex-col  justify-between">
                 <div>
                   <h1 className="text-md font-semibold text-left mb-2">
                     Short Description
@@ -298,7 +298,7 @@ const Product = ({ product }) => {
                     {product.short_details}
                   </div>
                 </div>
-                <div className="flex items-center">
+                <div className="flex items-center my-2 md:my-0">
                   <RatingStar
                     rating={Array.from(Array(product.rating).keys())}
                     starHeight={20}

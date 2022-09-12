@@ -11,7 +11,9 @@ const Review = ({ review, user, setShowLoginModal }) => {
   const [dislikeable, setDisLikebale] = useState(true);
   const [likes, setLikes] = useState(review.likes);
   const [dislikes, setDislikes] = useState(review.dislikes);
-  const [comments, setComments] = useState([...review.comments.data]);
+  const [comments, setComments] = useState(
+    review.comments.length > 0 ? [...review.comments.data] : []
+  );
   const [cancomment, setCancomment] = useState(false);
 
   useEffect(() => {
