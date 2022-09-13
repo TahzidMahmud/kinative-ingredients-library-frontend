@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const FooterNavigation = ({ user }) => {
   return (
-    <div className="bg-white p-4 fixed bottom-0 right-0 z-10 w-[100%]  flex justify-between items-center md:hidden rounded-md">
+    <div className="bg-white p-4 fixed bottom-0 right-0 z-10 w-[100%]  flex justify-between items-center md:hidden rounded">
       <Link href="/">
         <div className="flex flex-col items-center justify-center">
           <Image

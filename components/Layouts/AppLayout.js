@@ -42,7 +42,9 @@ const AppLayout = ({ header, children }) => {
       </header> */}
 
         {/* Page Content */}
-        <main className="container mx-auto my-6">{children}</main>
+        <main className="container mx-auto my-6 w-[100%] overflow-x-hidden">
+          {children}
+        </main>
         {/* {console.log(footerState)} */}
         {footerState.length > 0 ? <Footer data={footerState} /> : <Footer />}
         <FooterNavigation user={user} />

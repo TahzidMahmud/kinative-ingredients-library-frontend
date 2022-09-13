@@ -212,7 +212,7 @@ const Index = ({
               </div>
               <div className="flex md:justify-end justify-center">
                 <Link href={`/blogs`}>
-                  <span className="cursor-pointer inline-flex items-center md:px-6 px-2 py-2 md:text-md text-xs text-white font-semibold  bg-[#ff2b03] rounded-md border  border-[#ff2b03] h-6">
+                  <span className="my-2 md:my-0 cursor-pointer inline-flex items-center md:px-6 px-2 py-2 md:text-md text-xs text-white font-semibold  bg-[#ff2b03] rounded-md border  border-[#ff2b03] h-6">
                     View All
                   </span>
                 </Link>
@@ -316,7 +316,7 @@ const Index = ({
               </div>
               <div className="flex md:justify-end justify-center">
                 <Link href={`/products`}>
-                  <span className="cursor-pointer inline-flex items-center md:px-6 px-2 py-2 md:text-md text-xs text-white font-semibold  bg-[#ff2b03] rounded-md border  border-[#ff2b03] h-6">
+                  <span className="my-2 md:my-0 cursor-pointer inline-flex items-center md:px-6 px-2 py-2 md:text-md text-xs text-white font-semibold  bg-[#ff2b03] rounded-md border  border-[#ff2b03] h-6">
                     View All
                   </span>
                 </Link>
@@ -403,7 +403,7 @@ const Index = ({
               </div>
               <div className="flex md:justify-end justify-center">
                 <Link href={`/ingredients`}>
-                  <span className="cursor-pointer inline-flex items-center md:px-6 px-2 py-2 md:text-md text-xs text-white font-semibold  bg-[#ff2b03] rounded-md border  border-[#ff2b03] h-6">
+                  <span className="my-2 md:my-0 cursor-pointer inline-flex items-center md:px-6 px-2 py-2 md:text-md text-xs text-white font-semibold  bg-[#ff2b03] rounded-md border  border-[#ff2b03] h-6">
                     View All
                   </span>
                 </Link>
@@ -457,7 +457,7 @@ const Index = ({
               </div>
               <div className="flex md:justify-end justify-center">
                 <Link href={`/events`}>
-                  <span className="cursor-pointer inline-flex items-center md:px-6 px-2 py-2 md:text-md text-xs text-white font-semibold  bg-[#ff2b03] rounded-md border  border-[#ff2b03] h-6">
+                  <span className="my-2 md:my-0 cursor-pointer inline-flex items-center md:px-6 px-2 py-2 md:text-md text-xs text-white font-semibold  bg-[#ff2b03] rounded-md border  border-[#ff2b03] h-6">
                     View All
                   </span>
                 </Link>
