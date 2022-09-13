@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectFooterState, setFooterState } from "../../store/footerSlice";
 import { selectHeaderState, setHeaderState } from "../../store/headerSlice";
 import FooterNavigation from "./FooterNavigation";
+import { useRouter } from "next/router";
+
 const AppLayout = ({ header, children }) => {
   useEffect(() => {
     // document.oncontextmenu = document.body.oncontextmenu = function () {
@@ -15,7 +17,7 @@ const AppLayout = ({ header, children }) => {
     //   return false;
     // };
   }, []);
-
+  const router = useRouter();
   const { user } = useAuth({ middleware: "guest" });
   const [footerState, setfooterState] = useState(
     useSelector(selectFooterState)
@@ -47,7 +49,7 @@ const AppLayout = ({ header, children }) => {
         </main>
         {/* {console.log(footerState)} */}
         {footerState.length > 0 ? <Footer data={footerState} /> : <Footer />}
-        <FooterNavigation user={user} />
+        <FooterNavigation user={user} router={router} />
       </div>
     </div>
   );

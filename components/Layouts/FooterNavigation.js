@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const FooterNavigation = ({ user }) => {
+const FooterNavigation = ({ user, router }) => {
   return (
     <div className="bg-white p-4 fixed bottom-0 right-0 z-10 w-[100%]  flex justify-between items-center md:hidden rounded">
       <Link href="/">
@@ -13,7 +13,13 @@ const FooterNavigation = ({ user }) => {
             height={25}
             className="rounded-t-lg py-6"
           />
-          <span className="text-sm pt-1">Home</span>
+          <span
+            className={`text-sm pt-1 ${
+              router.pathname == "/" ? "text-indigo-400" : ""
+            }`}
+          >
+            Home
+          </span>
         </div>
       </Link>
 
@@ -26,7 +32,13 @@ const FooterNavigation = ({ user }) => {
             height={25}
             className="rounded-t-lg py-6"
           />
-          <span className="text-sm pt-1">Products</span>
+          <span
+            className={`text-sm pt-1 ${
+              router.pathname == "/products" ? "text-indigo-400" : ""
+            }`}
+          >
+            Products
+          </span>
         </div>
       </Link>
 
@@ -39,7 +51,13 @@ const FooterNavigation = ({ user }) => {
             height={25}
             className="rounded-t-lg py-6"
           />
-          <span className="text-sm pt-1">Blogs</span>
+          <span
+            className={`text-sm pt-1 ${
+              router.pathname == "/blogs" ? "text-indigo-400" : ""
+            }`}
+          >
+            Blogs
+          </span>
         </div>
       </Link>
 
@@ -53,7 +71,15 @@ const FooterNavigation = ({ user }) => {
               height={25}
               className="rounded-t-lg py-6"
             />
-            <span className="text-sm pt-1">Profile</span>
+            <span
+              className={`text-sm pt-1 ${
+                router.pathname.includes("profile") === true
+                  ? "text-indigo-400"
+                  : ""
+              }`}
+            >
+              Profile
+            </span>
           </div>
         </Link>
       ) : (
@@ -66,7 +92,7 @@ const FooterNavigation = ({ user }) => {
               height={25}
               className="rounded-t-lg py-6"
             />
-            <span className="text-sm pt-1">Profile</span>
+            <span className={`text-sm pt-1`}>Profile</span>
           </div>
         </Link>
       )}
