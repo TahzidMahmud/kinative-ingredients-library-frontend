@@ -7,6 +7,7 @@ import { useAuth } from "@/hooks/auth";
 import HtmlFormat from "@/components/HtmlFormat";
 import { useRouter } from "next/router";
 import LoginModal from "@/modals/LoginModal";
+import Toaster from "@/components/Toaster";
 
 import { useEffect, useState } from "react";
 
@@ -58,9 +59,10 @@ const Event = ({ event, running_events }) => {
         })
         .then((response) => {
           if (response.data.can_participate) {
-            alert(`${response.data.message}`);
+            setParticipated(true);
+            Toaster.notify(response.data.message, { type: "success" });
           } else {
-            alert(`${response.data.message}`);
+            Toaster.notify(response.data.message, { type: "error" });
           }
         })
         .catch((error) => console.log(error));
@@ -203,7 +205,7 @@ const Event = ({ event, running_events }) => {
         </div>
       </div>
       {/*log in  modal section  */}
-      {isSSR === false ? (
+      {isSSR === false && user != null ? (
         <LoginModal
           show={showLoginModal}
           page={`/events`}
@@ -236,7 +238,6 @@ export async function getServerSideProps(context) {
       event: event,
       running_events: running_events,
     },
-    revalidate: 60,
   };
 }
 

@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import InputEmoji from "react-input-emoji";
 import Image from "next/image";
 import axios from "@/lib/axios";
+import Toaster from "@/components/Toaster";
 
 const CommentForm = ({
   url,
@@ -44,6 +45,7 @@ const CommentForm = ({
         })
         .then((res) => {
           if (res.data.success) {
+            Toaster.notify(res.data.message, { type: "success" });
             setComment("");
             setCmntimage(null);
             addComment(res.data.comment);

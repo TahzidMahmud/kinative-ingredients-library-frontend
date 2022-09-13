@@ -5,6 +5,8 @@ import HtmlFormat from "@/components/HtmlFormat";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { selectFooterState, setFooterState } from "../../store/footerSlice";
+import Toaster from "@/components/Toaster";
+
 const Footer = ({ data = null }) => {
   const [footer, setFooter] = useState(false);
   const [footerlogo, setFooterlogo] = useState(
@@ -146,7 +148,10 @@ const Footer = ({ data = null }) => {
         .post("/api/subscription-requests ", formData)
         .then((response) => {
           if (response.data.success) {
-            setemail(null);
+            Toaster.notify(response.data.message, { type: "success" });
+            setEmail(null);
+          } else {
+            Toaster.notify("Something Went Wrog", { type: "error" });
           }
         })
         .catch((error) => console.log(error));
@@ -180,7 +185,7 @@ const Footer = ({ data = null }) => {
                       type="email"
                       className="roundehidden rounded-l-md  bg-white border border-gray-300 text-gray-900 focus:ring-[#ff2b03] focus:border-[#ff2b03] block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.2 h-6"
                       placeholder="Your Email Here"
-                      onChange={(e) => setemail(e.target.value)}
+                      onChange={(e) => setEmail(e.target.value)}
                     />
                     <span
                       onClick={submit}

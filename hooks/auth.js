@@ -2,6 +2,7 @@ import useSWR from "swr";
 import axios from "../lib/axios";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+import Toaster from "@/components/Toaster";
 
 export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
   const router = useRouter();
@@ -38,11 +39,14 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
       .then(() => (res) => {
         //;
         if (res.data.success) {
+          Toaster.notify("Registered Successfully..!!", { type: "success" });
+
           mutate();
         }
       })
       .catch((error) => {
         if (error.response.status !== 422) throw error;
+        Toaster.notify("Something Went Wrong", { type: "error" });
 
         setErrors(Object.values(error.response.data.errors).flat());
       });
@@ -57,6 +61,7 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
     axios
       .post("/login", props)
       .then(() => (res) => {
+        Toaster.notify("Log In Successfull..!!", { type: "success" });
         // window.location.pathname = localStorage.getItem("prevRoute");
         mutate();
       })
