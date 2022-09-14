@@ -72,6 +72,35 @@ const Index = ({
       {
         breakpoint: 480,
         settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+        },
+      },
+    ],
+  });
+  const [settingspoint, setSettingspoint] = useState({
+    dots: false,
+    infinite: true,
+    speed: 400,
+    slidesToShow: 5,
+    slidesToScroll: 1,
+    initialSlide: 0,
+    autoplay: true,
+    speed: 2000,
+    autoplaySpeed: 2000,
+    cssEase: "linear",
+    responsive: [
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          initialSlide: 1,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
         },
@@ -345,7 +374,7 @@ const Index = ({
                         </p>
                       </div>
                       <div className="flex justify-between px-7 pb-4">
-                        <div className="flex items-center pl-4">
+                        <div className="flex items-center md:pl-4 px-2">
                           <Image
                             className="rounded-t-lg"
                             src="/star_icon.png"
@@ -512,7 +541,7 @@ const Index = ({
                   <h1 className="text-xl font-bold my-4">
                     Win Points to Participate
                   </h1>
-                  <Slider {...settingsproducts}>
+                  <Slider {...settingspoint}>
                     {points.map((point, index) => (
                       <div key={index} className="px-2 ">
                         <div className="bg-white  shadow-sm sm:rounded-lg p-4 my-2  w-full">
@@ -574,7 +603,7 @@ const Index = ({
                 <h1 className="text-xl text-center font-bold my-4">
                   Win Points to Participate
                 </h1>
-                <Slider {...settingsproducts}>
+                <Slider {...settingspoint}>
                   {points.map((point, index) => (
                     <div key={index} className="px-2 ">
                       <div className="bg-white  shadow-sm sm:rounded-lg p-4 my-2  w-full">
