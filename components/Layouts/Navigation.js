@@ -74,10 +74,10 @@ const Navigation = ({ user, data = null }) => {
     <nav className="bg-white border-b border-gray-100 shadow ">
       {/* Primary Navigation Menu */}
       <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <div className="flex flex  items-center justify-center">
+        <div className="flex items-center grid grid-cols-12 h-16">
+          <div className="md:col-span-1 col-span-9">
             {/* Logo */}
-            <div className="flex-shrink-0 flex  items-center justify-center">
+            <div className=" flex  items-center justify-center">
               <Link href="/">
                 <Image
                   // loader={() => (headerlogo != null ? headerlogo : "/logo.svg")}
@@ -91,12 +91,14 @@ const Navigation = ({ user, data = null }) => {
                 {/* <ApplicationLogo className="block h-10 w-auto fill-current text-gray-600" /> */}
               </Link>
             </div>
+          </div>
 
-            {/* Navigation Links */}
+          {/* Navigation Links */}
+          <div className="flex justify-center  md:col-span-9 col-span-0 items-center ">
             {headerLinks.map((header, index) => (
               <div
-                key={`footer-${index}`}
-                className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex text-uppercase"
+                key={`header-${index}`}
+                className="hidden sm:-my-px sm:mx-2.5 sm:flex flex justify-cetner"
               >
                 <NavLink
                   href={`${header.link}`}
@@ -109,81 +111,69 @@ const Navigation = ({ user, data = null }) => {
           </div>
 
           {/* Settings Dropdown */}
-          <div className="hidden sm:flex sm:items-center sm:ml-6 z-50">
-            <Dropdown
-              align="right"
-              width="60"
-              trigger={
-                <button className="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none transition duration-150 ease-in-out">
-                  <div className="flex items-cetner">
-                    <div className="flex justify-center items-center">
-                      {user?.profile && user.profile.avatar ? (
-                        <Image
-                          loader={() =>
-                            `http://admin.glowscam.com/profile-image/${user.profile.avatar}`
-                          }
-                          src={`http://admin.glowscam.com/profile-image/${user.profile.avatar}`}
-                          alt={user.name}
-                          width={50}
-                          height={50}
-                          className="py-2 rounded-full"
-                        />
-                      ) : (
-                        <Image
-                          className="rounded-full"
-                          src="/avatar.PNG"
-                          alt="logo"
-                          width={50}
-                          height={50}
-                        />
-                      )}
-                    </div>
-                    <div className="flex justify-center items-center ">
-                      <span className="ml-3"> {user?.name}</span>
-                    </div>
-                  </div>
-
-                  <div className="ml-1">
-                    <svg
-                      className="fill-current h-4 w-4"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </div>
-                </button>
-              }
-              // style={{ width: "10rem" }}
-            >
-              {/* Authentication */}
-              {user ? (
-                <div>
-                  <DropdownButton
+          <div className="hidden md:col-span-2 col-span-3 sm:flex sm:items-center sm:ml-6 z-50">
+            <div className="flex items-cetner">
+              <div className="flex justify-center items-center">
+                {user?.profile && user.profile.avatar ? (
+                  <Image
+                    loader={() =>
+                      `http://admin.glowscam.com/profile-image/${user.profile.avatar}`
+                    }
+                    src={`http://admin.glowscam.com/profile-image/${user.profile.avatar}`}
+                    alt={user.name}
+                    width={45}
+                    height={45}
+                    className="py-2 rounded-full"
+                  />
+                ) : (
+                  <Image
+                    className="rounded-full"
+                    src="/avatar.PNG"
+                    alt="logo"
+                    width={30}
+                    height={30}
+                  />
+                )}
+              </div>
+              {user?.profile && user.profile.avatar ? (
+                <div className="flex items-center">
+                  <div
+                    className="broder border-r border-black px-1 py-0 text-black text-sm hover:text-[#ff2b03]"
                     onClick={() => {
                       router.push(`/profile/${user.id}`);
                     }}
                   >
                     Profile
-                  </DropdownButton>
-                  <DropdownButton onClick={logout}>Logout</DropdownButton>
+                  </div>
+                  <div
+                    className="px-1 text-black text-sm hover:text-[#ff2b03]"
+                    onClick={logout}
+                  >
+                    Logout
+                  </div>
                 </div>
               ) : (
-                <div className="w-20 z-20" style={{ minWidth: "8rem" }}>
-                  <DropdownButton
+                <div className="flex items-center">
+                  <div
+                    className="broder border-r border-black px-1 py-0 text-black text-sm hover:text-[#ff2b03]"
                     onClick={() => {
-                      router.push("/login");
+                      router.push(`/login`);
                     }}
                   >
-                    Log In
-                  </DropdownButton>
+                    {" "}
+                    Login
+                  </div>
+                  <div
+                    className="px-1 text-black text-sm hover:text-[#ff2b03]"
+                    onClick={() => {
+                      router.push(`/register`);
+                    }}
+                  >
+                    Register
+                  </div>
                 </div>
               )}
-            </Dropdown>
+            </div>
           </div>
 
           {/* Hamburger */}
