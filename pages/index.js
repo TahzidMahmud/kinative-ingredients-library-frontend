@@ -514,7 +514,7 @@ const Index = ({
               ))}
             </div>
             {/* point instruction section  */}
-            <div className="d-none md:block">
+            <div className="hidden md:block">
               <div className="grid grid-flow-col grid-cols-10 grid-rows-1 my-10 pb-10">
                 <div className="col-span-2 flex flex-col justify-start items-start">
                   <h1 className="text-xl font-bold my-4">Event winners</h1>
