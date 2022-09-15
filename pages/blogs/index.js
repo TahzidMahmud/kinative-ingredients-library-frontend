@@ -147,26 +147,30 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
                           </div>
                           <div className="flex items-center">
                             {/* avatar image  */}
-                            <Image
-                              src="/comment.png"
-                              alt={newBlogs[0].title}
-                              width={20}
-                              height={20}
-                              className="py-1"
-                            />
+                            <div>
+                              <Image
+                                src="/comment.png"
+                                alt={newBlogs[0].title}
+                                width={15}
+                                height={15}
+                                className="py-1"
+                              />
+                            </div>
                             <span className="opacity-60 text-sm mx-2">
                               {newBlogs[0].comments}
                             </span>
                           </div>
-                          <div className="flex">
+                          <div className="flex items-center">
                             {/* avatar image  */}
-                            <Image
-                              src="/love_icon.png"
-                              alt={newBlogs[0].title}
-                              width={20}
-                              height={10}
-                              className=""
-                            />
+                            <div>
+                              <Image
+                                src="/love_icon.png"
+                                alt={newBlogs[0].title}
+                                width={15}
+                                height={15}
+                                className=""
+                              />
+                            </div>
                             <span className="opacity-60 text-sm mx-2">
                               {newBlogs[0].likes}
                             </span>
@@ -231,7 +235,7 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
                             </div>
                             <div className="mb-3 mt-1">
                               <div className="flex text-black py-2">
-                                <div className="flex">
+                                <div className="flex items-center">
                                   {/* avatar image  */}
                                   <Image
                                     src="/avatar.PNG"
@@ -244,28 +248,32 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
                                     {blog.autor.name}
                                   </span>
                                 </div>
-                                <div className="flex">
+                                <div className="flex items-center">
                                   {/* avatar image  */}
-                                  <Image
-                                    src="/comment.png"
-                                    alt={blog.title}
-                                    width={20}
-                                    height={20}
-                                    className="py-4"
-                                  />
+                                  <div>
+                                    <Image
+                                      src="/comment.png"
+                                      alt={blog.title}
+                                      width={15}
+                                      height={15}
+                                      className="py-4"
+                                    />
+                                  </div>
                                   <span className="opacity-60 text-sm mx-2">
                                     {blog.comments}
                                   </span>
                                 </div>
-                                <div className="flex">
+                                <div className="flex items-center">
                                   {/* avatar image  */}
-                                  <Image
-                                    src="/love_icon.png"
-                                    alt={blog.title}
-                                    width={20}
-                                    height={10}
-                                    className=""
-                                  />
+                                  <div>
+                                    <Image
+                                      src="/love_icon.png"
+                                      alt={blog.title}
+                                      width={15}
+                                      height={15}
+                                      className=""
+                                    />
+                                  </div>
                                   <span className="opacity-60 text-sm mx-2">
                                     {blog.likes}
                                   </span>
@@ -344,7 +352,7 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
                         </div>
                         <div className="mb-3 mt-1">
                           <div className="flex text-black py-2">
-                            <div className="flex">
+                            <div className="flex items-center">
                               {/* avatar image  */}
                               <Image
                                 src="/avatar.PNG"
@@ -357,28 +365,32 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
                                 {blog.autor.name}
                               </span>
                             </div>
-                            <div className="flex">
+                            <div className="flex items-center">
                               {/* avatar image  */}
-                              <Image
-                                src="/comment.PNG"
-                                alt={blog.title}
-                                width={20}
-                                height={15}
-                                className="py-4"
-                              />
+                              <div>
+                                <Image
+                                  src="/comment.png"
+                                  alt={blog.title}
+                                  width={15}
+                                  height={15}
+                                  className="py-4"
+                                />
+                              </div>
                               <span className="opacity-60 text-sm mx-2">
                                 {blog.comments}
                               </span>
                             </div>
-                            <div className="flex">
+                            <div className="flex items-center">
                               {/* avatar image  */}
-                              <Image
-                                src="/love_icon.png"
-                                alt={blog.title}
-                                width={20}
-                                height={10}
-                                className=""
-                              />
+                              <div>
+                                <Image
+                                  src="/love_icon.png"
+                                  alt={blog.title}
+                                  width={15}
+                                  height={15}
+                                  className=""
+                                />
+                              </div>
                               <span className="opacity-60 text-sm mx-2">
                                 {blog.likes}
                               </span>

@@ -203,11 +203,11 @@ const Index = ({
               </div>
             </Link>
             {/* stat site_stats_summary */}
-            <div className="grid md:grid-cols-4 grid-cols-1 bg-white my-10 drop-shadow-lg">
+            <div className="grid md:grid-cols-4 grid-cols-2 bg-white my-10 drop-shadow-lg">
               {site_stats.map((item, index) => (
                 <div
                   key={index}
-                  className="flex flex-col justify-center items-center py-10 px-2"
+                  className="flex flex-col justify-center items-center md:py-10 py-4 px-2"
                 >
                   <div className="flex justify-center items-center">
                     <Image
@@ -286,8 +286,8 @@ const Index = ({
                         </h6>
                       </div>
                       <div className="mb-3 mt-1">
-                        <div className="flex text-black py-2">
-                          <div className="flex">
+                        <div className="flex items-center text-black py-2">
+                          <div className="flex items-center">
                             {/* avatar image  */}
                             <Image
                               src="/avatar.PNG"
@@ -300,28 +300,32 @@ const Index = ({
                               {blog.autor.name}
                             </span>
                           </div>
-                          <div className="flex">
+                          <div className="flex items-center">
                             {/* avatar image  */}
-                            <Image
-                              src="/comment.PNG"
-                              alt={blog.title}
-                              width={25}
-                              height={25}
-                              className="py-4"
-                            />
+                            <div>
+                              <Image
+                                src="/comment.png"
+                                alt={blog.title}
+                                width={15}
+                                height={15}
+                                className="py-4"
+                              />
+                            </div>
                             <span className="opacity-60 text-sm mx-2">
                               {blog.comments}
                             </span>
                           </div>
-                          <div className="flex">
+                          <div className="flex items-cetner">
                             {/* avatar image  */}
-                            <Image
-                              src="/love_icon.png"
-                              alt={blog.title}
-                              width={15}
-                              height={13}
-                              className=""
-                            />
+                            <div>
+                              <Image
+                                src="/love_icon.png"
+                                alt={blog.title}
+                                width={15}
+                                height={15}
+                                className=""
+                              />
+                            </div>
                             <span className="opacity-60 text-sm mx-2">
                               {blog.likes}
                             </span>
