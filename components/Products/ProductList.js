@@ -15,6 +15,7 @@ const ProductList = ({ categories, products, brands, link_data }) => {
     search_q: "",
   });
   const [isSSR, setIsSSR] = useState(true);
+  const [filter, setFilter] = useState(false);
   // const [Products, setProducts] = useState(products);
   useEffect(() => {
     setIsSSR(false);
@@ -84,6 +85,9 @@ const ProductList = ({ categories, products, brands, link_data }) => {
   function onPageChange(products) {
     setFetchProducts(products);
   }
+  function closeFilter() {
+    setFilter(!filter);
+  }
   return (
     <>
       <div className="flex pt-4 mb-6">
@@ -95,7 +99,43 @@ const ProductList = ({ categories, products, brands, link_data }) => {
             handleBrandClick={handleBrandClick}
           />
         </div>
+        <div
+          className={`fixed top-0 right-0 z-50 sm:hidden  bg-white w-[100%] h-[100%] overflow-y-auto ${
+            filter
+              ? " transition-transform transition delay-150 duration-700 ease-in-out translate-x-0"
+              : " transition-transform transition delay-150 duration-700 ease-in-out -translate-x-full"
+          }`}
+        >
+          <Side
+            categories={categories}
+            brands={brands}
+            handleCategoryClick={handleCategoryClick}
+            handleBrandClick={handleBrandClick}
+            closeFilter={closeFilter}
+          />
+        </div>
         <div className="md:min-w-[75%] min-w-[100%]">
+          <div className="flex justify-end items-center md:hidden">
+            <div
+              className="py-4 px-4 flex bg-white rounded-lg m-3 cursor-pointer"
+              onClick={() => {
+                setFilter(true);
+              }}
+            >
+              <div>
+                <span className="text-md mx-2">Filter</span>
+              </div>
+              <div className="flex justify-cetner items-center">
+                <Image
+                  className="rounded"
+                  src="/filter.svg"
+                  alt="fitler"
+                  width={24}
+                  height={24}
+                />
+              </div>
+            </div>
+          </div>
           <div className="py-3 px-4 bg-blue-500 flex rounded-md mb-3">
             <div className="relative min-w-[75%] ">
               <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
@@ -123,8 +163,8 @@ const ProductList = ({ categories, products, brands, link_data }) => {
                 className="block md:p-2 md:pl-10 pl-0  w-auto text-sm text-white bg-blue-500 border border-blue-500 rounded-lg focus:white placeholder-white dark:bg-gray-700  dark:placeholder-gray-400 dark:text-white dark:focus:white "
                 onChange={handleSort}
               >
-                <option value="desc px-1">Newest</option>
-                <option value="asc px-1"> Oldest</option>
+                <option value="desc text-center px-2">Newest</option>
+                <option value="asc text-center px-2"> Oldest</option>
               </select>
             </div>
           </div>

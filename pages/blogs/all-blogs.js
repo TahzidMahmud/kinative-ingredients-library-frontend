@@ -99,7 +99,7 @@ const Blogs = ({ blogs, link_data }) => {
             <div className="grid md:grid-cols-3 grid-cols-1 gap-4">
               {Blogs?.map((blog, index) => {
                 return (
-                  <div key={blog.id}>
+                  <div key={blog.id} className="cursor-pointer">
                     <Link href={`/blogs/${blog.slug.toString()}`}>
                       <div className="p-3 md:p-0">
                         <div className="  rounded-lg dark:bg-gray-800 dark:border-gray-700">

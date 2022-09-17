@@ -1,16 +1,33 @@
 /* eslint-disable react/jsx-key */
+import Image from "next/image";
+
 const Side = ({
   categories,
   brands,
   handleCategoryClick,
   handleBrandClick,
+  closeFilter,
 }) => {
   return (
     <aside className="w-full px-2" aria-label="Sidebar">
       <div className="overflow-y-auto py-6 px-3 bg-white rounded dark:bg-white">
-        <h6 className="mb-2 text-xl font-bold ml-2 border-b pb-4">
-          Categories
-        </h6>
+        <div
+          className="flex items-center justify-between border-b"
+          onClick={() => {
+            closeFilter();
+          }}
+        >
+          <h6 className="mb-2 text-xl font-bold ml-2 pb-2">Categories</h6>
+          <div className="md:invisible flex justify-center items-center p-3 shadow-md rounded-full -mt-4">
+            <Image
+              className="rounded-full px-4"
+              src="/icons8-close.svg"
+              alt="logo"
+              width={12}
+              height={12}
+            />
+          </div>
+        </div>
         <ul className="space-y-1">
           {categories?.map((category) => (
             <li>

@@ -31,7 +31,7 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
     setShowLoginModal(false);
   }
   return (
-    <>
+    <div className="">
       <Head>
         <title>{`${meta_Data.title}`}</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
@@ -92,6 +92,7 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
                     onClick={() => {
                       goTo(`/blogs/${newBlogs[0].slug.toString()}`);
                     }}
+                    className="cursor-pointer"
                   >
                     <div className=" p-3 md:p-0  rounded-lg dark:bg-gray-800 dark:border-gray-700">
                       <div className="flex flex-col justify-start items-baseline">
@@ -193,6 +194,7 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
                           onClick={() => {
                             goTo(`/blogs/${blog.slug.toString()}`);
                           }}
+                          className="cursor-pointer"
                         >
                           <div className="p-3 md:p-0">
                             <div className="  rounded-lg dark:bg-gray-800 dark:border-gray-700">
@@ -290,7 +292,7 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
                 )}
               </div>
             </div>
-            <div className="flex justify-center items-center md:my-10 my-5">
+            <div className="flex justify-center items-center md:my-10 my-5 ">
               <Link href={`/blogs/all-blogs`}>
                 <button className="bg-blue-600 px-4 py-2 rounded-md text-white">
                   View All
@@ -310,6 +312,7 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
                       onClick={() => {
                         goTo(`/blogs/${blog.slug.toString()}`);
                       }}
+                      className="cursor-pointer"
                     >
                       <div className="p-3 md:p-0">
                         <div className="  rounded-lg dark:bg-gray-800 dark:border-gray-700">
@@ -420,7 +423,7 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
           <></>
         )}
       </AppLayout>
-    </>
+    </div>
   );
 };
 export async function getServerSideProps(context) {

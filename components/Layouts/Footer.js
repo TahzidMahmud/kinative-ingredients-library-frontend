@@ -217,7 +217,7 @@ const Footer = ({ data = null }) => {
                   <div className="flex items-center md:justify-start justify-center my-4">
                     <div className="text-white text-sm">{footerabout}</div>
                   </div>
-                  <div className="flex md:justify-start justify-center gap-3 my-4">
+                  <div className="flex md:justify-start justify-center gap-3 my-4 cursor-pointer">
                     {footersociallinks.map((social, index) => (
                       <>
                         <div
@@ -320,7 +320,7 @@ const Footer = ({ data = null }) => {
                     </div>
                     {footerquicklinks.map((item, index) => (
                       <Link key={index} href={`${item.link}`}>
-                        <span className="text-white text-sm my-1">
+                        <span className="text-white text-sm my-1 cursor-pointer">
                           {item.title}
                         </span>
                       </Link>
@@ -335,7 +335,7 @@ const Footer = ({ data = null }) => {
                     </div>
                     {footerquicklinks2.map((item, index) => (
                       <Link key={index} href={`${item.link}`}>
-                        <span className="text-white text-sm my-1">
+                        <span className="text-white text-sm my-1 cursor-pointer">
                           {item.title}
                         </span>
                       </Link>

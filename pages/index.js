@@ -207,7 +207,7 @@ const Index = ({
               {site_stats.map((item, index) => (
                 <div
                   key={index}
-                  className="flex flex-col justify-center items-center md:py-10 py-4 px-2"
+                  className="flex flex-col justify-center items-center md:py-10 py-4 px-2 cursor-pointer"
                 >
                   <div className="flex justify-center items-center">
                     <Image
@@ -250,7 +250,7 @@ const Index = ({
             {/* blogs list  */}
             <Slider {...settingsblog}>
               {home_blogs.map((blog, index) => (
-                <div key={index}>
+                <div key={index} className="cursor-pointer">
                   <Link href={`/blogs/${blog.slug.toString()}`}>
                     <div className="px-2">
                       <div className="  rounded-lg dark:bg-gray-800 dark:border-gray-700">
@@ -347,7 +347,7 @@ const Index = ({
                   Get Real Product Reviews and Details
                 </span>
               </div>
-              <div className="flex md:justify-end justify-center">
+              <div className="hidden  md:flex md:justify-end justify-center">
                 <Link href={`/products`}>
                   <span className="my-2 md:my-0 cursor-pointer inline-flex items-center md:px-6 px-2 py-2 md:text-md text-xs text-white font-semibold  bg-[#ff2b03] rounded-md border  border-[#ff2b03] h-6">
                     View All
@@ -358,7 +358,7 @@ const Index = ({
             {/* products list  */}
             <Slider {...settingsproducts}>
               {home_products.map((product, index) => (
-                <div key={index} className="px-1.5">
+                <div key={index} className="px-1.5 cursor-pointer">
                   <Link href={`/products/${product.slug}`}>
                     <div className="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
                       <Image
@@ -411,10 +411,20 @@ const Index = ({
                 </div>
               ))}
             </Slider>
+            <div className="md:hidden flex justify-center items-center my-2 cursor-pointer">
+              <Link href={`/products`}>
+                <span className="my-3 md:my-0 cursor-pointer inline-flex items-center md:px-6 px-2 py-2 md:text-md text-xs text-white font-semibold  bg-[#ff2b03] rounded-md border  border-[#ff2b03] h-6">
+                  View All
+                </span>
+              </Link>
+            </div>
             {/* brands section  */}
             <Slider {...settingsbrands}>
               {home_brands.map((brand, index) => (
-                <div key={index} className="px-2 my-10  drop-shadow-lg  ">
+                <div
+                  key={index}
+                  className="px-2 my-10  drop-shadow-lg  cursor-pointer"
+                >
                   <div className="bg-white rounded-md px-6 py-8 flex justify-center items-center truncate">
                     {" "}
                     <span className="text-sm opacity-70 truncate ">
@@ -445,7 +455,7 @@ const Index = ({
             {/* ingredients list  */}
             <Slider {...settingsbrands}>
               {home_ingredients.map((ingredient, index) => (
-                <div key={index} className="md:px-2 px-1.5 my-3">
+                <div key={index} className="md:px-2 px-1.5 my-3 cursor-pointer">
                   <div className="bg-white rounded-md">
                     <Link href={`/ingredients/${ingredient.id.toString()}`}>
                       <div className=" rounded-md flex flex-col p-4 items-center">
@@ -500,7 +510,7 @@ const Index = ({
             <div className="grid grid-cols-1  md:grid-cols-3 gap-4">
               {events.map((event, index) => (
                 <Link key={index} href={`/events/${event.slug}`}>
-                  <div>
+                  <div className="cursor-pointer">
                     <Image
                       loader={() => event.image}
                       src={event.image}
@@ -514,7 +524,7 @@ const Index = ({
               ))}
             </div>
             {/* point instruction section  */}
-            <div className="hidden md:block">
+            <div className="hidden md:block cursor-pointer">
               <div className="grid grid-flow-col grid-cols-10 grid-rows-1 my-10 pb-10">
                 <div className="col-span-2 flex flex-col justify-start items-start">
                   <h1 className="text-xl font-bold my-4">Event winners</h1>
@@ -575,7 +585,7 @@ const Index = ({
               </div>
             </div>
             {/* point section mobile  */}
-            <div className="md:hidden">
+            <div className="md:hidden cursor-pointer">
               <div className=" flex flex-col justify-center items-center my-4">
                 <h1 className="text-xl text-center font-bold my-4 ">
                   Event winners
