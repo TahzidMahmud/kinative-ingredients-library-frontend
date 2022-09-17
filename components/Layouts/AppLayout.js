@@ -44,7 +44,7 @@ const AppLayout = ({ header, children }) => {
       </header> */}
 
         {/* Page Content */}
-        <main className="container mx-auto my-6 w-[100%] overflow-x-hidden">
+        <main className="mx-auto my-6 w-[100%] overflow-x-hidden max-w-7xl mx-auto sm:px-6 lg:px-8">
           {children}
         </main>
         {/* {console.log(footerState)} */}
