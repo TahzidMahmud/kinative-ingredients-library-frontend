@@ -80,10 +80,10 @@ const Ingredients = ({ ingredients, link_data }) => {
       <div className="grid  md:grid-cols-6 grid-cols-2 gap-4 my-4 md:px-1 px-3">
         {Ingredients?.map((ingredient) => {
           return (
-            <Link href={`/ingredients/${ingredient.id.toString()}`}>
-              <div className="py-8 flex h-[18rem]  inline-flex bg-white ">
-                <div className=" mx-auto   shadow-sm sm:rounded-lg">
-                  <div className="overflow-hidden flex flex-col justify-center items-center p-4">
+            <div className="bg-white ">
+              <Link href={`/ingredients/${ingredient.id.toString()}`}>
+                <div className=" rounded-md flex flex-col p-4 items-center">
+                  <div className="flex justify-center items-center">
                     <Image
                       loader={() => ingredient.thumbnail}
                       src={ingredient.thumbnail}
@@ -92,18 +92,22 @@ const Ingredients = ({ ingredients, link_data }) => {
                       height={85}
                       className="py-4"
                     />
-                    <div className=" text-center pt-4  line-clamp-2">
-                      <h6 className="text-md font-semibold">
-                        {ingredient.name}
-                      </h6>
-                    </div>
-                    <div className="truncate md:px-4 pt-1 line-clamp-2 opacity-80">
-                      {ingredient.short_description}
-                    </div>
+                  </div>
+                  <div
+                    className="text-md font-bold text-center line-clamp-2 my-2 h-10"
+                    style={{ height: "2.8rem" }}
+                  >
+                    {ingredient.name}
+                  </div>
+                  <div
+                    className="text-md text-center line-clamp-2 opacity-70 h-10"
+                    style={{ height: "2.8rem" }}
+                  >
+                    {ingredient.short_description}
                   </div>
                 </div>
-              </div>
-            </Link>
+              </Link>
+            </div>
           );
         })}
       </div>

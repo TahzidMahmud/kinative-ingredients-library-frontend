@@ -2,8 +2,8 @@ import Image from "next/image";
 
 const Ingredient = ({ ingredient }) => {
   return (
-    <div className="flex h-[13rem]  inline-flex shadow-lg">
-      <div className="w-12/12  mx-auto  bg-white shadow-sm sm:rounded-lg">
+    <div className="py-8 flex h-[18rem]  inline-flex bg-white justify-center  ">
+      <div className=" mx-auto">
         <div className="overflow-hidden flex flex-col justify-center items-center p-4">
           <Image
             loader={() => ingredient.thumbnail}
@@ -11,12 +11,12 @@ const Ingredient = ({ ingredient }) => {
             alt={ingredient.name}
             width={85}
             height={85}
-            className="pt-4 pb-2 "
+            className="py-4"
           />
-          <div className=" text-center mt-4">
-            <h6 className="text-lg font-semibold">{ingredient.name}</h6>
+          <div className=" text-center pt-4 h-16">
+            <h6 className="text-md font-semibold">{ingredient.name}</h6>
           </div>
-          <div className="truncate px-4 mx-4 pt-1 h-6 opacity-80">
+          <div className="truncate md:px-4 pt-1 h-6 opacity-80">
             {ingredient.short_description}
           </div>
         </div>

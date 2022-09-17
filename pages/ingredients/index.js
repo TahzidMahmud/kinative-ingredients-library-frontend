@@ -23,7 +23,7 @@ const Ingredients = ({ ingredients, meta_Data }) => {
           <title>Laravel - Ingredients</title>
         </Head>
         <div className="grid md:gird-cols-1">
-          <div className="bg-white shadow-sm sm:rounded-lg h-48 my-8">
+          <div className="bg-white sm:rounded-lg h-48 my-8">
             <div className="grid grid-cols-2">
               <div className="flex items-center h-48 md:pl-14 pl-1.5">
                 <div className="flex md:flex-row flex-col items-center">
@@ -62,14 +62,14 @@ const Ingredients = ({ ingredients, meta_Data }) => {
             </button>
           </Link>
         </div>
-        <div className="grid md:grid-cols-6 grid-cols-1  gap-4 my-6 md:px-1 px-4">
+        <div className="grid md:grid-cols-6 grid-cols-1  gap-4 my-6 md:px-1 px-4 ">
           {ingredients.top_ingredient ? (
             ingredients.top_ingredient.data?.map((ingredient) => {
               return (
-                <Link href={`/ingredients/${ingredient.id.toString()}`}>
-                  <div className="py-8 flex h-[18rem]  inline-flex bg-white ">
-                    <div className=" mx-auto   shadow-sm sm:rounded-lg">
-                      <div className="overflow-hidden flex flex-col justify-center items-center p-4">
+                <div className="bg-white ">
+                  <Link href={`/ingredients/${ingredient.id.toString()}`}>
+                    <div className=" rounded-md flex flex-col p-4 items-center">
+                      <div className="flex justify-center items-center">
                         <Image
                           loader={() => ingredient.thumbnail}
                           src={ingredient.thumbnail}
@@ -78,18 +78,22 @@ const Ingredients = ({ ingredients, meta_Data }) => {
                           height={85}
                           className="py-4"
                         />
-                        <div className=" text-center pt-4 h-16">
-                          <h6 className="text-md font-semibold">
-                            {ingredient.name}
-                          </h6>
-                        </div>
-                        <div className="truncate md:px-4 pt-1 h-6 opacity-80">
-                          {ingredient.short_description}
-                        </div>
+                      </div>
+                      <div
+                        className="text-md font-bold text-center line-clamp-2 my-2 h-10"
+                        style={{ height: "2.8rem" }}
+                      >
+                        {ingredient.name}
+                      </div>
+                      <div
+                        className="text-md text-center line-clamp-2 opacity-70 h-10"
+                        style={{ height: "2.8rem" }}
+                      >
+                        {ingredient.short_description}
                       </div>
                     </div>
-                  </div>
-                </Link>
+                  </Link>
+                </div>
               );
             })
           ) : (
@@ -104,10 +108,10 @@ const Ingredients = ({ ingredients, meta_Data }) => {
           {ingredients.new_ingredient ? (
             ingredients.new_ingredient.data?.map((ingredient) => {
               return (
-                <Link href={`/ingredients/${ingredient.id.toString()}`}>
-                  <div className="py-8 flex h-[18rem]  inline-flex bg-white ">
-                    <div className=" mx-auto   shadow-sm sm:rounded-lg">
-                      <div className="overflow-hidden flex flex-col justify-center items-center p-4">
+                <div className="bg-white ">
+                  <Link href={`/ingredients/${ingredient.id.toString()}`}>
+                    <div className=" rounded-md flex flex-col p-4 items-center">
+                      <div className="flex justify-center items-center">
                         <Image
                           loader={() => ingredient.thumbnail}
                           src={ingredient.thumbnail}
@@ -116,18 +120,22 @@ const Ingredients = ({ ingredients, meta_Data }) => {
                           height={85}
                           className="py-4"
                         />
-                        <div className=" text-center pt-4 h-16">
-                          <h6 className="text-md font-semibold">
-                            {ingredient.name}
-                          </h6>
-                        </div>
-                        <div className="truncate md:px-4 pt-1 h-6 opacity-80">
-                          {ingredient.short_description}
-                        </div>
+                      </div>
+                      <div
+                        className="text-md font-bold text-center line-clamp-2 my-2 h-10"
+                        style={{ height: "2.8rem" }}
+                      >
+                        {ingredient.name}
+                      </div>
+                      <div
+                        className="text-md text-center line-clamp-2 opacity-70 h-10"
+                        style={{ height: "2.8rem" }}
+                      >
+                        {ingredient.short_description}
                       </div>
                     </div>
-                  </div>
-                </Link>
+                  </Link>
+                </div>
               );
             })
           ) : (
