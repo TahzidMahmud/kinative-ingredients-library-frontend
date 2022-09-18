@@ -4,7 +4,6 @@ import NavLink from "@/components/NavLink";
 import ResponsiveNavLink, {
   ResponsiveNavButton,
 } from "@/components/ResponsiveNavLink";
-import { DropdownButton } from "@/components/DropdownLink";
 import { useAuth } from "@/hooks/auth";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
@@ -12,7 +11,7 @@ import Image from "next/image";
 import axios from "@/lib/axios";
 import { useDispatch, useSelector } from "react-redux";
 import { selectHeaderState, setHeaderState } from "../../store/headerSlice";
-
+import { DebounceInput } from "react-debounce-input";
 const Navigation = ({ user, data = null }) => {
   const router = useRouter();
 
@@ -20,6 +19,10 @@ const Navigation = ({ user, data = null }) => {
   const { login } = useAuth();
 
   const [open, setOpen] = useState(false);
+  const [openSearch, setOpenSearch] = useState(false);
+  const [searchq, setSearchq] = useState(null);
+  const [searchResult, setSearchResult] = useState(null);
+
   const [headerlogo, setHeaderlogo] = useState(
     data != null ? data[0].data : null
   );
@@ -71,12 +74,41 @@ const Navigation = ({ user, data = null }) => {
     ]);
   }
 
+  async function searchBlog(q) {
+    if (q != "") {
+      await axios
+        .post(`/api/ajax-search`, {
+          qry: q,
+        })
+        .then((res) => {
+          if (res.data.data) {
+            setSearchResult(res.data.data);
+            highlight_word();
+          }
+        })
+        .catch((err) => console.log(err));
+    } else {
+      setSearchResult([]);
+    }
+  }
+  function highlight_word() {
+    var searchpara = document.getElementById("search_para").innerHTML;
+    var text = searchq;
+    if (text) {
+      var pattern = new RegExp("(" + text + ")", "gi");
+      var new_text = searchpara.replace(
+        pattern,
+        "<span class='text-red-400'>" + text + "</span>"
+      );
+      document.getElementById("search_para").innerHTML = new_text;
+    }
+  }
   return (
-    <nav className="bg-white border-b border-gray-100 shadow ">
+    <nav className="bg-white flex items-center border-b border-gray-100 shadow ">
       {/* Primary Navigation Menu */}
       <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
-        <div className="flex items-center grid grid-cols-12 h-16">
-          <div className="md:col-span-1 col-span-9">
+        <div className="flex items-center  grid grid-cols-12 h-16">
+          <div className="md:col-span-1 col-span-6">
             {/* Logo */}
             <div className=" flex  items-center justify-center">
               <Link href="/">
@@ -136,7 +168,7 @@ const Navigation = ({ user, data = null }) => {
                   />
                 )}
               </div>
-              {user?.profile && user.profile.avatar ? (
+              {user?.profile ? (
                 <div className="flex items-center">
                   <div
                     className="broder border-r border-black px-1 py-0 text-black text-sm hover:text-[#ff2b03]"
@@ -176,12 +208,26 @@ const Navigation = ({ user, data = null }) => {
               )}
             </div>
           </div>
+          <div className=" flex items-center justify-center md:hidden -pt-2 col-span-4">
+            <button
+              onClick={() => setOpenSearch((openSearch) => !openSearch)}
+              className="inline-flex items-center justify-center rounded-md text-gray-400 hover:text-gray-500 outline-none  transition duration-150 ease-in-out"
+            >
+              <Image
+                className="rounded-full"
+                src="/search-black.svg"
+                alt="logo"
+                width={35}
+                height={35}
+              />
+            </button>
+          </div>
 
           {/* Hamburger */}
           <div className=" flex items-center md:hidden">
             <button
               onClick={() => setOpen((open) => !open)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 outline-none  transition duration-150 ease-in-out"
+              className="inline-flex items-center justify-center  pt-4  rounded-md text-gray-400 hover:text-gray-500 outline-none  transition duration-150 ease-in-out"
             >
               <svg viewBox="0 0 100 80" width="40" height="40">
                 <rect width="50" height="5"></rect>
@@ -194,7 +240,6 @@ const Navigation = ({ user, data = null }) => {
       </div>
 
       {/* Responsive Navigation Menu */}
-
       <div
         className={`fixed top-0 left-0 z-50 sm:hidden  bg-white w-[90%] h-[100%] overflow-y-auto ${
           open
@@ -224,7 +269,7 @@ const Navigation = ({ user, data = null }) => {
                 height={30}
               />
             )}
-            {user?.profile && user.profile.avatar ? (
+            {user?.profile ? (
               <div className="flex items-center ml-3">
                 <div
                   className="broder border-r border-white px-1 py-0 text-white text-sm hover:text-[#ff2b03]"
@@ -290,7 +335,7 @@ const Navigation = ({ user, data = null }) => {
 
         {/* Responsive Settings Options */}
         <div className="pt-4 pb-1 ">
-          <div className="flex items-center px-4">
+          <div className="flex items-center">
             <div className="flex-shrink-0">
               <svg
                 className="h-10 w-10 fill-current text-gray-400"
@@ -312,6 +357,102 @@ const Navigation = ({ user, data = null }) => {
           {/* <div className="mt-3 space-y-1">
               <ResponsiveNavButton onClick={logout}>Logout</ResponsiveNavButton>
             </div> */}
+        </div>
+      </div>
+
+      {/* responsive search bar  */}
+      <div
+        className={`fixed  top-0 left-0 z-50 sm:hidden w-[100%] h-[10%] overflow-y-auto ${
+          openSearch
+            ? " transition-transform transition delay-150 duration-700 ease-in-out translate-y-0"
+            : " transition-transform transition delay-150 duration-700 ease-in-out -translate-y-full"
+        }`}
+      >
+        <div className="flex pl-6 items-center  bg-white pt-6 grid grid-cols-4 ">
+          <div className="col-span-3">
+            <DebounceInput
+              minLength={2}
+              debounceTimeout={400}
+              placeholder="Enter Text here..."
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 w-[100%]"
+              onChange={(event) => {
+                setSearchq(event.target.value);
+                searchBlog(event.target.value);
+              }}
+            />
+          </div>
+
+          <div className="flex items-center justify-cetner col-span-1 pr-3">
+            <button
+              type="button"
+              className="text-white mx-3 my-2  bg-transparent  rounded-full text-sm px-3 py-2 ml-auto inline-flex items-center text-center shadow-md"
+              data-modal-toggle="authentication-modal"
+              onClick={() => {
+                setSearchResult(null);
+                setOpenSearch(false);
+              }}
+            >
+              <span className="text-black">x</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        className={`fixed bg-gray-50  p-2 text-black left-0 z-50 sm:hidden w-[100%] h-[70%] overflow-y-auto ${
+          searchResult != null
+            ? "top-20 transition-transform transition delay-150 duration-700 ease-in-out translate-y-0"
+            : " transition-transform transition delay-50 duration-200 ease-in-out -translate-y-full"
+        }`}
+      >
+        <div className=" h-[100%]  overflow-y-auto z-50">
+          <h4 className="font-semibold text-lg border-b  text-center py-2">
+            Search Results
+          </h4>
+          <div id="search_para">
+            {searchResult != null && openSearch ? (
+              searchResult.length > 0 ? (
+                searchResult.map((item, index) => {
+                  return (
+                    <div
+                      key={`res-${index}`}
+                      className="flex items-center my-2"
+                      onClick={() => {
+                        router.push(`/blogs/${item.slug}`);
+                      }}
+                    >
+                      <div className="grid grid-cols-4 gap-2 ">
+                        <div className="flex justify-center items-center col-span-1 w-52">
+                          <Image
+                            loader={() => item.image}
+                            src={item.image}
+                            alt="logo"
+                            width={50}
+                            height={50}
+                            className="rounded-t-lg py-6"
+                          />
+                        </div>
+                        <div className="flex items-center col-span-3">
+                          <span className="text-md fond-semibold text-black">
+                            {" "}
+                            {item.title}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })
+              ) : (
+                <>
+                  {" "}
+                  <h4 className="font-normal text-md  text-center py-2">
+                    Noting Found..!!
+                  </h4>
+                </>
+              )
+            ) : (
+              <></>
+            )}
+          </div>
         </div>
       </div>
     </nav>

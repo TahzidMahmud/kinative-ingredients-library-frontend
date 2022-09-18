@@ -214,7 +214,7 @@ const Create = ({ Concerns, SkinTypes }) => {
                     : ``
                 }border flex flex-col justify-center items-center p-3`}
                 onClick={() => {
-                  setSkinTypes([...skinTypes, skinType.id]);
+                  setSkinTypes([skinType.id]);
                 }}
               >
                 <Image
@@ -249,13 +249,23 @@ const Create = ({ Concerns, SkinTypes }) => {
             {Concerns.map((concern, index) => (
               <div
                 key={index}
-                className={`${
-                  concerns.includes(concern.id)
-                    ? `border-2 border-blue-500 rounded-xl `
-                    : ``
-                }  border flex flex-col justify-center items-center p-3`}
+                id={`con-${concern.id}`}
+                className={`
+                rounded-xl border flex flex-col justify-center items-center p-3`}
                 onClick={() => {
-                  setConcerns([...concerns, concern.id]);
+                  if (concerns.includes(concern.id)) {
+                    let arr = concerns;
+                    arr.splice(1, arr.indexOf(concern.id));
+                    let elm = document.getElementById(`con-${concern.id}`);
+                    elm.classList.remove("border-2");
+                    elm.classList.remove("border-blue-500");
+                    setConcerns(arr);
+                  } else {
+                    let elm = document.getElementById(`con-${concern.id}`);
+                    elm.classList.add("border-2");
+                    elm.classList.add("border-blue-500");
+                    setConcerns([...concerns, concern.id]);
+                  }
                 }}
               >
                 <Image
