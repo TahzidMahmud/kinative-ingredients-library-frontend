@@ -214,7 +214,7 @@ const Index = ({
                     src={item.img}
                     alt={item.title}
                     width={60}
-                    height={70}
+                    height={60}
                     className="py-2"
                   />
                 </div>

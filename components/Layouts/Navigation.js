@@ -26,9 +26,11 @@ const Navigation = ({ user, data = null }) => {
   const [headerlogo, setHeaderlogo] = useState(
     data != null ? data[0].data : null
   );
+  const [tempLogo, setTempLogo] = useState(null);
   const [headerLinks, setHeaderLinks] = useState(
     data != null ? data[1].data : []
   );
+
   const [header, setHeader] = useState(false);
 
   const [headerState, setheaderState] = useState(
@@ -46,6 +48,7 @@ const Navigation = ({ user, data = null }) => {
         .get("/api/header-settings/header_logo")
         .then((response) => {
           setHeaderlogo(response.data.data.logo_image);
+          setTempLogo(response.data.data.logo_image);
           dispatch(
             setHeaderState({
               headerData: {
@@ -112,15 +115,18 @@ const Navigation = ({ user, data = null }) => {
             {/* Logo */}
             <div className=" flex  items-center justify-center">
               <Link href="/">
-                <Image
-                  // loader={() => (headerlogo != null ? headerlogo : "/logo.svg")}
-                  src="/logo.svg"
-                  alt="logo"
-                  width={110}
-                  height={30}
-                  className="rounded-t-lg py-6"
-                />
-
+                {headerlogo == null ? (
+                  <></>
+                ) : (
+                  <Image
+                    loader={() => headerlogo}
+                    src={headerlogo}
+                    alt="logo"
+                    width={150}
+                    height={50}
+                    className="rounded-t-lg py-6"
+                  />
+                )}
                 {/* <ApplicationLogo className="block h-10 w-auto fill-current text-gray-600" /> */}
               </Link>
             </div>
