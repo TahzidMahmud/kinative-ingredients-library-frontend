@@ -45,10 +45,10 @@ const CommentForm = ({
         })
         .then((res) => {
           if (res.data.success) {
-            Toaster.notify(res.data.message, { type: "success" });
             setComment("");
             setCmntimage(null);
             addComment(res.data.comment);
+            Toaster.notify(res.data.message, { type: "success" });
           }
         })
         .catch((error) => {

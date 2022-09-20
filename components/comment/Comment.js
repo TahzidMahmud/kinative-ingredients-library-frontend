@@ -175,14 +175,24 @@ const Comment = ({
         <div className=" flex">
           {/* user image  */}
           <div>
-            <Image
-              loader={() => comment.author.avatar}
-              src={comment.author.avatar}
-              alt={comment.author.name}
-              width={60}
-              height={60}
-              className="rounded-full mr-2"
-            />
+            {comment.author.avatar ? (
+              <Image
+                loader={() => comment.author.avatar}
+                src={comment.author.avatar}
+                alt={comment.author.name}
+                width={60}
+                height={60}
+                className="rounded-full mr-2"
+              />
+            ) : (
+              <Image
+                src="/avatar.PNG"
+                alt={comment.author.name}
+                width={60}
+                height={60}
+                className="rounded-full mr-2"
+              />
+            )}
           </div>
           {/* profile desc  */}
           <div className="flex flex-col px-3">
@@ -274,7 +284,9 @@ const Comment = ({
                     <span className="cursor-pointer">Un Dislike</span>
                   </div>
                 )}
-                <div className="text-sm  opacity-60 mx-2">{`(${dislikes})`}</div>
+                <div className="text-sm  opacity-60 mx-2">{`(${
+                  dislikes.length > 0 ? dislikes : 0
+                })`}</div>
               </div>
             </div>
             <div className={`${candislike == false ? "hidden" : ""}`}>
@@ -303,7 +315,9 @@ const Comment = ({
                     <span className="cursor-pointer"> UnLike:</span>
                   </div>
                 )}
-                <div className="text-sm  opacity-60 mx-2">{`(${likes})`}</div>
+                <div className="text-sm  opacity-60 mx-2">{`(${
+                  likes.length > 0 ? likes : 0
+                })`}</div>
               </div>
             </div>
           </div>
