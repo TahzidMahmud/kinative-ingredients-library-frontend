@@ -368,7 +368,7 @@ const Navigation = ({ user, data = null }) => {
 
       {/* responsive search bar  */}
       <div
-        className={`fixed  top-0 left-0 z-50 sm:hidden w-[100%] h-[10%] overflow-y-auto ${
+        className={`fixed  top-0 left-0 z-50 sm:hidden w-[100%] h-[22rem] overflow-y-auto ${
           openSearch
             ? " transition-transform transition delay-150 duration-700 ease-in-out translate-y-0"
             : " transition-transform transition delay-150 duration-700 ease-in-out -translate-y-full"

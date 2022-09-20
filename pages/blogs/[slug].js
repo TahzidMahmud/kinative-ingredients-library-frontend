@@ -239,7 +239,7 @@ const Blog = ({ blog, trendingBlogs }) => {
                     </div>
                     <div className="mb-3 mt-1">
                       <div className="flex text-black py-2">
-                        <div className="flex">
+                        <div className="flex items-center">
                           {/* avatar image  */}
                           <Image
                             src="/avatar.PNG"
@@ -252,28 +252,32 @@ const Blog = ({ blog, trendingBlogs }) => {
                             {blog.autor.name}
                           </span>
                         </div>
-                        <div className="flex">
-                          {/* comment image  */}
-                          <Image
-                            src="/comment.PNG"
-                            alt={blog.title}
-                            width={25}
-                            height={25}
-                            className="py-4"
-                          />
+                        <div className="flex items-center">
+                          {/* avatar image  */}
+                          <div>
+                            <Image
+                              src="/comment.png"
+                              alt={blog.title}
+                              width={15}
+                              height={15}
+                              className="py-4"
+                            />
+                          </div>
                           <span className="opacity-60 text-sm mx-2">
                             {blog.comments}
                           </span>
                         </div>
-                        <div className="flex">
-                          {/* like image  */}
-                          <Image
-                            src="/love_icon.png"
-                            alt={blog.title}
-                            width={15}
-                            height={13}
-                            className=""
-                          />
+                        <div className="flex items-center">
+                          {/* avatar image  */}
+                          <div>
+                            <Image
+                              src="/love_icon.png"
+                              alt={blog.title}
+                              width={15}
+                              height={15}
+                              className=""
+                            />
+                          </div>
                           <span className="opacity-60 text-sm mx-2">
                             {blog.likes}
                           </span>

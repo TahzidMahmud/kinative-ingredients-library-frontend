@@ -162,7 +162,7 @@ const Footer = ({ data = null }) => {
       {footer ? (
         <>
           {/* footer subscription  */}
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 hidden">
             <div className="bg-white  border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 md:p-16 p-6 relative -mb-8">
               <div className="grid md:grid-cols-2 sm:grid-cols-1 md:px-14 sm:px-8 flex items-center">
                 {/* text section  */}
@@ -199,7 +199,7 @@ const Footer = ({ data = null }) => {
             </div>
           </div>
           {/* footer base  */}
-          <div className="h-20 bg-[#210373] py-14  pt-16 ">
+          <div className="h-20 bg-[#210373] py-14  pt-6 ">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="grid md:grid-cols-5 sm:grid-cols-1 ">
                 {/* details info  */}

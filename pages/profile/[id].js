@@ -1,17 +1,17 @@
 import axios from "@/lib/axios";
 import Image from "next/image";
-import { useAuth } from "@/hooks/auth";
 import AppLayout from "@/components/Layouts/AppLayout";
 import ProfileEditModal from "@/modals/ProfileEditModal";
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const Profile = ({ Concerns, SkinTypes, Profile, Wishlist, Blogs }) => {
   const [editProfile, setEditProfile] = useState(false);
   const [wishlist, setWishlist] = useState(Wishlist);
   const [blogs, setBlogs] = useState(Blogs);
-
+  const router = useRouter();
   function closeModal() {
     setEditProfile(false);
   }
@@ -115,7 +115,7 @@ const Profile = ({ Concerns, SkinTypes, Profile, Wishlist, Blogs }) => {
               <div
                 className=""
                 onClick={() => {
-                  setEditProfile(true);
+                  router.push(`/profile/editProfile/${Profile.user.id}`);
                 }}
               >
                 <div className="p-4 bg-stone-100 rounded-full flex justify-center items-center">
