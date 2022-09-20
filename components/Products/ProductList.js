@@ -14,12 +14,20 @@ const ProductList = ({ categories, products, brands, link_data }) => {
     brands: [],
     search_q: "",
   });
+  let arr = [1, 2, 3, 4, 5, 6, 7, 8];
   const [isSSR, setIsSSR] = useState(true);
   const [filter, setFilter] = useState(false);
+  const [loading, setLoading] = useState(true);
+
   // const [Products, setProducts] = useState(products);
   useEffect(() => {
     setIsSSR(false);
+
     setFetchProducts([...fetchproducts, ...products]);
+
+    setTimeout(function () {
+      setLoading(false);
+    }, 600);
   }, []);
 
   function handleCategoryClick(e) {
@@ -70,6 +78,7 @@ const ProductList = ({ categories, products, brands, link_data }) => {
   }
 
   function fetchProducts(q_cats, q_brands, s_q = "", sort_by = "") {
+    setLoading(true);
     axios
       .get(
         `/api/filter-products?brands=${q_brands.toString()}&
@@ -83,7 +92,11 @@ const ProductList = ({ categories, products, brands, link_data }) => {
       .catch((error) => console.log(error));
   }
   function onPageChange(products) {
+    setLoading(true);
     setFetchProducts(products);
+    setTimeout(function () {
+      setLoading(false);
+    }, 600);
   }
   function closeFilter() {
     setFilter(!filter);
@@ -168,10 +181,31 @@ const ProductList = ({ categories, products, brands, link_data }) => {
               </select>
             </div>
           </div>
-          <div className="grid md:grid-cols-4 grid-cols-2 gap-2">
-            {fetchproducts?.map((product) => (
-              <Product product={product} key={product.id} />
-            ))}
+          <div className={` grid md:grid-cols-4 grid-cols-2 gap-2`}></div>
+          <div className={`grid md:grid-cols-4 grid-cols-2 gap-2`}>
+            {loading
+              ? arr.map((item, index) => (
+                  <div className="bg-white" key={`shim-${index}`}>
+                    <div className="border shadow rounded-md p-2">
+                      <div className="animate-pulse flex space-x-2 flex flex-col items-center">
+                        <div className="rounded bg-slate-200 h-[12rem] w-[12rem]"></div>
+                        <div className="flex-1 space-y-6 py-1">
+                          <div className="h-2 bg-slate-200 rounded"></div>
+                          <div className="space-y-3">
+                            <div className="grid grid-cols-3 gap-4 ">
+                              <div className="h-2 bg-slate-200 rounded col-span-1  h-[1rem] w-[12rem]"></div>
+                            </div>
+                            <div className="h-2 bg-slate-200 rounded  h-[3rem] w-[12rem]"></div>
+                            <div className="h-2 bg-slate-200 rounded col-span-1  h-[1rem] w-[12rem] my-3"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              : fetchproducts?.map((product) => (
+                  <Product product={product} key={product.id} />
+                ))}
           </div>
         </div>
       </div>
