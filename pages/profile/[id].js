@@ -60,7 +60,7 @@ const Profile = ({ Profile, Wishlist, Blogs }) => {
           <div className="flex flex-col items-center justify-center px-3">
             {/* image  */}
             <div className=" border shadow-md p-1 rounded-md">
-              {Profile.avatar ? (
+              {Profile.avatar != null ? (
                 <Image
                   loader={() => Profile.avatar}
                   src={Profile.avatar}
@@ -152,7 +152,9 @@ const Profile = ({ Profile, Wishlist, Blogs }) => {
                   Skin Type
                 </div>
                 <div className=" text-md opacity-70 md:my-3 sm:my-2">
-                  {Profile.skin_type.data[0].name}
+                  {Profile.skin_type.data.length > 0
+                    ? Profile.skin_type.data[0].name
+                    : "Not Set"}
                 </div>
                 <div className="font-semibold text-md md:my-3 sm:my-2">
                   Email

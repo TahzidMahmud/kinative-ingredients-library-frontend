@@ -19,8 +19,12 @@ const ProfileEditModal = ({ profile, Concerns, Skintypes }) => {
     profile.user.email == null ? "not given" : profile.user.email
   );
   const [phone, setPhone] = useState(profile.user.phone);
-  const [concerns, setConcerns] = useState([profile.concern.data[0].id]);
-  const [skinTypes, setSkinTypes] = useState([profile.skin_type.data[0].id]);
+  const [concerns, setConcerns] = useState([
+    profile.concern.data.length > 0 ? profile.concern.data[0].id : null,
+  ]);
+  const [skinTypes, setSkinTypes] = useState([
+    profile.skin_type.data.length > 0 ? profile.skin_type.data[0].id : null,
+  ]);
   const [allSkinTypes, setAllSkinTypes] = useState(Skintypes);
   const [datechange, setDatechange] = useState(null);
   const imageInput = useRef(null);

@@ -12,13 +12,10 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
       .get("/api/user")
       .then((res) => {
         if (res.data.email_verified_at == null) {
-          localStorage.setItem("prevRoute", router.asPath);
           router.push("/verify-mobile");
         } else if (res.data.profile_complete == 0) {
           router.push("/profile/create");
-        } else {
         }
-
         return res.data;
       })
       .catch((error) => {
@@ -62,7 +59,6 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
       .post("/login", props)
       .then(() => (res) => {
         Toaster.notify("Log In Successfull..!!", { type: "success" });
-        // window.location.pathname = localStorage.getItem("prevRoute");
         mutate();
       })
       .catch((error) => {
@@ -120,8 +116,10 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
   };
 
   useEffect(() => {
-    if (middleware === "guest" && redirectIfAuthenticated && user)
-      router.push(redirectIfAuthenticated);
+    if (middleware === "guest" && user)
+      if (user.profile) {
+        // router.push(`/profile/${user.id}`);
+      }
     if (middleware === "auth" && error) logout();
   }, [user, error]);
 
