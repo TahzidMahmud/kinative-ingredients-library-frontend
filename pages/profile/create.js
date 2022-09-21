@@ -1,7 +1,8 @@
 import AuthCard from "@/components/AuthCard";
 import AuthValidationErrors from "@/components/AuthValidationErrors";
 import Button from "@/components/Button";
-import GuestLayout from "@/components/Layouts/GuestLayout";
+import AppLayout from "@/components/Layouts/AppLayout";
+
 import Label from "@/components/Label";
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
@@ -49,16 +50,11 @@ const Create = ({ Concerns, SkinTypes }) => {
     return years;
   }
   useEffect(() => {
-    var aScript1 = document.createElement("script");
-    aScript1.type = "text/javascript";
-    aScript1.src = "https://cdn.tailwindcss.com";
-    document.head.appendChild(aScript1);
     var aScript = document.createElement("script");
     aScript.type = "text/javascript";
     aScript.src =
       "https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js";
     document.head.appendChild(aScript);
-    aScript.onload = () => {};
   }, []);
   if (user == null) {
     axios
@@ -111,7 +107,7 @@ const Create = ({ Concerns, SkinTypes }) => {
   };
 
   return (
-    <GuestLayout>
+    <AppLayout>
       <AuthCard
         logo={
           <Link href="/">
@@ -427,7 +423,7 @@ const Create = ({ Concerns, SkinTypes }) => {
         )}
         {/* </form> */}
       </AuthCard>
-    </GuestLayout>
+    </AppLayout>
   );
 };
 

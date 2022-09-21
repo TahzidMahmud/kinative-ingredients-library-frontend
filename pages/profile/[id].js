@@ -7,7 +7,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-const Profile = ({ Concerns, SkinTypes, Profile, Wishlist, Blogs }) => {
+const Profile = ({ Profile, Wishlist, Blogs }) => {
   const [editProfile, setEditProfile] = useState(false);
   const [wishlist, setWishlist] = useState(Wishlist);
   const [blogs, setBlogs] = useState(Blogs);
@@ -59,15 +59,25 @@ const Profile = ({ Concerns, SkinTypes, Profile, Wishlist, Blogs }) => {
         <div className="col-span-2 md:col-span-1 md:px-8 border-r">
           <div className="flex flex-col items-center justify-center px-3">
             {/* image  */}
-            <div>
-              <Image
-                loader={() => Profile.avatar}
-                src={Profile.avatar}
-                alt={Profile.user.name}
-                width={350}
-                height={350}
-                className="py-6 border border-blue-500 rounded-sm"
-              />
+            <div className=" border shadow-md p-1 rounded-md">
+              {Profile.avatar ? (
+                <Image
+                  loader={() => Profile.avatar}
+                  src={Profile.avatar}
+                  alt={Profile.user.name}
+                  width={350}
+                  height={350}
+                  className="py-6 border border-blue-500 rounded-sm"
+                />
+              ) : (
+                <Image
+                  src="/profile.svg"
+                  alt={Profile.user.name}
+                  width={350}
+                  height={350}
+                  className="py-6 border border-blue-500 rounded-sm"
+                />
+              )}
             </div>
             {/* details  */}
             <div className=" p-6 w-[100%]  h-96 bg-white rounded-lg border border-gray-200 shadow-md cursor-pointer my-2">
@@ -107,7 +117,7 @@ const Profile = ({ Concerns, SkinTypes, Profile, Wishlist, Blogs }) => {
                   </button>
                 ) : (
                   <button className="rounded-full bg-red-600 p-3 text-white text-sm mx-2">
-                    Un-Ranked
+                    UnRanked
                   </button>
                 )}
               </div>
@@ -314,28 +324,6 @@ const Profile = ({ Concerns, SkinTypes, Profile, Wishlist, Blogs }) => {
             </div>
           </div>
         </div>
-
-        {editProfile ? (
-          <ProfileEditModal
-            show={editProfile}
-            closeModal={closeModal}
-            profile={Profile}
-            Concerns={Concerns}
-            Skintypes={SkinTypes}
-          />
-        ) : (
-          <div></div>
-        )}
-
-        {/* <div className={`${editProfile ? "z-10" : "invisible"}`}>
-          <ProfileEditModal
-            show={editProfile}
-            closeModal={closeModal}
-            profile={Profile}
-            Concerns={Concerns}
-            Skintypes={SkinTypes}
-          />
-        </div> */}
       </div>
     </AppLayout>
   );
@@ -349,18 +337,6 @@ export async function getServerSideProps(context) {
       return response.data;
     })
     .catch((error) => console.log(error));
-  const concerns = await axios
-    .get("/api/concerns")
-    .then((response) => {
-      return response.data;
-    })
-    .catch((error) => console.log(error));
-  const skinTypes = await axios
-    .get("/api/skin-types")
-    .then((response) => {
-      return response.data;
-    })
-    .catch((error) => console.log(error));
   const blogs = await axios
     .post(`/api/profiles/${id}/blogs`)
     .then((response) => {
@@ -370,8 +346,6 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      Concerns: concerns.data,
-      SkinTypes: skinTypes.data,
       Profile: profile.data,
       Wishlist: profile.data.wish_list.data,
       Blogs: blogs.data,
