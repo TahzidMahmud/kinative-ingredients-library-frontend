@@ -76,12 +76,11 @@ const Create = ({ categories }) => {
         <label className="block mb-2 text-md font-large text-gray-900 dark:text-gray-400">
           Blog Title
         </label>
-        <input
-          type="text"
-          id="base-input"
+        <textarea
           onChange={(e) => setBlogtitle(e.target.value)}
-          className="my-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 w-[100%]"
-        />
+          className="my-4 bg-gray-50 border border-gray-300 text-gray-900  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block h-32 w-full p-2.5 w-[100%]"
+          name="body"
+        ></textarea>
         <label className="block mb-2 text-md font-large text-gray-900 dark:text-gray-400">
           Select Blog Category
         </label>

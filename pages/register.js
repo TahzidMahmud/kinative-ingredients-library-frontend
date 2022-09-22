@@ -4,6 +4,7 @@ import AuthValidationErrors from "@/components/AuthValidationErrors";
 import Button from "@/components/Button";
 import GuestLayout from "@/components/Layouts/GuestLayout";
 import AppLayout from "@/components/Layouts/AppLayout";
+import { useRouter } from "next/router";
 
 import Input from "@/components/Input";
 import Label from "@/components/Label";
@@ -17,7 +18,7 @@ const Register = () => {
     middleware: "guest",
     redirectIfAuthenticated: "/dashboard",
   });
-
+  const router = useRouter();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -34,6 +35,9 @@ const Register = () => {
       password_confirmation: passwordConfirmation,
       setErrors,
     });
+    setTimeout(function () {
+      router.push("/verify-mobile");
+    }, 2000);
   };
 
   return (

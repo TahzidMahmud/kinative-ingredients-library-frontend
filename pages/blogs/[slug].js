@@ -97,7 +97,10 @@ const Blog = ({ blog, trendingBlogs }) => {
   function addComment(comment) {
     setComments([...comments, comment]);
   }
-
+  function removeComment(comment) {
+    let ncomments = comments.filter((item) => item.id !== comment);
+    setComments(ncomments);
+  }
   return (
     <AppLayout header={<> </>}>
       <Head>
@@ -192,6 +195,7 @@ const Blog = ({ blog, trendingBlogs }) => {
                 comment={comment}
                 canlikeComment={canlikeComment}
                 setShowLoginModal={setShowLoginModal}
+                removeComment={removeComment}
               />
             ))}
           </div>
@@ -332,20 +336,5 @@ export async function getServerSideProps(context) {
     },
   };
 }
-
-// export async function getStaticPaths() {
-//   const slugs = await axios
-//     .get("/api/blog/slugs")
-//     .then((response) => {
-//       return response.data.slugs;
-//     })
-//     .catch((error) => console.log(error));
-
-//   const paths = slugs.map((slug) => ({ params: { slug: slug.toString() } }));
-//   return {
-//     paths,
-//     fallback: false,
-//   };
-// }
 
 export default Blog;

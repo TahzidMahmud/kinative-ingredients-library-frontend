@@ -15,7 +15,9 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
           router.push("/verify-mobile");
         } else if (res.data.profile_complete == 0) {
           router.push("/profile/create");
+        } else {
         }
+
         return res.data;
       })
       .catch((error) => {
@@ -34,10 +36,7 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
     axios
       .post("/register", props)
       .then(() => (res) => {
-        //;
         if (res.data.success) {
-          Toaster.notify("Registered Successfully..!!", { type: "success" });
-
           mutate();
         }
       })
@@ -116,12 +115,11 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
   };
 
   useEffect(() => {
-    if (middleware === "guest" && user)
-      if (user.profile) {
-        // router.push(`/profile/${user.id}`);
-      }
+    if (middleware === "guest" && redirectIfAuthenticated && user) {
+      router.push(redirectIfAuthenticated);
+    }
     if (middleware === "auth" && error) logout();
-  }, [user, error]);
+  }, [user]);
 
   return {
     user,

@@ -9,6 +9,7 @@ import LoginModal from "@/modals/LoginModal";
 import { useRouter } from "next/router";
 import { useEffect, useState, useRef } from "react";
 import "react-quill/dist/quill.snow.css";
+import Toaster from "@/components/Toaster";
 
 const Create = ({ categories, blog }) => {
   const router = useRouter();
@@ -78,13 +79,14 @@ const Create = ({ categories, blog }) => {
         >
           Blog Title
         </label>
-        <input
-          type="text"
-          id="base-input"
+
+        <textarea
           onChange={(e) => setBlogtitle(e.target.value)}
-          value={blogtitle}
-          className="my-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-        />
+          className="my-4 bg-gray-50 border border-gray-300 text-gray-900  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block h-32 w-full p-2.5 w-[100%]"
+          name="body"
+        >
+          {blogtitle}
+        </textarea>
         <label
           htmlFor="countries"
           className="block mb-2 text-md font-large text-gray-900 dark:text-gray-400"
@@ -94,7 +96,7 @@ const Create = ({ categories, blog }) => {
         <select
           value={blogcategory}
           id="countries"
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 w-[100%]"
           onChange={(e) => {
             if (e.target.value != "") {
               setBlogcategory(e.target.value);
@@ -137,19 +139,13 @@ const Create = ({ categories, blog }) => {
             htmlFor="imageInput"
             onClick={() => imageInput.current.click()}
           >
-            <svg
-              aria-hidden="true"
-              className="w-16 h-16"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fillRule="evenodd"
-                d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
-                clipRule="evenodd"
-              ></path>
-            </svg>
+            <Image
+              src="/icons8-picture.svg"
+              alt="logo"
+              width={35}
+              height={35}
+              className="rounded-t-lg py-6"
+            />
             <span className="sr-only">Upload image</span>
           </button>
           <input

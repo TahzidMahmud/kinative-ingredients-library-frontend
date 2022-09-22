@@ -1,7 +1,7 @@
 import axios from "@/lib/axios";
 import Image from "next/image";
 import AppLayout from "@/components/Layouts/AppLayout";
-import ProfileEditModal from "@/modals/ProfileEditModal";
+import Toaster from "@/components/Toaster";
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
@@ -33,7 +33,7 @@ const Profile = ({ Profile, Wishlist, Blogs }) => {
       .delete(`/api/blogs/${id}`)
       .then((res) => {
         if (res.data.success) {
-          location.reload();
+          Toaster.notify(res.data.message, { type: "success" });
           let nblogs = blogs.filter((item) => item.id !== id);
           setBlogs(nblogs);
         }
@@ -84,7 +84,7 @@ const Profile = ({ Profile, Wishlist, Blogs }) => {
               <ul>
                 <Link href={`/blogs/create`}>
                   <li className="text-gray-800 border-b py-2 hover:bg-gray-100 hover:text-blue-400 rounded-md">
-                    <span className="font-semibold px-3">Crea New Post</span>
+                    <span className="font-semibold px-3">Create New Post</span>
                   </li>
                 </Link>
                 <Link href={`/products/Request`}>

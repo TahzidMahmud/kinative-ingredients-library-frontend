@@ -18,6 +18,11 @@ const Toaster = {
         Toaster.timeout = null;
       }
     }
+    if (typeof window !== "undefined") {
+      root = ReactDOMClient.createRoot(
+        document.getElementById("toast-container")
+      );
+    }
   },
   currentToast: false,
   timeout: null,

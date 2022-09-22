@@ -3,6 +3,9 @@ import axios from "@/lib/axios";
 import CommentForm from "@/components/comment/CommentForm";
 import Reply from "@/components/comment/Reply";
 import { useState, useEffect } from "react";
+import { DropdownButton } from "@/components/DropdownLink";
+import Dropdown from "@/components/Dropdown";
+import Toaster from "@/components/Toaster";
 
 const Comment = ({
   user,
@@ -11,6 +14,7 @@ const Comment = ({
   comment,
   canlikeComment,
   setShowLoginModal,
+  removeComment,
 }) => {
   const [canlike, setCanlike] = useState(canlikeComment);
   const [candislike, setCandislike] = useState(canlikeComment);
@@ -168,11 +172,34 @@ const Comment = ({
     setReplies([...replies, comment]);
     setCanreply(false);
   }
+  function deleteComment(cmnt_id) {
+    if (typeof user === "undefined") {
+      setShowLoginModal(true);
+    } else {
+      axios
+        .post("api/comment/destroy", {
+          comment_id: cmnt_id,
+          user_id: user.id,
+        })
+        .then((res) => {
+          if (res.data.success) {
+            Toaster.notify(res.data.message, { type: "success" });
+            removeComment(res.data.comment_id);
+          } else {
+            Toaster.notify(res.data.message, { type: "error" });
+          }
+        })
+        .catch((error) => {
+          // if (error.response.status !== 422) throw error;
+          // setErrors(Object.values(error.response.data.errors).flat());
+        });
+    }
+  }
   return (
     <>
       {/* top section of comment */}
-      <div className="flex items-cetner justify-start ml-20 my-6">
-        <div className=" flex">
+      <div className="flex items-cetner justify-start md:ml-20 ml-4 my-6 py-6">
+        <div className=" flex items-center">
           {/* user image  */}
           <div>
             {comment.author.avatar ? (
@@ -212,6 +239,43 @@ const Comment = ({
               </div>
             </div>
           </div>
+          {/* options */}
+          {user ? (
+            <div
+              className={`${
+                comment.author.id != user.id ? "hidden" : ""
+              } p-2 rounded-full flex justify-center items-center bg-white  shadow-md`}
+            >
+              <Dropdown
+                align="center"
+                width="48"
+                trigger={
+                  <button className="flex items-center text-sm font-medium text-gray-500  transition duration-150 ease-in-out">
+                    <Image
+                      src="/settings.svg"
+                      alt={comment.author.name}
+                      width={20}
+                      height={20}
+                      className="rounded-full mr-2"
+                    />
+                  </button>
+                }
+              >
+                {/* Authentication */}
+                <DropdownButton
+                  onClick={() => {
+                    deleteComment(comment.id);
+                  }}
+                >
+                  Delete
+                </DropdownButton>
+                <hr></hr>
+                {/* <DropdownButton>Edit</DropdownButton> */}
+              </Dropdown>
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
       <div className="flex flex-col ml-20">
