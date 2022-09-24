@@ -16,6 +16,8 @@ const Create = ({ Concerns, SkinTypes }) => {
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [name, setName] = useState("");
+  const [gender, setGender] = useState(null);
+
   const [datechange, setDatechange] = useState(null);
 
   const [stage, setStage] = useState(1);
@@ -89,7 +91,10 @@ const Create = ({ Concerns, SkinTypes }) => {
     formData.append("skinTypes", JSON.stringify(skinTypes));
     formData.append("birth_date", Math.floor(birthtDate.getTime() / 1000));
     formData.append("image", cmntimage);
+    formData.append("gender", gender);
+
     formData.append("imgname", imageInput.current.value);
+
     axios
       .post("/api/profiles", formData, {
         headers: {
@@ -133,7 +138,7 @@ const Create = ({ Concerns, SkinTypes }) => {
             stage == 1 ? "active" : "hidden"
           } flex flex-col justify-center items-center`}
         >
-          <Label htmlFor="name" className="text-xl">
+          <Label htmlFor="name" className="text-2xl font-bold">
             Upload Profile Image
           </Label>
 
@@ -146,8 +151,8 @@ const Create = ({ Concerns, SkinTypes }) => {
             <Image
               src="/icons8-picture.svg"
               alt="logo"
-              width={50}
-              height={50}
+              width={60}
+              height={60}
               className="rounded-t-lg py-6"
             />
             <span className="sr-only">Upload image</span>
@@ -188,13 +193,13 @@ const Create = ({ Concerns, SkinTypes }) => {
         <div
           className={`${
             stage == 2 ? "active" : "hidden"
-          } flex flex-col justify-center items-center`}
+          } flex flex-col justify-center items-center `}
         >
-          <Label htmlFor="name" className="text-xl">
+          <Label htmlFor="name" className="text-2xl font-bold">
             Select Skin Type
           </Label>
 
-          <div className="grid grid-cols-2 gap-4 m-6">
+          <div className="grid md:grid-cols-3 grid-cols-2 gap-4 m-6">
             {SkinTypes.map((skinType, index) => (
               <div
                 key={index}
@@ -202,24 +207,34 @@ const Create = ({ Concerns, SkinTypes }) => {
                   skinTypes.includes(skinType.id)
                     ? `border-2 border-blue-500 rounded-xl bg-blue-300`
                     : ``
-                }border flex flex-col justify-center items-center p-3`}
+                }border  p-3 bg-gray-100`}
                 onClick={() => {
                   setSkinTypes([skinType.id]);
                 }}
               >
-                <Image
-                  loader={() => {
-                    return skinType.image != null
-                      ? skinType.image
-                      : "/avatar.PNG";
-                  }}
-                  src={skinType.image != null ? skinType.image : "/avatar.PNG"}
-                  alt={skinType.name}
-                  width={60}
-                  height={60}
-                  className="py-4"
-                />
-                {skinType.name}
+                <div className="flex flex-col justify-center">
+                  <Image
+                    loader={() => {
+                      return skinType.image != null
+                        ? skinType.image
+                        : "/avatar.PNG";
+                    }}
+                    src={
+                      skinType.image != null ? skinType.image : "/avatar.PNG"
+                    }
+                    alt={skinType.name}
+                    width={150}
+                    height={150}
+                    className="py-4 rounded-full"
+                  />
+                  <div className="flex items-center justify-center text-center p-2 my-2 bg-gray-200 rounded-md">
+                    {" "}
+                    {skinType.name}
+                  </div>
+                  <div className="flex items-center justify-center text-center md:text-sm text-xs">
+                    {skinType.description}
+                  </div>
+                </div>
               </div>
             ))}
           </div>
@@ -231,17 +246,17 @@ const Create = ({ Concerns, SkinTypes }) => {
             stage == 3 ? "active" : "hidden"
           } flex flex-col justify-center items-center`}
         >
-          <Label htmlFor="name" className="text-xl">
+          <Label htmlFor="name" className="text-2xl font-bold">
             Select Concern
           </Label>
 
-          <div className="grid grid-cols-2 gap-4 m-6">
+          <div className="grid md:grid-cols-3 grid-cols-2 gap-4 m-6">
             {Concerns.map((concern, index) => (
               <div
                 key={index}
                 id={`con-${concern.id}`}
                 className={`
-                rounded-xl border flex flex-col justify-center items-center p-3`}
+                rounded-xl border p-3 bg-gray-100`}
                 onClick={() => {
                   if (concerns.includes(concern.id)) {
                     let arr = concerns;
@@ -258,19 +273,27 @@ const Create = ({ Concerns, SkinTypes }) => {
                   }
                 }}
               >
-                <Image
-                  loader={() => {
-                    return concern.image != null
-                      ? concern.image
-                      : "/avatar.PNG";
-                  }}
-                  src={concern.image != null ? concern.image : "/avatar.PNG"}
-                  alt={concern.name}
-                  width={60}
-                  height={60}
-                  className="py-4"
-                />
-                {concern.name}
+                <div className="flex flex-col justify-center overflow-x-hidden">
+                  <Image
+                    loader={() => {
+                      return concern.image != null
+                        ? concern.image
+                        : "/avatar.PNG";
+                    }}
+                    src={concern.image != null ? concern.image : "/avatar.PNG"}
+                    alt={concern.name}
+                    width={150}
+                    height={150}
+                    className="py-4 rounded-full"
+                  />
+                  <div className="flex items-center justify-center text-center p-2 my-2 bg-gray-200 rounded-md">
+                    {" "}
+                    {concern.name}
+                  </div>
+                  <div className="flex items-center justify-center text-center  md:text-sm text-xs px-1.5 ">
+                    {concern.description}
+                  </div>
+                </div>
               </div>
             ))}
           </div>
@@ -282,7 +305,7 @@ const Create = ({ Concerns, SkinTypes }) => {
             stage == 4 ? "active" : "hidden"
           } flex flex-col justify-center items-center`}
         >
-          <Label htmlFor="name" className="text-xl">
+          <Label htmlFor="name" className="text-2xl font-bold">
             Select Birth Date
           </Label>
           <div className="flex items-center bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ">
@@ -382,8 +405,68 @@ const Create = ({ Concerns, SkinTypes }) => {
             />
           </div>
         </div>
+        {/* Select Gender stage */}
+        <div
+          className={`${
+            stage == 5 ? "active" : "hidden"
+          } flex flex-col justify-center items-center `}
+        >
+          <Label htmlFor="name" className="text-2xl font-bold">
+            Select Gender
+          </Label>
 
-        {stage !== 4 ? (
+          <div className="grid grid-cols-2 gap-4 m-6">
+            <div
+              className={`${
+                gender == "male"
+                  ? `border-2 border-blue-500 rounded-xl bg-blue-300`
+                  : ``
+              }border  p-3 bg-gray-100`}
+              onClick={() => {
+                setGender("male");
+              }}
+            >
+              <div className="flex flex-col justify-center">
+                <Image
+                  src="/male-user.svg"
+                  alt="male"
+                  width={150}
+                  height={150}
+                  className="py-4 rounded-full"
+                />
+                <div className="flex items-center justify-center text-center p-2 my-2 bg-gray-200 rounded-md">
+                  {" "}
+                  Male
+                </div>
+              </div>
+            </div>
+            <div
+              className={`${
+                gender == "female"
+                  ? `border-2 border-blue-500 rounded-xl bg-blue-300`
+                  : ``
+              }border  p-3 bg-gray-100`}
+              onClick={() => {
+                setGender("female");
+              }}
+            >
+              <div className="flex flex-col justify-center">
+                <Image
+                  src="/female-user.svg"
+                  alt="male"
+                  width={150}
+                  height={150}
+                  className="py-4 rounded-full"
+                />
+                <div className="flex items-center justify-center text-center p-2 my-2 bg-gray-200 rounded-md">
+                  {" "}
+                  Female
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {stage !== 5 ? (
           <div className="flex items-center justify-end mt-4">
             {stage !== 1 ? (
               <Button className="ml-4" onClick={prevStep}>
@@ -410,9 +493,13 @@ const Create = ({ Concerns, SkinTypes }) => {
             <Button className="ml-4" onClick={prevStep}>
               Previous
             </Button>
-            <Button className="ml-4" onClick={submitForm}>
-              Submit
-            </Button>
+            {gender != null ? (
+              <Button className="ml-4" onClick={submitForm}>
+                Submit
+              </Button>
+            ) : (
+              <></>
+            )}
           </div>
         )}
         {/* </form> */}

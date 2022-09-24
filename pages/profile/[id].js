@@ -59,7 +59,7 @@ const Profile = ({ Profile, Wishlist, Blogs }) => {
         <div className="col-span-2 md:col-span-1 md:px-8 border-r">
           <div className="flex flex-col items-center justify-center px-3">
             {/* image  */}
-            <div className=" border shadow-md p-1 rounded-md">
+            <div className=" border shadow-md  rounded-md">
               {Profile.avatar != null ? (
                 <Image
                   loader={() => Profile.avatar}
@@ -70,12 +70,23 @@ const Profile = ({ Profile, Wishlist, Blogs }) => {
                   className="py-6 border border-blue-500 rounded-sm"
                 />
               ) : (
+                <></>
+              )}
+              {Profile.gender == "male" ? (
                 <Image
-                  src="/profile.svg"
+                  src="/male-user.svg"
                   alt={Profile.user.name}
                   width={350}
                   height={350}
-                  className="py-6 border border-blue-500 rounded-sm"
+                  className="py-6 border border-blue-500 rounded-sm bg-white"
+                />
+              ) : (
+                <Image
+                  src="/female-user.svg"
+                  alt={Profile.user.name}
+                  width={350}
+                  height={350}
+                  className="py-6 border border-blue-500 rounded-sm bg-white"
                 />
               )}
             </div>

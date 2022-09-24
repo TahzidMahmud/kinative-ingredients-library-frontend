@@ -86,7 +86,7 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
             </div>
             <div className="md:pr-9">
               <div className="grid grid-cols-1 gap-4 md:mb-4 sm:mb-3">
-                {
+                {newBlogs.length > 0 ? (
                   <div
                     key={`blog.id-`.index}
                     onClick={() => {
@@ -180,7 +180,13 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
                       </div>
                     </div>
                   </div>
-                }
+                ) : (
+                  <>
+                    <h1 className="text-xl font-bold px-3 md:p-0 text-red-500 text-center">
+                      No Blogs Exists..!!
+                    </h1>
+                  </>
+                )}
               </div>
               <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
                 {newBlogs.length > 0 ? (
@@ -292,13 +298,17 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
                 )}
               </div>
             </div>
-            <div className="flex justify-center items-center md:my-10 my-5 ">
-              <Link href={`/blogs/all-blogs`}>
-                <button className="bg-blue-600 px-4 py-2 rounded-md text-white">
-                  View All
-                </button>
-              </Link>
-            </div>
+            {newBlogs.length > 0 ? (
+              <div className="flex justify-center items-center md:my-10 my-5 ">
+                <Link href={`/blogs/all-blogs`}>
+                  <button className="bg-blue-600 px-4 py-2 rounded-md text-white">
+                    View All
+                  </button>
+                </Link>
+              </div>
+            ) : (
+              <></>
+            )}
           </div>
           <div className="md:min-w-[30%] min-w-[100%] md:col-span-1">
             <div className="flex justify-left md:my-4 my-5">
