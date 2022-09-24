@@ -1,12 +1,14 @@
 import Image from "next/image";
+import Dropdown from "@/components/Dropdown";
+import { DropdownButton } from "@/components/DropdownLink";
 
-const Reply = ({ reply }) => {
+const Reply = ({ user, reply, deleteComment }) => {
   return (
     <div className="ml-36">
       <hr></hr>
       {/* top section of reply */}
       <div className="flex items-cetner justify-start  my-6">
-        <div className=" flex">
+        <div className=" flex items-center">
           {/* user image  */}
           <div>
             <Image
@@ -36,6 +38,43 @@ const Reply = ({ reply }) => {
               </div>
             </div>
           </div>
+          {/* options */}
+          {user ? (
+            <div
+              className={`${
+                reply.author.id != user.id ? "hidden" : ""
+              } p-2   flex justify-center items-center bg-white rounded-full shadow-md`}
+            >
+              <Dropdown
+                align="center"
+                width="48"
+                trigger={
+                  <button className="flex items-center text-sm font-medium text-gray-500  transition duration-150 ease-in-out">
+                    <Image
+                      src="/settings.svg"
+                      alt={reply.author.name}
+                      width={20}
+                      height={20}
+                      className="rounded-full mr-2"
+                    />
+                  </button>
+                }
+              >
+                {/* Authentication */}
+                <DropdownButton
+                  onClick={() => {
+                    deleteComment(reply.id, true);
+                  }}
+                >
+                  Delete
+                </DropdownButton>
+                <hr></hr>
+                {/* <DropdownButton>Edit</DropdownButton> */}
+              </Dropdown>
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
       <div className="flex flex-col">

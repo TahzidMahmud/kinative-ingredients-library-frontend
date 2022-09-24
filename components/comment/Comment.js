@@ -172,7 +172,7 @@ const Comment = ({
     setReplies([...replies, comment]);
     setCanreply(false);
   }
-  function deleteComment(cmnt_id) {
+  function deleteComment(cmnt_id, reply) {
     if (typeof user === "undefined") {
       setShowLoginModal(true);
     } else {
@@ -185,6 +185,10 @@ const Comment = ({
           if (res.data.success) {
             Toaster.notify(res.data.message, { type: "success" });
             removeComment(res.data.comment_id);
+            if (reply) {
+              let ncomments = replies.filter((item) => item.id !== cmnt_id);
+              setReplies(ncomments);
+            }
           } else {
             Toaster.notify(res.data.message, { type: "error" });
           }
@@ -405,7 +409,12 @@ const Comment = ({
       )}
       {/* replies list */}
       {replies.map((reply, index) => (
-        <Reply key={index} reply={reply} />
+        <Reply
+          user={user}
+          key={index}
+          reply={reply}
+          deleteComment={deleteComment}
+        />
       ))}
     </>
   );

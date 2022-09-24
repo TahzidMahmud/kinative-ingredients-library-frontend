@@ -72,7 +72,7 @@ const Profile = ({ Profile, Wishlist, Blogs }) => {
               ) : (
                 <></>
               )}
-              {Profile.gender == "male" ? (
+              {Profile.avatar == null && Profile.gender == "male" ? (
                 <Image
                   src="/male-user.svg"
                   alt={Profile.user.name}
@@ -81,13 +81,18 @@ const Profile = ({ Profile, Wishlist, Blogs }) => {
                   className="py-6 border border-blue-500 rounded-sm bg-white"
                 />
               ) : (
+                <></>
+              )}
+              {Profile.avatar == null && Profile.gender == "female" ? (
                 <Image
-                  src="/female-user.svg"
+                  src="/male-user.svg"
                   alt={Profile.user.name}
                   width={350}
                   height={350}
                   className="py-6 border border-blue-500 rounded-sm bg-white"
                 />
+              ) : (
+                <></>
               )}
             </div>
             {/* details  */}
