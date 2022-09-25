@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useAuth } from "@/hooks/auth";
 import LoginModal from "@/modals/LoginModal";
+import HtmlFormat from "@/components/HtmlFormat";
 
 const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
   const router = useRouter();
@@ -29,6 +30,9 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
   }
   function closeModal() {
     setShowLoginModal(false);
+  }
+  function createMarkup(data) {
+    return { __html: data };
   }
   return (
     <div className="">
@@ -124,12 +128,14 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
                             {newBlogs[0].created_at}
                           </span>
                         </h6>
-                        <p className="my-2">
-                          {newBlogs[0].body}...{" "}
-                          <span className="text-blue-500 text-md font-bold cursor-pointer">
+                        <div className="my-2">
+                          <div className="h-[10.5rem] overflow-y-hidden">
+                            {newBlogs[0].body}
+                          </div>
+                          <span className="text-blue-500 text-md font-bold cursor-pointer pt-1">
                             Read More
                           </span>
-                        </p>
+                        </div>
                       </div>
                       <div className="mb-3 mt-1">
                         <div className="flex text-black py-2">
@@ -234,12 +240,14 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
                                   {blog.created_at}
                                 </span>
                               </h6>
-                              <p className="my-2">
-                                {blog.body}...{" "}
-                                <span className="text-blue-500 text-md font-bold cursor-pointer">
+                              <div className="my-2">
+                                <div className="h-[10.5rem] overflow-y-hidden">
+                                  {blog.body}
+                                </div>
+                                <span className="text-blue-500 text-md font-bold cursor-pointer pt-1">
                                   Read More
                                 </span>
-                              </p>
+                              </div>
                             </div>
                             <div className="mb-3 mt-1">
                               <div className="flex text-black py-2">
@@ -356,12 +364,14 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
                               {blog.created_at}
                             </span>
                           </h6>
-                          <p className="my-2">
-                            {blog.body}...{" "}
-                            <span className="text-blue-500 text-md font-bold cursor-pointer">
+                          <div className="my-2">
+                            <div className="h-[10.5rem] overflow-y-hidden">
+                              {blog.body}
+                            </div>
+                            <span className="text-blue-500 text-md font-bold cursor-pointer pt-1">
                               Read More
                             </span>
-                          </p>
+                          </div>
                         </div>
                         <div className="mb-3 mt-1">
                           <div className="flex text-black py-2">
