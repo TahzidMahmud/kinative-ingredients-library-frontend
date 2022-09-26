@@ -31,9 +31,7 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
   function closeModal() {
     setShowLoginModal(false);
   }
-  function createMarkup(data) {
-    return { __html: data };
-  }
+
   return (
     <div className="">
       <Head>

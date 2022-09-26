@@ -75,7 +75,12 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
 
     axios
       .post("/forgot-password", { email })
-      .then((response) => setStatus(response.data.status))
+      .then((response) => {
+        setStatus(response.data.status);
+        if (response.data.status == true) {
+          router.push("/password-reset/reset");
+        }
+      })
       .catch((error) => {
         if (error.response.status !== 422) throw error;
 
@@ -91,9 +96,14 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
 
     axios
       .post("/reset-password", { token: router.query.token, ...props })
-      .then((response) =>
-        router.push("/login?reset=" + btoa(response.data.status))
-      )
+      .then((response) => {
+        if (response.data.status) {
+          Toaster.notify(response.data.message, { type: "success" });
+          router.push("/login");
+        } else {
+          Toaster.notify(response.data.message, { type: "error" });
+        }
+      })
       .catch((error) => {
         if (error.response.status !== 422) throw error;
 
