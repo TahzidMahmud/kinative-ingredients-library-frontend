@@ -216,131 +216,139 @@ const Profile = ({ Profile, Wishlist, Blogs }) => {
             </div>
           </div>
 
-          <div
-            className={`p-6 w-full ${
-              wishlist.length > 0 ? "h-96" : "d-none"
-            }  bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 my-6 overflow-y-auto`}
-          >
-            {wishlist.length > 0 ? (
-              <div className="text-center font-bold text-lg border-b pb-1">
-                Product Wishlist
-              </div>
-            ) : (
-              <> </>
-            )}
-            <div className="grid grid-cols-1 my-4">
+          {wishlist.length > 0 ? (
+            <div
+              className={`p-6 w-full ${
+                wishlist.length > 0 ? "h-96" : "d-none"
+              }  bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 my-6 overflow-y-auto`}
+            >
               {wishlist.length > 0 ? (
-                wishlist.map((wish, index) => (
-                  <div
-                    key={index}
-                    className="flex justify-between items-center my-1"
-                  >
-                    <div className="flex items-center">
-                      <Image
-                        loader={() => wish.image}
-                        src={wish.image}
-                        alt={wish.name}
-                        width={60}
-                        height={60}
-                        className="py-6 border border-blue-500 rounded-sm"
-                      />
-                    </div>
-                    <div className="flex  justify-start items-center cursor-pointer">
-                      <Link href={`/products/${wish.slug}`}>
-                        <div className="font-base text-md mx-4">
-                          {wish.name}
-                        </div>
-                      </Link>
-                    </div>
-                    <div
-                      className="p-2 rounded-full bg-gray-200 flex justify-center items-center"
-                      onClick={() => {
-                        deleteWishlist(wish.id);
-                      }}
-                    >
-                      <Image
-                        src="/trash-icon.svg"
-                        alt={wish.name}
-                        width={20}
-                        height={20}
-                        className="py-6 border border-blue-500 rounded-sm"
-                      />
-                    </div>
-                  </div>
-                ))
+                <div className="text-center font-bold text-lg border-b pb-1">
+                  Product Wishlist
+                </div>
               ) : (
-                <></>
+                <> </>
               )}
-            </div>
-          </div>
-          <div
-            className={`p-6 w-full ${
-              blogs.length > 0 ? "h-96" : "d-none"
-            }  bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 my-6 overflow-y-auto`}
-          >
-            {blogs.length > 0 ? (
-              <div className="text-center font-bold text-lg border-b pb-1">
-                Your blogs
-              </div>
-            ) : (
-              <> </>
-            )}
-            <div className="grid grid-cols-1 my-4">
-              {blogs.length > 0 ? (
-                blogs.map((blog, index) => (
-                  <div
-                    key={index}
-                    className="flex justify-between items-center my-1"
-                  >
-                    <div className="flex items-center">
-                      <Image
-                        loader={() => blog.image}
-                        src={blog.image}
-                        alt={blog.name}
-                        width={60}
-                        height={60}
-                        className="py-6 border border-blue-500 rounded-sm"
-                      />
+              <div className="grid grid-cols-1 my-4">
+                {wishlist.length > 0 ? (
+                  wishlist.map((wish, index) => (
+                    <div
+                      key={index}
+                      className="flex justify-between items-center my-1"
+                    >
+                      <div className="flex items-center">
+                        <Image
+                          loader={() => wish.image}
+                          src={wish.image}
+                          alt={wish.name}
+                          width={60}
+                          height={60}
+                          className="py-6 border border-blue-500 rounded-sm"
+                        />
+                      </div>
+                      <div className="flex  justify-start items-center cursor-pointer">
+                        <Link href={`/products/${wish.slug}`}>
+                          <div className="font-base text-md mx-4">
+                            {wish.name}
+                          </div>
+                        </Link>
+                      </div>
+                      <div
+                        className="p-2 rounded-full bg-gray-200 flex justify-center items-center"
+                        onClick={() => {
+                          deleteWishlist(wish.id);
+                        }}
+                      >
+                        <Image
+                          src="/trash-icon.svg"
+                          alt={wish.name}
+                          width={20}
+                          height={20}
+                          className="py-6 border border-blue-500 rounded-sm"
+                        />
+                      </div>
                     </div>
-                    <div className="flex  justify-start items-center cursor-pointer">
-                      <Link href={`/blogs/${blog.slug}`}>
-                        <div className="font-base text-md mx-4">
-                          {blog.title}
+                  ))
+                ) : (
+                  <></>
+                )}
+              </div>
+            </div>
+          ) : (
+            <></>
+          )}
+          {blogs.length > 0 ? (
+            <div
+              className={`p-6 w-full ${
+                blogs.length > 0 ? "h-96" : "d-none"
+              }  bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 my-6 overflow-y-auto`}
+            >
+              {blogs.length > 0 ? (
+                <div className="text-center font-bold text-lg border-b pb-1">
+                  Your blogs
+                </div>
+              ) : (
+                <> </>
+              )}
+              <div className="grid grid-cols-1 my-4">
+                {blogs.length > 0 ? (
+                  blogs.map((blog, index) => (
+                    <div
+                      key={index}
+                      className="flex justify-between items-center my-1"
+                    >
+                      <div className="flex items-center">
+                        <Image
+                          loader={() => blog.image}
+                          src={blog.image}
+                          alt={blog.name}
+                          width={60}
+                          height={60}
+                          className="py-6 border border-blue-500 rounded-sm"
+                        />
+                      </div>
+                      <div className="flex  justify-start items-center cursor-pointer">
+                        <Link href={`/blogs/${blog.slug}`}>
+                          <div className="font-base text-md mx-4">
+                            {blog.title}
+                          </div>
+                        </Link>
+                      </div>
+                      <Link href={`/profile/editBlog/${blog.slug}`}>
+                        <div className="p-2 rounded-full bg-gray-200 flex justify-center items-center">
+                          <Image
+                            src="/icons8-edit.svg"
+                            alt={blog.name}
+                            width={20}
+                            height={20}
+                            className="py-6 border border-blue-500 rounded-sm"
+                          />
                         </div>
                       </Link>
-                    </div>
-                    <Link href={`/profile/editBlog/${blog.slug}`}>
-                      <div className="p-2 rounded-full bg-gray-200 flex justify-center items-center">
+                      <div
+                        className="p-2 rounded-full bg-gray-200 flex justify-center items-center"
+                        onClick={() => {
+                          deleteBlog(blog.id);
+                        }}
+                      >
                         <Image
-                          src="/icons8-edit.svg"
+                          src="/trash-icon.svg"
                           alt={blog.name}
                           width={20}
                           height={20}
                           className="py-6 border border-blue-500 rounded-sm"
                         />
                       </div>
-                    </Link>
-                    <div
-                      className="p-2 rounded-full bg-gray-200 flex justify-center items-center"
-                      onClick={() => {
-                        deleteBlog(blog.id);
-                      }}
-                    >
-                      <Image
-                        src="/trash-icon.svg"
-                        alt={blog.name}
-                        width={20}
-                        height={20}
-                        className="py-6 border border-blue-500 rounded-sm"
-                      />
                     </div>
-                  </div>
-                ))
-              ) : (
-                <></>
-              )}
+                  ))
+                ) : (
+                  <></>
+                )}
+              </div>
             </div>
-          </div>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </AppLayout>

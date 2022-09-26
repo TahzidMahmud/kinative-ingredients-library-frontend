@@ -5,7 +5,8 @@ import Button from "@/components/Button";
 import GuestLayout from "@/components/Layouts/GuestLayout";
 import AppLayout from "@/components/Layouts/AppLayout";
 import { useRouter } from "next/router";
-
+import axios from "@/lib/axios";
+import Toaster from "@/components/Toaster";
 import Input from "@/components/Input";
 import Label from "@/components/Label";
 import Link from "next/link";
@@ -28,16 +29,32 @@ const Register = () => {
   const submitForm = (event) => {
     event.preventDefault();
 
-    register({
-      name,
-      email,
-      password,
-      password_confirmation: passwordConfirmation,
-      setErrors,
-    });
-    setTimeout(function () {
-      router.push("/verify-mobile");
-    }, 2000);
+    axios
+      .post("/api/get-user-by-mobile", { email: email })
+      .then((res) => {
+        if (res.data.success == true) {
+          register({
+            name,
+            email,
+            password,
+            password_confirmation: passwordConfirmation,
+            setErrors,
+          });
+          setTimeout(function () {
+            router.push("/verify-mobile");
+          }, 1000);
+        } else {
+          Toaster.notify("Phone Number Already Exists..Login Instead", {
+            type: "error",
+          });
+          setTimeout(function () {
+            router.push("/login");
+          }, 1000);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (

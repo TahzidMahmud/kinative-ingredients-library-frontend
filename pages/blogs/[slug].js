@@ -9,6 +9,18 @@ import LoginModal from "@/modals/LoginModal";
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import Toaster from "@/components/Toaster";
+
+import {
+  FacebookShareButton,
+  FacebookIcon,
+  PinterestShareButton,
+  PinterestIcon,
+  TwitterShareButton,
+  TwitterIcon,
+  LinkedinShareButton,
+  LinkedinIcon,
+} from "next-share";
 
 const Blog = ({ blog, trendingBlogs }) => {
   const { user } = useAuth({ middleware: "guest" });
@@ -18,6 +30,8 @@ const Blog = ({ blog, trendingBlogs }) => {
   const [likes, setLikes] = useState(blog.likes);
   const [comments, setComments] = useState(blog.comments.data);
   const [isSSR, setIsSSR] = useState(true);
+  const [url, setUrl] = useState(`http://glowscam.com/${blog.slug}`);
+
   useEffect(() => {
     setIsSSR(false);
     if (user) {
@@ -169,6 +183,59 @@ const Blog = ({ blog, trendingBlogs }) => {
                 </div>
               </div>
             </div>
+            <div className="flex justify-between items-center my-2">
+              <div className="flex mr-auto">
+                <span className="text-lg font-semibold">Share This Blog</span>
+              </div>
+              <div className="flex gap-2 ml-auto">
+                <FacebookShareButton
+                  url={`${url}`}
+                  quote={"glowscam blogs"}
+                  hashtag={`#${blog.category}`}
+                >
+                  <FacebookIcon size={32} round />
+                </FacebookShareButton>
+                <TwitterShareButton url={`${url}`} title={"glowscam blogs"}>
+                  <TwitterIcon size={32} round />
+                </TwitterShareButton>
+                <PinterestShareButton url={`${url}`} media={"glowscam blogs"}>
+                  <PinterestIcon size={32} round />
+                </PinterestShareButton>
+                <LinkedinShareButton url={`${url}`}>
+                  <LinkedinIcon size={32} round />
+                </LinkedinShareButton>
+                <div
+                  className="h-32 w-32 bg-white shadow-md rounded-full p-2 cursor-pointer"
+                  onClick={() => {
+                    navigator.clipboard.writeText(`${url}`);
+                    // var copyText = document.getElementById("share-link").value;
+                    // console.log(copyText);
+                    // copyText.select();
+                    // copyText.setSelectionRange(0, 99999);
+                    // document.execCommand("cut");
+                    Toaster.notify("Link Coppied To ClipBoard..!", {
+                      type: "success",
+                    });
+                  }}
+                >
+                  <input
+                    type="text"
+                    className="hidden"
+                    id="share-link"
+                    value={`${url}`}
+                  ></input>
+                  <div className="flex justify-center items-center">
+                    <Image
+                      src="/share.svg"
+                      alt="collection"
+                      width={20}
+                      height={20}
+                      className="py-4"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
             <h1 className="text-3xl font-bold text-left py-6">{blog.title}</h1>
             <HtmlFormat data={blog.body} />
           </div>
@@ -182,6 +249,7 @@ const Blog = ({ blog, trendingBlogs }) => {
             handleClick={setShowLoginModal}
             addComment={addComment}
           />
+
           {/* comments  */}
           <div
             className={`d-flex  ${comments.length > 0 ? "my-6" : ""} bg-white`}
