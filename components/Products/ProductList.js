@@ -88,6 +88,7 @@ const ProductList = ({ categories, products, brands, link_data }) => {
       )
       .then((response) => {
         setFetchProducts(response.data.data);
+        setLoading(false);
       })
       .catch((error) => console.log(error));
   }
@@ -176,8 +177,13 @@ const ProductList = ({ categories, products, brands, link_data }) => {
                 className="block md:p-2 md:pl-10 pl-0  w-auto text-sm text-white bg-blue-500 border border-blue-500 rounded-lg focus:white placeholder-white dark:bg-gray-700  dark:placeholder-gray-400 dark:text-white dark:focus:white "
                 onChange={handleSort}
               >
-                <option value="desc text-center px-2">Newest</option>
-                <option value="asc text-center px-2"> Oldest</option>
+                <option value="desc" className="text-center px-2">
+                  Newest
+                </option>
+                <option value="asc" className="text-center px-2">
+                  {" "}
+                  Oldest
+                </option>
               </select>
             </div>
           </div>

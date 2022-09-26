@@ -89,7 +89,8 @@ const Side = ({
               <li>
                 <button
                   type="button"
-                  className="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 active:text-blue-500 hover:text-blue-500 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                  valu={category.id}
+                  className="flex items-center p-2 w-[100%] text-base font-normal text-gray-900 rounded-lg transition duration-75 active:text-blue-500 hover:text-blue-500 group hover:bg-gray-100"
                   onClick={(e) => {
                     let rl = document.getElementById(`${e.target.id}-c`);
                     if (rl) {
@@ -99,7 +100,7 @@ const Side = ({
                         rl.classList.add("hidden");
                       }
                     }
-                    handleCategoryClick(e);
+                    // handleCategoryClick(e);
                   }}
                 >
                   <span
@@ -113,8 +114,9 @@ const Side = ({
                   {/* child menue  */}
                   {category.has_child ? (
                     <svg
+                      id={category.id}
                       sidebar-toggle-item=""
-                      className="w-6 h-6"
+                      className="w-[1.5rem] h-[1.5rem]"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                       xmlns="http://www.w3.org/2000/svg"
