@@ -18,7 +18,7 @@ const Login = () => {
 
   const { login } = useAuth({
     middleware: "guest",
-    redirectIfAuthenticated: "/",
+    redirectIfAuthenticated: "/dashboard",
   });
 
   const [phone, setPhone] = useState("");

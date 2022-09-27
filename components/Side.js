@@ -66,14 +66,17 @@ const Side = ({
           </div>
         </div>
       ) : (
-        <div className="overflow-y-auto py-6 px-3 bg-white rounded dark:bg-white">
+        <div className="overflow-y-auto py-6 pl-3 bg-white rounded dark:bg-white">
           <div
             className="flex items-center justify-between border-b"
             onClick={() => {
               closeFilter();
             }}
           >
-            <h6 className="mb-2 text-xl font-bold ml-2 pb-2">Categories</h6>
+            <div className="flex items-center justify-between pb-2">
+              {" "}
+              <h6 className=" text-xl font-bold ml-2">Categories</h6>{" "}
+            </div>
             <div className="md:invisible flex justify-center items-center p-3 shadow-md rounded-full -mt-4">
               <Image
                 className="rounded-full px-4"
@@ -154,6 +157,16 @@ const Side = ({
                 )}
               </li>
             ))}
+            <li>
+              {" "}
+              <h6
+                className="text-blue-500 text-md text-center "
+                id={``}
+                onClick={handleCategoryClick}
+              >
+                <span className="hover:border-b border-blue-500">View All</span>
+              </h6>
+            </li>
           </ul>
           <br></br>
           <h6 className="mb-2 text-xl font-bold ml-2 border-b pb-4 mt-2 mb-3">

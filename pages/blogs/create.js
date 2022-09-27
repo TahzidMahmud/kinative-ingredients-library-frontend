@@ -23,9 +23,14 @@ const Create = ({ categories }) => {
   function convertImage() {
     var reader = new FileReader();
     var url = reader.readAsDataURL(imageInput.current.files[0]);
-    reader.onloadend = function (e) {
-      setCmntimage(reader.result);
-    };
+
+    if (imageInput.current.files[0].size < 5245329) {
+      reader.onloadend = function (e) {
+        setCmntimage(reader.result);
+      };
+    } else {
+      Toaster.notify("Image Size Must Be Smaller Than 5MB", { type: "error" });
+    }
   }
   useEffect(() => {
     if (user == null) {
@@ -116,9 +121,9 @@ const Create = ({ categories }) => {
         {/* cover image stage*/}
         <div className={`flex flex-col justify-center items-center`}>
           <label className="block mb-2 text-md font-large text-gray-900 dark:text-gray-400 my-4">
-            Upload Cover Image
+            Upload Cover Image{" "}
           </label>
-
+          <small className="text-red-500">(Must Be Smaller than 5MB)</small>
           <button
             type="button"
             className="inline-flex justify-center p-2 text-gray-500 rounded-lg cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600"
@@ -127,8 +132,8 @@ const Create = ({ categories }) => {
             <Image
               src="/icons8-picture.svg"
               alt="logo"
-              width={35}
-              height={35}
+              width={45}
+              height={45}
               className="rounded-t-lg py-6"
             />
             <span className="sr-only">Upload image</span>

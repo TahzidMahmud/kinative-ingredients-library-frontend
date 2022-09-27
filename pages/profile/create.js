@@ -2,7 +2,6 @@ import AuthCard from "@/components/AuthCard";
 import AuthValidationErrors from "@/components/AuthValidationErrors";
 import Button from "@/components/Button";
 import AppLayout from "@/components/Layouts/AppLayout";
-
 import Label from "@/components/Label";
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
@@ -11,6 +10,7 @@ import axios from "../../lib/axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useRouter } from "next/router";
+import Toaster from "@/components/Toaster";
 
 const Create = ({ Concerns, SkinTypes }) => {
   const router = useRouter();
@@ -71,9 +71,13 @@ const Create = ({ Concerns, SkinTypes }) => {
   function convertImage() {
     var reader = new FileReader();
     var url = reader.readAsDataURL(imageInput.current.files[0]);
-    reader.onloadend = function (e) {
-      setCmntimage(reader.result);
-    };
+    if (imageInput.current.files[0].size < 5245329) {
+      reader.onloadend = function (e) {
+        setCmntimage(reader.result);
+      };
+    } else {
+      Toaster.notify("Image Size Must Be Smaller Than 5MB", { type: "error" });
+    }
   }
   function nextStep() {
     let prevStage = stage;
@@ -141,6 +145,9 @@ const Create = ({ Concerns, SkinTypes }) => {
           <Label htmlFor="name" className="text-2xl font-bold">
             Upload Profile Image
           </Label>
+          <small className="text-red-500 my-2">
+            (Must Be Smaller than 5MB)
+          </small>
 
           <button
             type="button"

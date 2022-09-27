@@ -24,9 +24,13 @@ const Create = ({ categories, blog }) => {
   function convertImage() {
     var reader = new FileReader();
     var url = reader.readAsDataURL(imageInput.current.files[0]);
-    reader.onloadend = function (e) {
-      setCmntimage(reader.result);
-    };
+    if (imageInput.current.files[0].size < 5245329) {
+      reader.onloadend = function (e) {
+        setCmntimage(reader.result);
+      };
+    } else {
+      Toaster.notify("Image Size Must Be Smaller Than 5MB", { type: "error" });
+    }
   }
   useEffect(() => {
     if (user == null) {
@@ -53,6 +57,7 @@ const Create = ({ categories, blog }) => {
       .post(`/api/blog/${blog.id}/update`, formData)
       .then((res) => {
         if (res.data.success) {
+          Toaster.notify(res.data.message, { type: "success" });
           router.push(`/profile/${user.id}`);
         }
       })
@@ -132,6 +137,7 @@ const Create = ({ categories, blog }) => {
           >
             Upload Cover Image
           </label>
+          <small className="text-red-500">(Must Be Smaller than 5MB)</small>
 
           <button
             type="button"
@@ -142,8 +148,8 @@ const Create = ({ categories, blog }) => {
             <Image
               src="/icons8-picture.svg"
               alt="logo"
-              width={35}
-              height={35}
+              width={45}
+              height={45}
               className="rounded-t-lg py-6"
             />
             <span className="sr-only">Upload image</span>

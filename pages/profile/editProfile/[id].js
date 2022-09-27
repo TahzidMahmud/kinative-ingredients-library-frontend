@@ -69,9 +69,13 @@ const ProfileEditModal = ({ profile, Concerns, Skintypes }) => {
   function convertImage() {
     var reader = new FileReader();
     var url = reader.readAsDataURL(imageInput.current.files[0]);
-    reader.onloadend = function (e) {
-      setCmntimage(reader.result);
-    };
+    if (imageInput.current.files[0].size < 5245329) {
+      reader.onloadend = function (e) {
+        setCmntimage(reader.result);
+      };
+    } else {
+      Toaster.notify("Image Size Must Be Smaller Than 5MB", { type: "error" });
+    }
   }
   function submitForm(event) {
     event.preventDefault();
@@ -313,10 +317,15 @@ const ProfileEditModal = ({ profile, Concerns, Skintypes }) => {
                   />
                 </div>
                 {/* cover image stage*/}
-                <div className={`flex flex-col justify-center items-center`}>
+                <div
+                  className={`flex flex-col justify-center items-center my-2`}
+                >
                   <Label htmlFor="name" className="text-xl">
                     Upload Profile Image
                   </Label>
+                  <small className="text-red-500">
+                    (Must Be Smaller than 5MB)
+                  </small>
 
                   <button
                     type="button"
@@ -327,11 +336,11 @@ const ProfileEditModal = ({ profile, Concerns, Skintypes }) => {
                     <Image
                       src="/icons8-picture.svg"
                       alt="logo"
-                      width={25}
-                      height={25}
+                      width={45}
+                      height={45}
                       className="rounded-t-lg py-6"
                     />
-                    <span className="sr-only">Upload image</span>
+                    <span className="sr-only">Upload image </span>
                   </button>
                   <input
                     ref={imageInput}
