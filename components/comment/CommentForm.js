@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import InputEmoji from "react-input-emoji";
 import Image from "next/image";
 import axios from "@/lib/axios";
@@ -12,10 +12,16 @@ const CommentForm = ({
   user,
   handleClick,
   addComment,
+  cmntbody,
 }) => {
-  const [comment, setComment] = useState("");
+  const [comment, setComment] = useState(cmntbody);
   const imageInput = useRef(null);
   const [cmntimage, setCmntimage] = useState(null);
+  const txt = cmntbody;
+  useEffect(() => {
+    let elem = document.getElementsByClassName("react-input-emoji--input");
+    elem.innerText = cmntbody;
+  }, []);
   function convertImage() {
     var reader = new FileReader();
     var url = reader.readAsDataURL(imageInput.current.files[0]);
@@ -66,14 +72,13 @@ const CommentForm = ({
             <InputEmoji
               value={comment}
               onChange={setComment}
-              cleanOnEnter
+              // cleanOnEnter
               borderRadius={0}
               placeholder="Type a comment..."
             />
             <button
               type="button"
               className="inline-flex justify-center p-2 text-gray-500 rounded-lg cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600"
-              htmlFor="imageInput"
               onClick={() => imageInput.current.click()}
             >
               <Image

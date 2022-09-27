@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { DropdownButton } from "@/components/DropdownLink";
 import Dropdown from "@/components/Dropdown";
 import Toaster from "@/components/Toaster";
+import CommentEdit from "./CommentEdit";
 
 const Comment = ({
   user,
@@ -17,8 +18,12 @@ const Comment = ({
   removeComment,
 }) => {
   const [canlike, setCanlike] = useState(canlikeComment);
+  const [cmtnBody, setcmtnBody] = useState(comment.body);
+  const [cmntImage, setcmntImage] = useState(comment.image);
+
   const [candislike, setCandislike] = useState(canlikeComment);
   const [canreply, setCanreply] = useState(false);
+  const [editComment, setEditComment] = useState(false);
   const [replies, setReplies] = useState(comment.reply);
   const [likes, setLikes] = useState(comment.likes);
   const [dislikes, setDislikes] = useState(comment.dislikes);
@@ -274,7 +279,13 @@ const Comment = ({
                   Delete
                 </DropdownButton>
                 <hr></hr>
-                {/* <DropdownButton>Edit</DropdownButton> */}
+                <DropdownButton
+                  onClick={() => {
+                    setEditComment(true);
+                  }}
+                >
+                  Edit
+                </DropdownButton>
               </Dropdown>
             </div>
           ) : (
@@ -282,115 +293,135 @@ const Comment = ({
           )}
         </div>
       </div>
-      <div className="flex flex-col ml-20">
-        <div className="md:px-7 py-1 mb-4">
-          <sapn className="text-sm opacity-60">{comment.body}</sapn>
-        </div>
-        <div className="p-3 rounded-lg">
-          {comment.image != null ? (
-            <Image
-              loader={() => {
-                return comment.image;
-              }}
-              src={comment.image}
-              alt={comment.author.name}
-              width={300}
-              height={200}
-              className="py-4"
-            />
-          ) : (
-            <></>
-          )}
-        </div>
-        {/* like dislike section  */}
-        <div className="my-6 md:px-6 flex justify-between items-center grid grid-cols-1 md:grid-cols-2">
-          <div className="flex justify-start items-center ">
-            <sapn className="text-sm opacity-60 ml-2">
-              {comment.created_at}
-            </sapn>
+      {editComment == false ? (
+        <div className="flex flex-col ml-20">
+          <div className="md:px-7 py-1 mb-4">
+            <span className="text-sm opacity-60">{cmtnBody}</span>
           </div>
-          <div className="flex justify-end items-center my-2 md:my-0 mx-2 md:mx-0">
-            <div className="flex cursor-pointer" onClick={replyComment}>
-              <div className="px-2 cursor-pointer">
-                <Image
-                  src="/comment.PNG"
-                  alt={comment.likes}
-                  width={20}
-                  height={20}
-                  className="py-4"
-                />
-              </div>
-              <div className="text-sm font-medium cursor-pointer">Reply:</div>
-              <div className="text-sm  opacity-60 mx-2">
-                {`(${comment.reply.length})`}
-              </div>
+          <div className="p-3 rounded-lg">
+            {cmntImage != null ? (
+              <Image
+                loader={() => {
+                  return cmntImage;
+                }}
+                src={cmntImage}
+                alt={comment.author.name}
+                width={300}
+                height={200}
+                className="py-4"
+              />
+            ) : (
+              <></>
+            )}
+          </div>
+          {/* like dislike section  */}
+          <div className="my-6 md:px-6 flex justify-between items-center grid grid-cols-1 md:grid-cols-2">
+            <div className="flex justify-start items-center ">
+              <span className="text-sm opacity-60 ml-2">
+                {comment.created_at}
+              </span>
             </div>
-            <div className={`${canlike == false ? "hidden" : ""}`}>
-              <div className="flex cursor-pointer">
+            <div className="flex justify-end items-center my-2 md:my-0 mx-2 md:mx-0">
+              <div className="flex cursor-pointer" onClick={replyComment}>
                 <div className="px-2 cursor-pointer">
                   <Image
-                    src="/dislike_icon.png"
-                    alt={comment.dislikes}
-                    width={20}
-                    height={20}
-                    className=""
-                  />
-                </div>
-
-                {candislike ? (
-                  <div
-                    className="text-sm  opacity-100 mx-2 cursor-pointer"
-                    onClick={dislikeComment}
-                  >
-                    <span className="cursor-pointer">Dislike</span>
-                  </div>
-                ) : (
-                  <div
-                    className="text-sm  opacity-100 mx-2 text-red-600 cursor-pointer"
-                    onClick={undislikeComment}
-                  >
-                    <span className="cursor-pointer">Un Dislike</span>
-                  </div>
-                )}
-                <div className="text-sm  opacity-60 mx-2">{`(${
-                  dislikes.length > 0 ? dislikes : 0
-                })`}</div>
-              </div>
-            </div>
-            <div className={`${candislike == false ? "hidden" : ""}`}>
-              <div className="flex cursor-pointer">
-                <div className="px-2">
-                  <Image
-                    src="/love_icon.png"
+                    src="/comment.PNG"
                     alt={comment.likes}
                     width={20}
                     height={20}
-                    className=""
+                    className="py-4"
                   />
                 </div>
-                {canlike === true ? (
-                  <div
-                    className="text-sm font-medium cursor-pointer"
-                    onClick={likeComment}
-                  >
-                    <span className="cursor-pointer">Like:</span>
+                <div className="text-sm font-medium cursor-pointer">Reply:</div>
+                <div className="text-sm  opacity-60 mx-2">
+                  {`(${comment.reply.length})`}
+                </div>
+              </div>
+              <div className={`${canlike == false ? "hidden" : ""}`}>
+                <div className="flex cursor-pointer">
+                  <div className="px-2 cursor-pointer">
+                    <Image
+                      src="/dislike_icon.png"
+                      alt={comment.dislikes}
+                      width={20}
+                      height={20}
+                      className=""
+                    />
                   </div>
-                ) : (
-                  <div
-                    className="text-sm font-medium text-red-600 cursor-pointer"
-                    onClick={unlikeComment}
-                  >
-                    <span className="cursor-pointer"> UnLike:</span>
+
+                  {candislike ? (
+                    <div
+                      className="text-sm  opacity-100 mx-2 cursor-pointer"
+                      onClick={dislikeComment}
+                    >
+                      <span className="cursor-pointer">Dislike</span>
+                    </div>
+                  ) : (
+                    <div
+                      className="text-sm  opacity-100 mx-2 text-red-600 cursor-pointer"
+                      onClick={undislikeComment}
+                    >
+                      <span className="cursor-pointer">Un Dislike</span>
+                    </div>
+                  )}
+                  <div className="text-sm  opacity-60 mx-2">{`(${
+                    dislikes.length > 0 ? dislikes : 0
+                  })`}</div>
+                </div>
+              </div>
+              <div className={`${candislike == false ? "hidden" : ""}`}>
+                <div className="flex cursor-pointer">
+                  <div className="px-2">
+                    <Image
+                      src="/love_icon.png"
+                      alt={comment.likes}
+                      width={20}
+                      height={20}
+                      className=""
+                    />
                   </div>
-                )}
-                <div className="text-sm  opacity-60 mx-2">{`(${
-                  likes.length > 0 ? likes : 0
-                })`}</div>
+                  {canlike === true ? (
+                    <div
+                      className="text-sm font-medium cursor-pointer"
+                      onClick={likeComment}
+                    >
+                      <span className="cursor-pointer">Like:</span>
+                    </div>
+                  ) : (
+                    <div
+                      className="text-sm font-medium text-red-600 cursor-pointer"
+                      onClick={unlikeComment}
+                    >
+                      <span className="cursor-pointer"> UnLike:</span>
+                    </div>
+                  )}
+                  <div className="text-sm  opacity-60 mx-2">{`(${
+                    likes.length > 0 ? likes : 0
+                  })`}</div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <div className="flex flex-col  ml-20">
+          <CommentEdit
+            comment={comment}
+            user={user}
+            setEditComment={setEditComment}
+            setcmtnBody={setcmtnBody}
+            setcmntImage={setcmntImage}
+          />
+          <button
+            className="text-blue-500 pb-2 pt-0 flex items-start text-sm"
+            onClick={() => {
+              setEditComment(false);
+            }}
+          >
+            Cancel Edit
+          </button>
+        </div>
+      )}
 
       {canreply === true ? (
         <div className="md:px-16">
