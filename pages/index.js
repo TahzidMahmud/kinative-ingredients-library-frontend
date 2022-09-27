@@ -578,8 +578,9 @@ const Index = ({
                     <div key={index} className="px-2 ">
                       <div className="bg-white  shadow-sm sm:rounded-lg p-4 my-2  w-full">
                         <div className="flex  flex-col items-center">
+                          {console.log(point.image)}
                           <Image
-                            src="/post.PNG"
+                            src={`/${point.image}.svg`}
                             alt={`post`}
                             width={150}
                             height={200}
@@ -641,7 +642,7 @@ const Index = ({
                     <div className="bg-white  shadow-sm sm:rounded-lg p-4 my-2  w-full">
                       <div className="flex  flex-col items-center">
                         <Image
-                          src="/post.PNG"
+                          src={`/${point.image}.svg`}
                           alt={`post`}
                           width={150}
                           height={200}

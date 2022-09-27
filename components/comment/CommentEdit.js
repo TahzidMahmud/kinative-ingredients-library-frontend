@@ -11,9 +11,8 @@ const CommentEdit = ({
   setcmtnBody,
   setcmntImage,
 }) => {
-  const [body, setBody] = useState("");
+  const [body, setBody] = useState(null);
   const [loading, setLoading] = useState(true);
-
   const imageInput = useRef(null);
   const [cmntimage, setCmntimage] = useState(null);
   useEffect(() => {
@@ -40,7 +39,7 @@ const CommentEdit = ({
       Toaster.notify("Image Size Must Be Smaller Than 5MB", { type: "error" });
     }
   }
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     if (user) {
       let url = `/api/comment/update`;
@@ -53,7 +52,7 @@ const CommentEdit = ({
       formData.append("image", cmntimage);
       formData.append("imgname", imageInput.current.value);
 
-      axios
+      await axios
         .post(`${url}`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -61,7 +60,6 @@ const CommentEdit = ({
         })
         .then((res) => {
           if (res.data.success) {
-            setBody("");
             setCmntimage(null);
             Toaster.notify(res.data.message, { type: "success" });
             setcmtnBody(res.data.comment.body);
@@ -95,7 +93,7 @@ const CommentEdit = ({
                 <InputEmoji
                   value={body}
                   onChange={setBody}
-                  // cleanOnEnter
+                  cleanOnEnter
                   borderRadius={0}
                   placeholder="Type a comment..."
                 />

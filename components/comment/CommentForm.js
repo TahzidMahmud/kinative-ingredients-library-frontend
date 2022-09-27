@@ -25,9 +25,13 @@ const CommentForm = ({
   function convertImage() {
     var reader = new FileReader();
     var url = reader.readAsDataURL(imageInput.current.files[0]);
-    reader.onloadend = function (e) {
-      setCmntimage(reader.result);
-    };
+    if (imageInput.current.files[0].size < 5245329) {
+      reader.onloadend = function (e) {
+        setCmntimage(reader.result);
+      };
+    } else {
+      Toaster.notify("Image Size Must Be Smaller Than 5MB", { type: "error" });
+    }
   }
   function handleSubmit(e) {
     e.preventDefault();

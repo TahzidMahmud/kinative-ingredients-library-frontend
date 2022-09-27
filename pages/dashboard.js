@@ -14,7 +14,7 @@ const Dashboard = () => {
         router.push(`/profile/${user.id}`);
       }, 1000);
     }
-  }, []);
+  }, [user]);
   return (
     <AppLayout
       header={
