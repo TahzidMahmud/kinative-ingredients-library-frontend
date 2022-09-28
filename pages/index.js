@@ -239,7 +239,7 @@ const Index = ({
               </span>
             </div>
             <div className=" hidden md:flex md:justify-end justify-center">
-              <Link href={`/blogs`}>
+              <Link href={`/blogs/all-blogs`}>
                 <span className="my-2 md:my-0 cursor-pointer inline-flex items-center md:px-6 px-2 py-2 md:text-md text-xs text-white font-semibold  bg-[#ff2b03] rounded-md border  border-[#ff2b03] h-6">
                   View All
                 </span>
@@ -337,7 +337,7 @@ const Index = ({
             ))}
           </Slider>
           <div className="md:hidden flex justify-center items-center my-2 cursor-pointer">
-            <Link href={`/products`}>
+            <Link href={`/blogs/all-blogs`}>
               <span className="my-3 md:my-0 cursor-pointer inline-flex items-center md:px-6 px-2 py-2 md:text-md text-xs text-white font-semibold  bg-[#ff2b03] rounded-md border  border-[#ff2b03] h-6">
                 View All
               </span>
