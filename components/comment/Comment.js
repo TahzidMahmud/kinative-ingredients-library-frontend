@@ -439,14 +439,18 @@ const Comment = ({
         <></>
       )}
       {/* replies list */}
-      {replies.map((reply, index) => (
-        <Reply
-          user={user}
-          key={index}
-          reply={reply}
-          deleteComment={deleteComment}
-        />
-      ))}
+      {replies != null && replies.lenght > 0 ? (
+        replies.map((reply, index) => (
+          <Reply
+            user={user}
+            key={index}
+            reply={reply}
+            deleteComment={deleteComment}
+          />
+        ))
+      ) : (
+        <></>
+      )}
     </>
   );
 };

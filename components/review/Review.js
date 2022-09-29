@@ -162,14 +162,24 @@ const Review = ({ review, user, setShowLoginModal }) => {
           <div className=" flex  md:py-1 py-3 px-1">
             {/* user image  */}
             <div>
-              <Image
-                loader={() => review.profile.avatar}
-                src={review.profile.avatar}
-                alt={review.profile.name}
-                width={60}
-                height={60}
-                className="rounded-full mr-2 "
-              />
+              {review.profile.avatar ? (
+                <Image
+                  loader={() => review.profile.avatar}
+                  src={review.profile.avatar}
+                  alt={review.profile.name}
+                  width={60}
+                  height={60}
+                  className="rounded-full mr-2"
+                />
+              ) : (
+                <Image
+                  src="/avatar.PNG"
+                  alt={review.profile.name}
+                  width={60}
+                  height={60}
+                  className="rounded-full mr-2"
+                />
+              )}
             </div>
             {/* profile desc  */}
             <div className="flex flex-col px-3 ">

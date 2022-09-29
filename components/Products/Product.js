@@ -15,7 +15,7 @@ const Product = ({ product }) => {
             height={300}
           />
           <div className="px-5 py-2">
-            <h5 className="mb-2 text-md font-semibold tracking-tight text-gray-900 dark:text-white text-center ">
+            <h5 className="mb-2 md:text-md text-sm font-semibold tracking-tight text-gray-900 dark:text-white text-center text-clip">
               {product.name}
             </h5>
             <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 text-center text-sm opacity-70  text-clip overflow-hidden h-10">

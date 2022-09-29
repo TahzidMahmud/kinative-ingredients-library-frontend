@@ -30,7 +30,7 @@ const Blog = ({ blog, trendingBlogs }) => {
   const [likes, setLikes] = useState(blog.likes);
   const [comments, setComments] = useState(blog.comments.data);
   const [isSSR, setIsSSR] = useState(true);
-  const [url, setUrl] = useState(`http://glowscam.com/${blog.slug}`);
+  const [url, setUrl] = useState(`http://glowscam.com/blogs/${blog.slug}`);
 
   useEffect(() => {
     setIsSSR(false);

@@ -312,13 +312,17 @@ const Product = ({ product }) => {
                 <div className="min-w-[15%]">
                   <h1 className="text-md font-semibold text-left ">Brand</h1>
                 </div>
-                <div className="text-sm opacity-80 ">{product.brand}</div>
+                <div className="text-sm opacity-80 ml-2 md:ml-0">
+                  {product.brand}
+                </div>
               </div>
               <div className="flex items-center mb-4">
                 <div className="min-w-[15%]">
                   <h1 className="text-md font-semibold text-left ">Category</h1>
                 </div>
-                <div className="text-sm opacity-60 ">{product.category}</div>
+                <div className="text-sm opacity-60 ml-2 md:ml-0">
+                  {product.category}
+                </div>
                 {user != null && canreview ? (
                   <button
                     className="ml-auto bg-blue-500 rounded-lg p-3 text-white text-sm"
@@ -432,14 +436,18 @@ const Product = ({ product }) => {
                 role="tabpanel"
                 aria-labelledby="reviews-tab"
               >
-                {productreviews.map((review, index) => (
-                  <Review
-                    key={index}
-                    review={review}
-                    user={user}
-                    setShowLoginModal={setShowLoginModal}
-                  />
-                ))}
+                {productreviews != null && productreviews.length > 0 ? (
+                  productreviews?.map((review, index) => (
+                    <Review
+                      key={index}
+                      review={review}
+                      user={user}
+                      setShowLoginModal={setShowLoginModal}
+                    />
+                  ))
+                ) : (
+                  <></>
+                )}
                 <div className=" py-6 w-[100%] max-w-full">
                   {viewmore ? (
                     <div className="flex justify-center">
