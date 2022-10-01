@@ -438,8 +438,9 @@ const Comment = ({
       ) : (
         <></>
       )}
+      <hr></hr>
       {/* replies list */}
-      {replies != null && replies.lenght > 0 ? (
+      {replies != null && replies.length > 0 ? (
         replies.map((reply, index) => (
           <Reply
             user={user}

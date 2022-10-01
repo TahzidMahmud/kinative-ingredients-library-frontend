@@ -12,16 +12,11 @@ const CommentForm = ({
   user,
   handleClick,
   addComment,
-  cmntbody,
 }) => {
-  const [comment, setComment] = useState(cmntbody);
+  const [comment, setComment] = useState("");
   const imageInput = useRef(null);
   const [cmntimage, setCmntimage] = useState(null);
-  const txt = cmntbody;
-  useEffect(() => {
-    let elem = document.getElementsByClassName("react-input-emoji--input");
-    elem.innerText = cmntbody;
-  }, []);
+
   function convertImage() {
     var reader = new FileReader();
     var url = reader.readAsDataURL(imageInput.current.files[0]);

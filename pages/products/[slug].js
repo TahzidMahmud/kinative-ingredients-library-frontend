@@ -29,20 +29,13 @@ const Product = ({ product }) => {
   const [cansave, setCansave] = useState(true);
 
   useEffect(() => {
-    // document.oncontextmenu = document.body.oncontextmenu = function () {
-    //   return false;
-    // };
-    // document.oncopy = document.body.oncopy = function () {
-    //   return false;
-    // };
     setIsSSR(false);
-    // setProductreviews(product.revirews.data);
 
     canSave();
     canLike();
     canReview();
     getProductreviews();
-  }, []);
+  }, [user]);
   function canLike() {
     if (user) {
       axios

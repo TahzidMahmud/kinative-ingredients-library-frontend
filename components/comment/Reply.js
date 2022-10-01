@@ -10,13 +10,12 @@ const Reply = ({ user, reply, deleteComment }) => {
   const [cmntImage, setcmntImage] = useState(reply.image);
   return (
     <div className="md:ml-36 ml-20">
-      <hr></hr>
       {/* top section of reply */}
       <div className="flex items-cetner justify-start  my-6">
         <div className=" flex items-center">
           {/* user image  */}
           <div>
-            {comment.author.avatar ? (
+            {reply.author.avatar ? (
               <Image
                 loader={() => reply.author.avatar}
                 src={reply.author.avatar}
@@ -28,7 +27,7 @@ const Reply = ({ user, reply, deleteComment }) => {
             ) : (
               <Image
                 src="/avatar.PNG"
-                alt={comment.author.name}
+                alt={reply.author.name}
                 width={60}
                 height={60}
                 className="rounded-full mr-2"
