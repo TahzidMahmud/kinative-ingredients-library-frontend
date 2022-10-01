@@ -3,10 +3,12 @@ import Image from "next/image";
 import axios from "@/lib/axios";
 import CommentForm from "../comment/CommentForm";
 import Comment from "../comment/Comment";
-
+import { DropdownButton } from "@/components/DropdownLink";
+import Dropdown from "@/components/Dropdown";
 import { useState, useEffect, setModal } from "react";
+import Toaster from "@/components/Toaster";
 
-const Review = ({ review, user, setShowLoginModal }) => {
+const Review = ({ review, user, setShowLoginModal, removeReview }) => {
   const [likeable, setLikeable] = useState(true);
   const [dislikeable, setDisLikebale] = useState(true);
   const [likes, setLikes] = useState(review.likes);
@@ -154,6 +156,30 @@ const Review = ({ review, user, setShowLoginModal }) => {
   function addComment(comment) {
     setComments([...comments, comment]);
   }
+
+  function deleteReview(review_id) {
+    if (typeof user === "undefined") {
+      setShowLoginModal(true);
+    } else {
+      axios
+        .post("api/review/destroy", {
+          review_id: review_id,
+          user_id: user.id,
+        })
+        .then((res) => {
+          if (res.data.success) {
+            Toaster.notify(res.data.message, { type: "success" });
+            removeReview(review_id);
+          } else {
+            Toaster.notify(res.data.message, { type: "error" });
+          }
+        })
+        .catch((error) => {
+          // if (error.response.status !== 422) throw error;
+          // setErrors(Object.values(error.response.data.errors).flat());
+        });
+    }
+  }
   return (
     <div className="bg-gray-100 rounded-lg dark:bg-gray-800 my-6 md:px-10">
       <div className="md:p-4 border-b ">
@@ -204,7 +230,52 @@ const Review = ({ review, user, setShowLoginModal }) => {
                   </div>
                 </div>
               </div>
+              {/* options */}
             </div>
+          </div>
+          <div className="flex justify-center items-center">
+            {user ? (
+              <div
+                className={`${
+                  review.user_id != user.id ? "hidden" : ""
+                } p-2 rounded-full flex justify-center items-center bg-white  shadow-md`}
+              >
+                <Dropdown
+                  align="center"
+                  width="48"
+                  trigger={
+                    <button className="flex items-center text-sm font-medium text-gray-500  transition duration-150 ease-in-out">
+                      <Image
+                        src="/settings.svg"
+                        alt={review.profile.name}
+                        width={20}
+                        height={20}
+                        className="rounded-full mr-2"
+                      />
+                    </button>
+                  }
+                >
+                  {/* Authentication */}
+                  <DropdownButton
+                    onClick={() => {
+                      deleteReview(review.id);
+                    }}
+                  >
+                    Delete
+                  </DropdownButton>
+                  <hr></hr>
+                  {/* <DropdownButton
+                      onClick={() => {
+                        setEditComment(true);
+                      }}
+                    >
+                      Edit
+                    </DropdownButton> */}
+                </Dropdown>
+              </div>
+            ) : (
+              <></>
+            )}
           </div>
           <div className="flex justify-end ">
             <RatingStar

@@ -202,6 +202,10 @@ const Product = ({ product }) => {
       setShowLoginModal(true);
     }
   }
+  function removeReview(review) {
+    let nreviews = productreviews.filter((item) => item.id !== review);
+    setProductreviews(nreviews);
+  }
   return (
     <AppLayout
       header={
@@ -439,6 +443,7 @@ const Product = ({ product }) => {
                       review={review}
                       user={user}
                       setShowLoginModal={setShowLoginModal}
+                      removeReview={removeReview}
                     />
                   ))
                 ) : (
