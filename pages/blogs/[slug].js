@@ -29,22 +29,19 @@ const Blog = ({ blog, trendingBlogs }) => {
   const [likeable, setLikeable] = useState(true);
   const [canlikeComment, setCanlikeComment] = useState(true);
   const [likes, setLikes] = useState(blog.likes);
-  const [comments, setComments] = useState(blog.comments.data);
+  const [comments, setComments] = useState([]);
   const [isSSR, setIsSSR] = useState(true);
   const [url, setUrl] = useState(`http://glowscam.com/blogs/${blog.slug}`);
-  const [LinkData, setLinkData] = useState([]);
+  const [next, setNext] = useState(null);
+  const [initial, setInitial] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setIsSSR(false);
     if (user) {
       canLike();
-      axios
-        .get(`/api/blog/${blog.id}/comments`)
-        .then((res) => {
-          setComments(res.data.data);
-          setLinkData(res.data.meta);
-        })
-        .catch((err) => console.log(err));
+      fectComments();
+      setInitial(false);
     }
   }, [user]);
   function canLike() {
@@ -124,9 +121,24 @@ const Blog = ({ blog, trendingBlogs }) => {
     let ncomments = comments.filter((item) => item.id !== comment);
     setComments(ncomments);
   }
-  function onPageChange(comments) {
-    console.log(comments);
-    setComments([...comments]);
+  function onPageChange() {
+    if (next != null) {
+      fectComments();
+    }
+  }
+  function fectComments() {
+    let url = initial ? `/api/blog/${blog.id}/comments` : next;
+    setLoading(true);
+    axios
+      .get(`${url}`)
+      .then((res) => {
+        comments.length > 0
+          ? setComments([...comments, ...res.data.data])
+          : setComments(res.data.data);
+        setNext(res.data.links.next);
+        setLoading(false);
+      })
+      .catch((err) => console.log(err));
   }
   return (
     <AppLayout header={<> </>}>
@@ -221,11 +233,6 @@ const Blog = ({ blog, trendingBlogs }) => {
                   className="h-32 w-32 bg-white shadow-md rounded-full p-2 cursor-pointer"
                   onClick={() => {
                     navigator.clipboard.writeText(`${url}`);
-                    // var copyText = document.getElementById("share-link").value;
-                    // console.log(copyText);
-                    // copyText.select();
-                    // copyText.setSelectionRange(0, 99999);
-                    // document.execCommand("cut");
                     Toaster.notify("Link Coppied To ClipBoard..!", {
                       type: "success",
                     });
@@ -279,17 +286,35 @@ const Blog = ({ blog, trendingBlogs }) => {
                 removeComment={removeComment}
               />
             ))}
-            {isSSR === false ? (
-              <Paginate
-                from_page={LinkData.from}
-                current_page={LinkData.current_page}
-                last_page={LinkData.last_page}
-                page_Links={LinkData.links}
-                onPageChange={onPageChange}
-              />
+            {loading ? (
+              <div className="px-4 py-5">
+                <div className="flex-1 space-y-6 py-1 px-7">
+                  <div className="h-2 bg-slate-200 rounded"></div>
+                  <div className="space-y-3">
+                    <div className="h-2 bg-slate-200 rounded  h-[3rem] md:w-[12rem] w-[7rem]"></div>
+                  </div>
+                </div>
+                <div className="animate-pulse flex space-x-2 flex flex-col items-center w-full my-2">
+                  <div className="rounded bg-slate-200 h-[2rem] w-[90%]  "></div>
+                </div>
+                <div className="animate-pulse flex space-x-2 flex flex-col items-center w-full my-2">
+                  <div className="rounded bg-slate-200 h-[2rem] w-[90%]  "></div>
+                </div>
+                <div className="animate-pulse flex space-x-2 flex flex-col items-center w-full my-2">
+                  <div className="rounded bg-slate-200 h-[2rem] w-[90%]  "></div>
+                </div>
+              </div>
             ) : (
               <></>
             )}
+            <div
+              className={`text-blue-500 text-md my-2 p-3 ${
+                next != null ? "" : "hidden"
+              } cursor-pointer`}
+              onClick={onPageChange}
+            >
+              View More
+            </div>
           </div>
         </div>
         <div className="md:col-span-1  mx-3 md:mx-0">
