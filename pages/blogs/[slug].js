@@ -21,6 +21,7 @@ import {
   LinkedinShareButton,
   LinkedinIcon,
 } from "next-share";
+import Paginate from "@/components/Paginate";
 
 const Blog = ({ blog, trendingBlogs }) => {
   const { user } = useAuth({ middleware: "guest" });
@@ -31,11 +32,19 @@ const Blog = ({ blog, trendingBlogs }) => {
   const [comments, setComments] = useState(blog.comments.data);
   const [isSSR, setIsSSR] = useState(true);
   const [url, setUrl] = useState(`http://glowscam.com/blogs/${blog.slug}`);
+  const [LinkData, setLinkData] = useState([]);
 
   useEffect(() => {
     setIsSSR(false);
     if (user) {
       canLike();
+      axios
+        .get(`/api/blog/${blog.id}/comments`)
+        .then((res) => {
+          setComments(res.data.data);
+          setLinkData(res.data.meta);
+        })
+        .catch((err) => console.log(err));
     }
   }, [user]);
   function canLike() {
@@ -114,6 +123,10 @@ const Blog = ({ blog, trendingBlogs }) => {
   function removeComment(comment) {
     let ncomments = comments.filter((item) => item.id !== comment);
     setComments(ncomments);
+  }
+  function onPageChange(comments) {
+    console.log(comments);
+    setComments([...comments]);
   }
   return (
     <AppLayout header={<> </>}>
@@ -266,6 +279,17 @@ const Blog = ({ blog, trendingBlogs }) => {
                 removeComment={removeComment}
               />
             ))}
+            {isSSR === false ? (
+              <Paginate
+                from_page={LinkData.from}
+                current_page={LinkData.current_page}
+                last_page={LinkData.last_page}
+                page_Links={LinkData.links}
+                onPageChange={onPageChange}
+              />
+            ) : (
+              <></>
+            )}
           </div>
         </div>
         <div className="md:col-span-1  mx-3 md:mx-0">

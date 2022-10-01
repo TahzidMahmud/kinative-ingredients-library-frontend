@@ -2,12 +2,10 @@
 import AppLayout from "@/components/Layouts/AppLayout";
 import Head from "next/head";
 import axios from "@/lib/axios";
-import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import Paginate from "@/components/Paginate";
 import LoginModal from "@/modals/LoginModal";
-import { useRouter } from "next/router";
 import { useAuth } from "@/hooks/auth";
 const Blogs = ({ blogs, link_data }) => {
   useEffect(() => {

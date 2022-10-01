@@ -9,6 +9,7 @@ import LoginModal from "@/modals/LoginModal";
 import ReviewModal from "@/modals/ReviewModal";
 import { useState, useEffect, useRef } from "react";
 import Review from "@/components/review/Review";
+import Toaster from "@/components/Toaster";
 
 const Product = ({ product }) => {
   // console.log(product.revirews.data);
@@ -187,8 +188,10 @@ const Product = ({ product }) => {
         .then((res) => {
           if (res.data.success) {
             setCansave(false);
+            Toaster.notify(res.data.message, { type: "success" });
           } else {
-            setCansave(true);
+            // setCansave(true);
+            Toaster.notify(res.data.message, { type: "error" });
           }
         })
         .catch((error) => {

@@ -20,6 +20,7 @@ const Profile = ({ Profile, Wishlist, Blogs }) => {
       .delete(`/api/collections/${id}`)
       .then((res) => {
         if (res.data.success) {
+          Toaster.notify(res.data.message, { type: "success" });
           let newWishlist = wishlist.filter((item) => item.id !== id);
           setWishlist(newWishlist);
         }
