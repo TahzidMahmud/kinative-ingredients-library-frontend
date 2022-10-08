@@ -2,46 +2,40 @@ import Image from "next/image";
 import { useState } from "react";
 
 const ReviewStar = ({ rating, starWidth, starHeight, setRating }) => {
-  const activeStars = Array.from(Array(5 - rating).keys());
-  const inactiveStars = Array.from(Array(rating).keys());
+  const [currate, setCurrate] = useState(0);
+  const ratings = Array.from(Array(rating).keys());
+  const activeStars = Array.from(Array(currate).keys());
+
   return (
     <div className="flex flex-col">
       <div className="flex">
-        {activeStars.map((star, index) => {
+        {ratings.map((star, index) => {
           return (
             <div
               className="flex items-center justify-center"
               key={index}
               onClick={() => {
-                setRating(index + 1);
+                setCurrate(index + 1);
+                setRating(activeStars.length);
               }}
             >
-              <Image
-                src="/activestar.svg"
-                alt="star"
-                width={starWidth}
-                height={starHeight}
-                className="mx-1"
-              />
-            </div>
-          );
-        })}
-        {inactiveStars.map((star, index) => {
-          return (
-            <div
-              className="flex items-center justify-center"
-              key={index}
-              onClick={() => {
-                setRating(index + 1);
-              }}
-            >
-              <Image
-                src="/inactivestar.svg"
-                alt="star"
-                width={starWidth}
-                height={starHeight}
-                className="mx-1"
-              />
+              {index >= currate ? (
+                <Image
+                  src="/inactivestar.svg"
+                  alt="star"
+                  width={starWidth}
+                  height={starHeight}
+                  className="mx-1"
+                />
+              ) : (
+                <Image
+                  src="/activestar.svg"
+                  alt="star"
+                  width={starWidth}
+                  height={starHeight}
+                  className="mx-1"
+                />
+              )}
             </div>
           );
         })}

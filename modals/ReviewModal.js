@@ -13,10 +13,11 @@ const ReviewModal = ({ user, product, show, closeModal, addReview }) => {
   const [cons, setCons] = useState(null);
   const [using, setUsing] = useState(0);
   const [unit, setuinit] = useState("day");
-  const [inactiverating, setInactiverating] = useState(5);
+  // const [inactiverating, setInactiverating] = useState(5);
   const [rating, setRating] = useState(0);
   const imageInput = useRef(null);
   const [cmntimagereview, setCmntimagereview] = useState(null);
+  const [final, setFinal] = useState(false);
 
   function nextStep() {
     let prevStage = stage;
@@ -28,7 +29,10 @@ const ReviewModal = ({ user, product, show, closeModal, addReview }) => {
   }
   function setStars(rating) {
     setRating(rating);
-    setInactiverating(5 - rating);
+    if (rating > 0) {
+      setFinal(true);
+    }
+    // setInactiverating(5 - rating);
   }
   function convertImage() {
     var reader = new FileReader();
@@ -241,7 +245,7 @@ const ReviewModal = ({ user, product, show, closeModal, addReview }) => {
                   </h3>
                   <div className="flex">
                     <ReviewStar
-                      rating={inactiverating}
+                      rating={5}
                       starWidth={`30`}
                       starHeight={`30`}
                       setRating={setStars}
@@ -281,15 +285,15 @@ const ReviewModal = ({ user, product, show, closeModal, addReview }) => {
                   <Button className="ml-4" onClick={prevStep}>
                     Previous
                   </Button>
-                  {rating > 0 ? (
-                    <Button className="ml-4" onClick={submitForm}>
-                      Submit
-                    </Button>
-                  ) : (
+                  {/* {final ? ( */}
+                  <Button className="ml-4" onClick={submitForm}>
+                    Submit
+                  </Button>
+                  {/* ) : (
                     <Button className="ml-4" disabled>
                       Submit
                     </Button>
-                  )}
+                  )} */}
                 </div>
               )}
             </div>

@@ -235,13 +235,13 @@ const Product = ({ product }) => {
         <div className="md:col-span-3 col-span-4 px-4 md:px-0">
           <div className="p-6 mb-4 max-w-full bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
             <div className="flex flex-col justify-left px-6 py-4 min-h-20 min-w-full">
-              <div className="flex md:flex-row flex-col  justify-between min-w-full border-b pb-4 mb-3">
-                <div>
-                  <h1 className="text-2xl font-semibold text-center">
+              <div className="flex md:flex-row flex-col grid grid-cols-6  justify-between min-w-full border-b pb-4 mb-3">
+                <div className="col-span-4">
+                  <h1 className="text-xl font-semibold text-start">
                     {product.name}
                   </h1>
                 </div>
-                <div className="flex md:flex-row flex-col justify-between">
+                <div className="col-span-2 flex md:flex-row flex-col justify-between">
                   <div className="flex mr-4" onClick={saveToCollection}>
                     <div className="mx-2">
                       <Image
