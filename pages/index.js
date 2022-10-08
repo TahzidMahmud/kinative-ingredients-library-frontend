@@ -82,7 +82,7 @@ const Index = ({
     dots: false,
     infinite: true,
     speed: 400,
-    slidesToShow: 5,
+    slidesToShow: 4,
     slidesToScroll: 1,
     initialSlide: 0,
     autoplay: false,
@@ -260,7 +260,7 @@ const Index = ({
                             src={blog.image}
                             alt={blog.title}
                             width={1040}
-                            height={530}
+                            height={850}
                             className="py-4"
                           />
                         </div>

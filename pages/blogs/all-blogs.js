@@ -128,8 +128,8 @@ const Blogs = ({ blogs, link_data }) => {
                               src={blog.image}
                               alt={blog.title}
                               width={1040}
-                              height={530}
-                              className="py-4"
+                              height={900}
+                              className="py-4 object-fill"
                             />
                           </div>
                           <div className=" bg-black text-black px-3 py-2 md:-mt-14 md:mb-2  flex justify-center align-center md:ml-4  z-10 rounded">
@@ -164,14 +164,42 @@ const Blogs = ({ blogs, link_data }) => {
                         <div className="flex text-black py-2">
                           <div className="flex items-center">
                             {/* avatar image  */}
-                            <Image
-                              src="/avatar.PNG"
-                              alt={blog.title}
-                              width={25}
-                              height={25}
-                              className="py-4"
-                            />
-                            <span className="opacity-60 text-sm mx-2">
+                            {blog.autor.avatar != null ? (
+                              <Image
+                                loader={() => blog.autor.avatar}
+                                src={blog.autor.avatar}
+                                alt={blog.title}
+                                width={35}
+                                height={35}
+                                className="py-4 rounded-full"
+                              />
+                            ) : (
+                              <></>
+                            )}
+                            <div
+                              className={`${
+                                blog.autor.avatar == null ? "" : "hidden"
+                              }`}
+                            >
+                              {blog.autor.gender == "male" ? (
+                                <Image
+                                  src="/male-user.svg"
+                                  alt={blog.title}
+                                  width={38}
+                                  height={38}
+                                  className="py-4"
+                                />
+                              ) : (
+                                <Image
+                                  src="/female-user.svg"
+                                  alt={blog.title}
+                                  width={38}
+                                  height={38}
+                                  className="py-4"
+                                />
+                              )}
+                            </div>
+                            <span className="opacity-60 text-md mx-2">
                               {blog.autor.name}
                             </span>
                           </div>

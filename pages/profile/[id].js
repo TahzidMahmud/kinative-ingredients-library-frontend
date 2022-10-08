@@ -129,7 +129,14 @@ const Profile = ({ Profile, Wishlist, Blogs }) => {
                 /> */}
                 <span className="text-xl font-semibold px-1">About</span>
                 {Profile.rank !== null ? (
-                  <button className="rounded-full bg-emerald-300 p-3 text-white text-sm mx-2">
+                  <button className="rounded-full border-blue-400 p-3 text-white text-sm mx-2">
+                    <Image
+                      src={`/${Profile.rank}.svg`}
+                      alt={Profile.user.name}
+                      width={20}
+                      height={20}
+                      className=""
+                    />
                     {Profile.rank}
                   </button>
                 ) : (

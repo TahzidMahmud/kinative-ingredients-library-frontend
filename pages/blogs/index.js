@@ -97,14 +97,14 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
                     className="cursor-pointer"
                   >
                     <div className=" p-3 md:p-0  rounded-lg dark:bg-gray-800 dark:border-gray-700">
-                      <div className="flex flex-col justify-start items-baseline">
+                      <div className="flex flex-col justify-start items-baseline ">
                         <div className="z-0">
                           <Image
                             loader={() => newBlogs[0].full_image}
                             src={newBlogs[0].full_image}
                             alt={newBlogs[0].title}
                             width={1040}
-                            height={530}
+                            height={750}
                             className="py-4"
                           />
                         </div>
@@ -136,17 +136,45 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
                         </div>
                       </div>
                       <div className="mb-3 mt-1">
-                        <div className="flex text-black py-2">
-                          <div className="flex">
+                        <div className="flex items-center text-black py-2">
+                          <div className="flex items-center">
                             {/* avatar image  */}
-                            <Image
-                              src="/avatar.PNG"
-                              alt={newBlogs[0].title}
-                              width={25}
-                              height={25}
-                              className="py-4"
-                            />
-                            <span className="opacity-60 text-sm mx-2">
+                            {newBlogs[0].autor.avatar != null ? (
+                              <Image
+                                loader={() => newBlogs[0].autor.avatar}
+                                src={newBlogs[0].autor.avatar}
+                                alt={newBlogs[0].title}
+                                width={35}
+                                height={35}
+                                className="py-4 rounded-full"
+                              />
+                            ) : (
+                              <></>
+                            )}
+                            <div
+                              className={`${
+                                newBlogs[0].autor.avatar == null ? "" : "hidden"
+                              }`}
+                            >
+                              {newBlogs[0].autor.gender == "male" ? (
+                                <Image
+                                  src="/male-user.svg"
+                                  alt={newBlogs[0].title}
+                                  width={38}
+                                  height={38}
+                                  className="py-4"
+                                />
+                              ) : (
+                                <Image
+                                  src="/female-user.svg"
+                                  alt={newBlogs[0].title}
+                                  width={38}
+                                  height={38}
+                                  className="py-4"
+                                />
+                              )}
+                            </div>
+                            <span className="opacity-60 text-md mx-2">
                               {newBlogs[0].autor.name}
                             </span>
                           </div>
@@ -156,8 +184,8 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
                               <Image
                                 src="/comment.png"
                                 alt={newBlogs[0].title}
-                                width={15}
-                                height={15}
+                                width={18}
+                                height={18}
                                 className="py-1"
                               />
                             </div>
@@ -171,8 +199,8 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
                               <Image
                                 src="/love_icon.png"
                                 alt={newBlogs[0].title}
-                                width={15}
-                                height={15}
+                                width={18}
+                                height={18}
                                 className=""
                               />
                             </div>
@@ -215,7 +243,7 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
                                     src={blog.image}
                                     alt={blog.title}
                                     width={1040}
-                                    height={530}
+                                    height={900}
                                     className="py-4"
                                   />
                                 </div>
@@ -251,25 +279,52 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
                               <div className="flex text-black py-2">
                                 <div className="flex items-center">
                                   {/* avatar image  */}
-                                  <Image
-                                    src="/avatar.PNG"
-                                    alt={blog.title}
-                                    width={25}
-                                    height={25}
-                                    className="py-4"
-                                  />
-                                  <span className="opacity-60 text-sm mx-2">
+                                  {blog.autor.avatar != null ? (
+                                    <Image
+                                      loader={() => blog.autor.avatar}
+                                      src={blog.autor.avatar}
+                                      alt={blog.title}
+                                      width={35}
+                                      height={35}
+                                      className="py-4 rounded-full"
+                                    />
+                                  ) : (
+                                    <></>
+                                  )}
+                                  <div
+                                    className={`${
+                                      blog.autor.avatar == null ? "" : "hidden"
+                                    }`}
+                                  >
+                                    {blog.autor.gender == "male" ? (
+                                      <Image
+                                        src="/male-user.svg"
+                                        alt={blog.title}
+                                        width={38}
+                                        height={38}
+                                        className="py-4"
+                                      />
+                                    ) : (
+                                      <Image
+                                        src="/female-user.svg"
+                                        alt={blog.title}
+                                        width={38}
+                                        height={38}
+                                        className="py-4"
+                                      />
+                                    )}
+                                  </div>
+                                  <span className="opacity-60 text-md mx-2">
                                     {blog.autor.name}
                                   </span>
                                 </div>
                                 <div className="flex items-center">
-                                  {/* avatar image  */}
                                   <div>
                                     <Image
                                       src="/comment.png"
                                       alt={blog.title}
-                                      width={15}
-                                      height={15}
+                                      width={18}
+                                      height={18}
                                       className="py-4"
                                     />
                                   </div>
@@ -283,8 +338,8 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
                                     <Image
                                       src="/love_icon.png"
                                       alt={blog.title}
-                                      width={15}
-                                      height={15}
+                                      width={18}
+                                      height={18}
                                       className=""
                                     />
                                   </div>
@@ -339,7 +394,7 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
                                 src={blog.image}
                                 alt={blog.title}
                                 width={1040}
-                                height={530}
+                                height={900}
                                 className="py-4"
                               />
                             </div>
@@ -375,14 +430,42 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
                           <div className="flex text-black py-2">
                             <div className="flex items-center">
                               {/* avatar image  */}
-                              <Image
-                                src="/avatar.PNG"
-                                alt={blog.title}
-                                width={25}
-                                height={25}
-                                className="py-4"
-                              />
-                              <span className="opacity-60 text-sm mx-2">
+                              {blog.autor.avatar != null ? (
+                                <Image
+                                  loader={() => blog.autor.avatar}
+                                  src={blog.autor.avatar}
+                                  alt={blog.title}
+                                  width={35}
+                                  height={35}
+                                  className="py-4 rounded-full"
+                                />
+                              ) : (
+                                <></>
+                              )}
+                              <div
+                                className={`${
+                                  blog.autor.avatar == null ? "" : "hidden"
+                                }`}
+                              >
+                                {blog.autor.gender == "male" ? (
+                                  <Image
+                                    src="/male-user.svg"
+                                    alt={blog.title}
+                                    width={38}
+                                    height={38}
+                                    className="py-4"
+                                  />
+                                ) : (
+                                  <Image
+                                    src="/female-user.svg"
+                                    alt={blog.title}
+                                    width={38}
+                                    height={38}
+                                    className="py-4"
+                                  />
+                                )}
+                              </div>
+                              <span className="opacity-60 text-md mx-2">
                                 {blog.autor.name}
                               </span>
                             </div>
@@ -392,8 +475,8 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
                                 <Image
                                   src="/comment.png"
                                   alt={blog.title}
-                                  width={15}
-                                  height={15}
+                                  width={18}
+                                  height={18}
                                   className="py-4"
                                 />
                               </div>
@@ -407,8 +490,8 @@ const Blogs = ({ newBlogs, trendingBlogs, meta_Data }) => {
                                 <Image
                                   src="/love_icon.png"
                                   alt={blog.title}
-                                  width={15}
-                                  height={15}
+                                  width={18}
+                                  height={18}
                                   className=""
                                 />
                               </div>
