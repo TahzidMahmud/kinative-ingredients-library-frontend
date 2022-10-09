@@ -5,7 +5,7 @@ const Product = ({ product }) => {
   return (
     <>
       <Link href={`/products/${product.slug}`}>
-        <div className="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 cursor-pointer">
+        <div className="max-w-sm bg-white rounded-md border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 cursor-pointer">
           <Image
             className="rounded-t-lg"
             loader={() => product.thumbnail_image}
