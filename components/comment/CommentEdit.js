@@ -11,7 +11,8 @@ const CommentEdit = ({
   setcmtnBody,
   setcmntImage,
 }) => {
-  const [body, setBody] = useState(null);
+  console.log(comment.body);
+  const [body, setBody] = useState(comment.body);
   const [loading, setLoading] = useState(true);
   const imageInput = useRef(null);
   const [cmntimage, setCmntimage] = useState(null);
@@ -22,7 +23,9 @@ const CommentEdit = ({
       })
       .then((res) => {
         if (res.data.data) {
-          setBody(res.data.data.body);
+          setTimeout(() => {
+            setBody(res.data.data.body);
+          }, 300);
           setCmntimage(res.data.data.image);
           setLoading(false);
         }

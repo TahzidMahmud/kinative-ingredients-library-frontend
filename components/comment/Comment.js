@@ -232,7 +232,7 @@ const Comment = ({
           </div>
           {/* profile desc  */}
           <div className="flex flex-col px-3">
-            <div className="text-md font-semibold ">Short Description</div>
+            <div className="text-md font-semibold ">{comment.author.name}</div>
             <div className="flex my-2">
               <div className="flex">
                 <div className="text-sm font-semibold">Age</div>
@@ -365,7 +365,7 @@ const Comment = ({
                     </div>
                   )}
                   <div className="text-sm  opacity-60 mx-2">{`(${
-                    dislikes.length > 0 ? dislikes : 0
+                    dislikes > 0 ? dislikes : 0
                   })`}</div>
                 </div>
               </div>
@@ -396,7 +396,7 @@ const Comment = ({
                     </div>
                   )}
                   <div className="text-sm  opacity-60 mx-2">{`(${
-                    likes.length > 0 ? likes : 0
+                    likes > 0 ? likes : 0
                   })`}</div>
                 </div>
               </div>
