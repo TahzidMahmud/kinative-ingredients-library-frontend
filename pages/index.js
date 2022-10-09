@@ -7,6 +7,9 @@ import Slider from "react-slick";
 import { useState, useEffect } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { useRouter } from "next/router";
+import LoginModal from "@/modals/LoginModal";
+import { useAuth } from "@/hooks/auth";
 
 const Index = ({
   main_banner,
@@ -165,6 +168,25 @@ const Index = ({
       },
     ],
   });
+  const [url, setUrl] = useState(null);
+  const [isSSR, setIsSSR] = useState(true);
+  const router = useRouter();
+  const { user } = useAuth({ middleware: "guest" });
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  useEffect(() => {
+    setIsSSR(false);
+  }, []);
+  function goTo(url) {
+    setUrl(url);
+    if (user) {
+      router.push(`${url}`);
+    } else {
+      setShowLoginModal(true);
+    }
+  }
+  function closeModal() {
+    setShowLoginModal(false);
+  }
 
   return (
     <>
@@ -249,90 +271,130 @@ const Index = ({
           {/* blogs list  */}
           <Slider {...settingsblog}>
             {home_blogs.map((blog, index) => (
-              <div key={index} className="cursor-pointer">
-                <Link href={`/blogs/${blog.slug.toString()}`}>
-                  <div className="px-2">
-                    <div className="  rounded-lg dark:bg-gray-800 dark:border-gray-700">
-                      <div className="flex flex-col justify-start items-baseline">
-                        <div className="z-0">
-                          <Image
-                            loader={() => blog.image}
-                            src={blog.image}
-                            alt={blog.title}
-                            width={1040}
-                            height={850}
-                            className="py-4"
-                          />
-                        </div>
-                        <div className=" bg-black text-black px-3 py-2 md:-mt-14 md:mb-2  flex justify-center align-center md:ml-4  z-10 rounded">
-                          <h2 className="text-md font-semibold text-white uppercase text-center rounded-md">
-                            {blog.category}
-                          </h2>
-                        </div>
+              <div
+                key={index}
+                className="cursor-pointer"
+                onClick={() => {
+                  goTo(`/blogs/${blog.slug.toString()}`);
+                }}
+              >
+                <div className="px-2">
+                  <div className="  rounded-lg dark:bg-gray-800 dark:border-gray-700">
+                    <div className="flex flex-col justify-start items-baseline">
+                      <div className="z-0">
+                        <Image
+                          loader={() => blog.image}
+                          src={blog.image}
+                          alt={blog.title}
+                          width={1040}
+                          height={850}
+                          className="py-4"
+                        />
                       </div>
-                    </div>
-                    <div className="h-10 mt-2" style={{ height: "3.5rem" }}>
-                      <p className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white line-clamp-2">
-                        {blog.title}
-                      </p>
-                    </div>
-                    <div className="md:py-5 md:pb-3sm:py-2  flex flex-col justify-start border-b ">
-                      <h6 className="text-md font-semibold tracking-tight text-gray-900 dark:text-white">
-                        Posted On:
-                        <span className=" mx-2 opacity-60">
-                          {blog.created_at}
-                        </span>
-                      </h6>
-                    </div>
-                    <div className="mb-3 mt-1">
-                      <div className="flex items-center text-black py-2">
-                        <div className="flex items-center">
-                          {/* avatar image  */}
-                          <Image
-                            src="/avatar.PNG"
-                            alt={blog.title}
-                            width={25}
-                            height={25}
-                            className="py-4"
-                          />
-                          <span className="opacity-60 text-sm mx-2">
-                            {blog.autor.name}
-                          </span>
-                        </div>
-                        <div className="flex items-center">
-                          {/* avatar image  */}
-                          <div>
-                            <Image
-                              src="/comment.png"
-                              alt={blog.title}
-                              width={15}
-                              height={15}
-                              className="py-4"
-                            />
-                          </div>
-                          <span className="opacity-60 text-sm mx-2">
-                            {blog.comments}
-                          </span>
-                        </div>
-                        <div className="flex items-cetner">
-                          {/* avatar image  */}
-                          <div>
-                            <Image
-                              src="/love_icon.png"
-                              alt={blog.title}
-                              width={15}
-                              height={15}
-                              className=""
-                            />
-                          </div>
-                          <span className="opacity-60 text-sm mx-2">
-                            {blog.likes}
-                          </span>
-                        </div>
+                      <div className=" bg-black text-black px-3 py-2 md:-mt-14 md:mb-2  flex justify-center align-center md:ml-4  z-10 rounded">
+                        <h2 className="text-md font-semibold text-white uppercase text-center rounded-md">
+                          {blog.category}
+                        </h2>
                       </div>
                     </div>
                   </div>
-                </Link>
+                  <div className="h-10 mt-2" style={{ height: "3.5rem" }}>
+                    <p className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white line-clamp-2">
+                      {blog.title}
+                    </p>
+                  </div>
+                  <div className="mt-2">
+                    <div className="h-[10.5rem] overflow-y-hidden">
+                      {blog.body}
+                    </div>
+                    <span className="text-blue-500 text-md font-bold cursor-pointer pt-1">
+                      Read More
+                    </span>
+                  </div>
+                  <div className="md:py-5 md:pb-3sm:py-2  flex flex-col justify-start border-b ">
+                    <h6 className="text-md font-semibold tracking-tight text-gray-900 dark:text-white">
+                      Posted On:
+                      <span className=" mx-2 opacity-60">
+                        {blog.created_at}
+                      </span>
+                    </h6>
+                  </div>
+                  <div className="mb-3 mt-1">
+                    <div className="flex items-center text-black py-2">
+                      <div className="flex items-center">
+                        {/* avatar image  */}
+                        {blog.autor.avatar != null ? (
+                          <Image
+                            loader={() => blog.autor.avatar}
+                            src={blog.autor.avatar}
+                            alt={blog.title}
+                            width={35}
+                            height={35}
+                            className="py-4 rounded-full"
+                          />
+                        ) : (
+                          <></>
+                        )}
+                        <div
+                          className={`${
+                            blog.autor.avatar == null ? "" : "hidden"
+                          }`}
+                        >
+                          {blog.autor.gender == "male" ? (
+                            <Image
+                              src="/male-user.svg"
+                              alt={blog.title}
+                              width={38}
+                              height={38}
+                              className="py-4"
+                            />
+                          ) : (
+                            <Image
+                              src="/female-user.svg"
+                              alt={blog.title}
+                              width={38}
+                              height={38}
+                              className="py-4"
+                            />
+                          )}
+                        </div>
+                        <span className="opacity-60 text-md mx-2">
+                          {blog.autor.name}
+                        </span>
+                      </div>
+                      <div className="flex items-center">
+                        {/* avatar image  */}
+                        <div>
+                          <Image
+                            src="/comment.png"
+                            alt={blog.title}
+                            width={15}
+                            height={15}
+                            className="py-4"
+                          />
+                        </div>
+                        <span className="opacity-60 text-sm mx-2">
+                          {blog.comments}
+                        </span>
+                      </div>
+                      <div className="flex items-cetner">
+                        {/* avatar image  */}
+                        <div>
+                          <Image
+                            src="/love_icon.png"
+                            alt={blog.title}
+                            width={15}
+                            height={15}
+                            className=""
+                          />
+                        </div>
+                        <span className="opacity-60 text-sm mx-2">
+                          {blog.likes}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             ))}
           </Slider>
@@ -665,6 +727,18 @@ const Index = ({
             </div>
           </div>
         </div>
+        {/* modal section  */}
+        {isSSR === false ? (
+          <LoginModal
+            show={showLoginModal}
+            page={`blogs`}
+            closeModal={closeModal}
+            url={url}
+            className="z-40 opacity-100"
+          />
+        ) : (
+          <></>
+        )}
       </AppLayout>
     </>
   );
