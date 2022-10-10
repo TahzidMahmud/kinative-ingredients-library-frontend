@@ -77,6 +77,20 @@ const Ingredient = ({ ingredient }) => {
                   {ingredient.alias_name}
                 </div>
               </div>
+              <div className="flex mb-4">
+                <div className="min-w-[15%]">
+                  <h1 className="text-md font-semibold text-left ">
+                    Attributes
+                  </h1>
+                </div>
+                <div className="flex flex-col">
+                  {ingredient.attributes.map((attr, index) => (
+                    <div key={`${index}-attr`} className="text-sm opacity-80 ">
+                      {attr.key} : {attr.value}
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
           <div className="p-6 mb-4 max-w-full bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 ">
