@@ -1,4 +1,6 @@
 import React from "react";
+import Image from "next/image";
+
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
@@ -13,19 +15,28 @@ class ErrorBoundary extends React.Component {
   }
   componentDidCatch(error, errorInfo) {
     // You can use your own error logging service here
-    console.log({ error, errorInfo });
   }
   render() {
     // Check if the error is thrown
     if (this.state.hasError) {
       {
-        location.reload();
+        setTimeout(() => {
+          location.reload();
+        }, 500);
       }
       // You can render any custom fallback UI
       return (
-        <div className="container">
-          <div className="flex justif-center items-center">
-            <h1 className="text-xxl font-semibold opacity-90">Loading</h1>
+        <div className="container ">
+          <div className="flex justify-center items-center h-screen w-screen">
+            <div className="flex justify-center items-center">
+              <Image
+                src="/glowing.gif"
+                alt="loading"
+                width={450}
+                height={450}
+                className="py-2"
+              />
+            </div>
           </div>
         </div>
       );
