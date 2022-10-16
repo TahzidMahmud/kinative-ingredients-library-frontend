@@ -30,7 +30,7 @@ class ErrorBoundary extends React.Component {
           <div className="flex justify-center items-center h-screen w-screen">
             <div className="flex justify-center items-center">
               <Image
-                src="/glowing.gif"
+                src="/glowscam-loader.svg"
                 alt="loading"
                 width={450}
                 height={450}
