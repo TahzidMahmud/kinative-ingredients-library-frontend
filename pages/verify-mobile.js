@@ -1,9 +1,6 @@
 /* eslint-disable react/jsx-key */
 
-import ApplicationLogo from "@/components/ApplicationLogo";
 import AuthCard from "@/components/AuthCard";
-import Button from "@/components/Button";
-import GuestLayout from "@/components/Layouts/GuestLayout";
 import AppLayout from "@/components/Layouts/AppLayout";
 
 import Link from "next/link";
@@ -13,6 +10,7 @@ import Image from "next/image";
 import Input from "@/components/Input";
 import axios from "../lib/axios";
 import { useRouter } from "next/router";
+import Toaster from "@/components/Toaster";
 
 const VerifyEmail = () => {
   const router = useRouter();
@@ -46,6 +44,7 @@ const VerifyEmail = () => {
                 // }
                 // router.push(localStorage.getItem("prevRoute"));
               } else {
+                Toaster.notify(res.data.message, { type: "error" });
                 setStatus(res.data.message);
               }
             });
