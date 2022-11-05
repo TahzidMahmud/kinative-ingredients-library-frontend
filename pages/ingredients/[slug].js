@@ -5,6 +5,7 @@ import path from "path";
 import axios from "@/lib/axios";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import HtmlFormat from "@/components/HtmlFormat";
 
 const Ingredient = ({ ingredient }) => {
   const [categories, setCategories] = useState(ingredient.categories);
@@ -84,7 +85,11 @@ const Ingredient = ({ ingredient }) => {
                   {ingredient.long_functional_description}
                 </div>
               </div>
-              <div className="flex mb-4">
+              <div
+                className={`flex mb-4  ${
+                  ingredient.alias_name ? "" : "hidden"
+                } `}
+              >
                 <div className="min-w-[15%]">
                   <h1 className="text-md font-semibold text-left mr-2">
                     Also Called
@@ -92,6 +97,20 @@ const Ingredient = ({ ingredient }) => {
                 </div>
                 <div className="text-sm opacity-80 ">
                   {ingredient.alias_name}
+                </div>
+              </div>
+              <div
+                className={`flex mb-4 ${ingredient.quality ? "" : "hidden"}`}
+              >
+                <div className="min-w-[15%]">
+                  <h1 className="text-md font-semibold text-left mr-2">
+                    Ingredients কেমন?
+                  </h1>
+                </div>
+                <div className="flex flex-col">
+                  <div className="text-sm opacity-80 ">
+                    {ingredient.quality}
+                  </div>
                 </div>
               </div>
               <div
@@ -143,7 +162,7 @@ const Ingredient = ({ ingredient }) => {
                 Description
               </h1>
               <div className="text-sm opacity-80 mb-4">
-                {ingredient.details}
+                <HtmlFormat data={ingredient.details} />
               </div>
             </div>
           </div>

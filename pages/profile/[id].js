@@ -239,44 +239,48 @@ const Profile = ({ Profile, Wishlist, Blogs }) => {
               )}
               <div className="grid grid-cols-1 my-4">
                 {wishlist.length > 0 ? (
-                  wishlist.map((wish, index) => (
-                    <div
-                      key={index}
-                      className="flex justify-between items-center my-1"
-                    >
-                      <div className="flex items-center">
-                        <Image
-                          loader={() => wish.image}
-                          src={wish.image}
-                          alt={wish.name}
-                          width={60}
-                          height={60}
-                          className="py-6 border border-blue-500 rounded-sm"
-                        />
-                      </div>
-                      <div className="flex  justify-start items-center cursor-pointer">
-                        <Link href={`/products/${wish.slug}`}>
-                          <div className="font-base text-md mx-4">
-                            {wish.name}
+                  wishlist.map((wish, index) => {
+                    if (wish) {
+                      return (
+                        <div
+                          key={index}
+                          className="flex justify-between items-center my-1"
+                        >
+                          <div className="flex items-center">
+                            <Image
+                              loader={() => wish.image}
+                              src={wish.image}
+                              alt={wish.name}
+                              width={60}
+                              height={60}
+                              className="py-6 border border-blue-500 rounded-sm"
+                            />
                           </div>
-                        </Link>
-                      </div>
-                      <div
-                        className="p-2 rounded-full bg-gray-200 flex justify-center items-center"
-                        onClick={() => {
-                          deleteWishlist(wish.id);
-                        }}
-                      >
-                        <Image
-                          src="/trash-icon.svg"
-                          alt={wish.name}
-                          width={20}
-                          height={20}
-                          className="py-6 border border-blue-500 rounded-sm"
-                        />
-                      </div>
-                    </div>
-                  ))
+                          <div className="flex  justify-start items-center cursor-pointer">
+                            <Link href={`/products/${wish.slug}`}>
+                              <div className="font-base text-md mx-4">
+                                {wish.name}
+                              </div>
+                            </Link>
+                          </div>
+                          <div
+                            className="p-2 rounded-full bg-gray-200 flex justify-center items-center"
+                            onClick={() => {
+                              deleteWishlist(wish.id);
+                            }}
+                          >
+                            <Image
+                              src="/trash-icon.svg"
+                              alt={wish.name}
+                              width={20}
+                              height={20}
+                              className="py-6 border border-blue-500 rounded-sm"
+                            />
+                          </div>
+                        </div>
+                      );
+                    }
+                  })
                 ) : (
                   <></>
                 )}
