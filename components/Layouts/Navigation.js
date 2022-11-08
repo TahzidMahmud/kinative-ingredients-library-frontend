@@ -258,9 +258,9 @@ const Navigation = ({ user, data = null }) => {
             {user?.profile && user.profile.avatar ? (
               <Image
                 loader={() =>
-                  `http://admin.glowscam.com/profile-image/${user.profile.avatar}`
+                  `https://admin.glowscam.com/profile-image/${user.profile.avatar}`
                 }
-                src={`http://admin.glowscam.com/profile-image/${user.profile.avatar}`}
+                src={`https://admin.glowscam.com/profile-image/${user.profile.avatar}`}
                 alt={user.name}
                 width={45}
                 height={45}
